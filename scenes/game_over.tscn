@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://lbbvjxnebsga"]
+
+[ext_resource type="Script" uid="uid://b0degyunj0ki2" path="res://scenes/game_over.gd" id="1_xeevv"]
+
+[sub_resource type="SystemFont" id="SystemFont_0nqlu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xeevv"]
+font = SubResource("SystemFont_0nqlu")
+font_size = 100
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource("1_xeevv")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.18359044, 0.18359047, 0.18359038, 0.84705883)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 296.0
+offset_top = 156.0
+offset_right = 870.0
+offset_bottom = 293.0
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_xeevv")
+horizontal_alignment = 1
+
+[node name="Menu" type="Button" parent="."]
+offset_left = 440.0
+offset_top = 316.0
+offset_right = 744.0
+offset_bottom = 372.0
+text = "Menu"
+
+[node name="PlayAgain" type="Button" parent="."]
+offset_left = 440.0
+offset_top = 392.0
+offset_right = 744.0
+offset_bottom = 448.0
+text = "Play Again"

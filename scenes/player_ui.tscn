@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://dvo24mmacr7xq"]
+
+[ext_resource type="Script" uid="uid://yp7mmox36all" path="res://scripts/player_ui.gd" id="1_jkj6h"]
+
+[sub_resource type="Gradient" id="Gradient_jkj6h"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sk4pr"]
+gradient = SubResource("Gradient_jkj6h")
+fill_from = Vector2(1, 0)
+
+[sub_resource type="Gradient" id="Gradient_48xfa"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8isll"]
+gradient = SubResource("Gradient_48xfa")
+fill_to = Vector2(0.00990099, 0)
+
+[sub_resource type="Gradient" id="Gradient_sk4pr"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.83479756, 0, 0.060979962, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_48xfa"]
+gradient = SubResource("Gradient_sk4pr")
+width = 360
+height = 40
+
+[sub_resource type="Gradient" id="Gradient_8isll"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0, 0.6606158, 0.15197545, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7ctsh"]
+gradient = SubResource("Gradient_8isll")
+width = 360
+height = 40
+
+[node name="playerUI" type="CanvasLayer"]
+script = ExtResource("1_jkj6h")
+
+[node name="FireRateUI" type="TextureProgressBar" parent="."]
+anchors_preset = -1
+anchor_left = 0.028
+anchor_top = 0.049000002
+anchor_right = 0.028
+anchor_bottom = 0.049000002
+offset_left = -32.256
+offset_top = -31.752
+offset_right = 7.7439995
+offset_bottom = 8.247999
+max_value = 0.5
+step = 0.01
+texture_under = SubResource("GradientTexture2D_sk4pr")
+texture_progress = SubResource("GradientTexture2D_8isll")
+
+[node name="HealthBarUI" type="TextureProgressBar" parent="."]
+offset_left = 792.0
+offset_top = 608.0
+offset_right = 1152.0
+offset_bottom = 648.0
+value = 100.0
+texture_under = SubResource("GradientTexture2D_48xfa")
+texture_progress = SubResource("GradientTexture2D_7ctsh")
