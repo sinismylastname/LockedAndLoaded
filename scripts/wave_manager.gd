@@ -23,8 +23,8 @@ func _ready():
 	startWave()
 
 func countEnemies():
-	enemyCount = get_tree().get_nodes_in_group("enemies").size()
-	print(enemyCount)
+	enemyCount = Global.enemyCount
+	#print(enemyCount)
 
 func startWave():
 	spawnTimer.start(spawnTime)

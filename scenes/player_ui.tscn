@@ -58,3 +58,9 @@ offset_bottom = 648.0
 value = 100.0
 texture_under = SubResource("GradientTexture2D_48xfa")
 texture_progress = SubResource("GradientTexture2D_7ctsh")
+
+[node name="EnemyCount" type="Label" parent="."]
+offset_top = 621.0
+offset_right = 125.0
+offset_bottom = 648.0
+text = "Enemies:"

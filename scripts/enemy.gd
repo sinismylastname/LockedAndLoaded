@@ -5,11 +5,18 @@ var speed = 50
 var health = 10
 @onready var player = get_tree().get_root().find_child("Player", true, false)
 
+func _ready():
+	Global.increaseEnemyCount()
+
+func enemyDied():
+	Global.decrease_enemy_count()
+	queue_free()
+
 func takeDamage(damageAmount):
 	health -= damageAmount
 	print(health )
 	if health <= 0:
-		queue_free()
+		enemyDied()
 		
 func _process(delta: float) -> void:
 		if is_instance_valid(player):
@@ -17,7 +24,7 @@ func _process(delta: float) -> void:
 			global_position += playerDirection * speed * delta
 			look_at(player.global_position)
 		else:
-			queue_free()
+			enemyDied()
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
