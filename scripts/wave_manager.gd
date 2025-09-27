@@ -1,14 +1,7 @@
 extends Node2D
-@onready var spawners = [$"../Spawner/Spawner1", 
-						$"../Spawner/Spawner2", 
-						$"../Spawner/Spawner3", 
-						$"../Spawner/Spawner4",
-						$"../Spawner/Spawner5",
-						$"../Spawner/Spawner6",
-						$"../Spawner/Spawner7",
-						$"../Spawner/Spawner8"]
-						
+var spawners = []
 @onready var waveTimer = $TimeInBetweenWaves
+@onready var spawnerNode = $"../Spawner"
 var waveTime = 2.0
 
 @onready var spawnTimer = $SpawnTimer
@@ -20,6 +13,7 @@ var enemiesSpawned = 0
 var waveNumber = 1
 
 func _ready():
+	spawners = spawnerNode.get_children()
 	startWave()
 
 func countEnemies():

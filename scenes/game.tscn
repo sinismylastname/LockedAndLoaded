@@ -1,12 +1,31 @@
-[gd_scene load_steps=6 format=3 uid="uid://155xx7s6y6ta"]
+[gd_scene load_steps=10 format=3 uid="uid://155xx7s6y6ta"]
 
+[ext_resource type="Script" uid="uid://cqvuw2k05ylvt" path="res://scenes/game.gd" id="1_gee14"]
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://ctl27dic16wxy" path="res://scenes/spawner.tscn" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://ddixajdp830em" path="res://scripts/wave_manager.gd" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dvo24mmacr7xq" path="res://scenes/player_ui.tscn" id="4_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://lbbvjxnebsga" path="res://scenes/game_over.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://cms225pv5kx7w" path="res://scenes/CRT.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://cmwwkeikequqt" path="res://scenes/upgrade_menu.tscn" id="7_u5sy4"]
+
+[sub_resource type="Environment" id="Environment_p57ef"]
+background_mode = 3
+glow_enabled = true
+glow_bloom = 0.25
+glow_hdr_threshold = 2.2
+glow_hdr_luminance_cap = 64.3
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_gee14")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_p57ef")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.06879827, 0.06879828, 0.06879828, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
 position = Vector2(585, 300)
@@ -15,28 +34,18 @@ position = Vector2(585, 300)
 position = Vector2(-653, -317)
 
 [node name="Spawner1" parent="Spawner" instance=ExtResource("3_sugp2")]
-position = Vector2(11, -9)
-
-[node name="Spawner2" parent="Spawner" instance=ExtResource("3_sugp2")]
 position = Vector2(1161, -2)
 
+[node name="Spawner2" parent="Spawner" instance=ExtResource("3_sugp2")]
+position = Vector2(1937, 565)
+rotation = 1.5707964
+
 [node name="Spawner3" parent="Spawner" instance=ExtResource("3_sugp2")]
-position = Vector2(2310, 29)
-
-[node name="Spawner4" parent="Spawner" instance=ExtResource("3_sugp2")]
-position = Vector2(2316, 636)
-
-[node name="Spawner5" parent="Spawner" instance=ExtResource("3_sugp2")]
-position = Vector2(2325, 1250)
-
-[node name="Spawner6" parent="Spawner" instance=ExtResource("3_sugp2")]
 position = Vector2(1169, 1255)
 
-[node name="Spawner7" parent="Spawner" instance=ExtResource("3_sugp2")]
-position = Vector2(17, 1204)
-
-[node name="Spawner8" parent="Spawner" instance=ExtResource("3_sugp2")]
-position = Vector2(8, 596)
+[node name="Spawner4" parent="Spawner" instance=ExtResource("3_sugp2")]
+position = Vector2(596, 569)
+rotation = 1.5707964
 
 [node name="WaveManager" type="Node2D" parent="."]
 script = ExtResource("4_jyhfs")
@@ -49,6 +58,12 @@ one_shot = true
 [node name="playerUI" parent="." instance=ExtResource("4_tbgi4")]
 
 [node name="GameOver" parent="." instance=ExtResource("5_tbgi4")]
+visible = false
+
+[node name="CRT" parent="." instance=ExtResource("6_p57ef")]
+
+[node name="upgradeMenu" parent="." instance=ExtResource("7_u5sy4")]
+visible = false
 
 [connection signal="cooldownUpdated" from="Player" to="playerUI" method="_on_player_cooldown_updated"]
 [connection signal="fireRateChanged" from="Player" to="playerUI" method="_on_player_fire_rate_changed"]

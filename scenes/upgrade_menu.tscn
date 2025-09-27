@@ -1,3 +1,213 @@
-[gd_scene format=3 uid="uid://cmwwkeikequqt"]
+[gd_scene load_steps=4 format=3 uid="uid://cmwwkeikequqt"]
 
-[node name="upgradeMenu" type="Node2D"]
+[ext_resource type="Script" uid="uid://mvf4s3tubf5n" path="res://scenes/upgrade_menu.gd" id="1_e3qxy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ppglw"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_ksfom"]
+font_size = 36
+
+[node name="upgradeMenu" type="CanvasLayer"]
+script = ExtResource("1_e3qxy")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08235294, 0.08235294, 0.08235294, 0.63529414)
+
+[node name="Speed" type="Label" parent="."]
+offset_left = 161.0
+offset_top = 112.0
+offset_right = 315.0
+offset_bottom = 146.0
+text = "Bullet Speed"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="AddBulletSpeed" type="Button" parent="Speed"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.34100002
+anchor_top = 0.17300001
+anchor_right = 0.379
+anchor_bottom = 0.24100001
+offset_left = 161.48596
+offset_top = -5.882002
+offset_right = 208.96597
+offset_bottom = 41.397987
+text = "+"
+
+[node name="Damage" type="Label" parent="."]
+offset_left = 161.0
+offset_top = 195.0
+offset_right = 416.0
+offset_bottom = 228.5
+text = "Bullet Damage"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="AddBulletDamage" type="Button" parent="Damage"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.34100002
+anchor_top = 0.17300001
+anchor_right = 0.379
+anchor_bottom = 0.24100001
+offset_left = 127.045
+offset_top = -14.7955
+offset_right = 174.52498
+offset_bottom = 32.48449
+text = "+"
+
+[node name="Lifetime" type="Label" parent="."]
+offset_left = 161.0
+offset_top = 279.0
+offset_right = 416.0
+offset_bottom = 315.0
+text = "Bullet Lifetime"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="AddBulletLifetime" type="Button" parent="Lifetime"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.34100002
+anchor_top = 0.17300001
+anchor_right = 0.379
+anchor_bottom = 0.24100001
+offset_left = 127.045
+offset_top = -15.22801
+offset_right = 174.52498
+offset_bottom = 32.05198
+text = "+"
+
+[node name="Size" type="Label" parent="."]
+offset_left = 161.0
+offset_top = 376.0
+offset_right = 416.0
+offset_bottom = 409.5
+text = "Bullet Size"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="AddBulletSize" type="Button" parent="Size"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.34100002
+anchor_top = 0.17300001
+anchor_right = 0.379
+anchor_bottom = 0.24100001
+offset_left = 127.045
+offset_top = -17.795515
+offset_right = 174.52498
+offset_bottom = 29.484474
+text = "+"
+
+[node name="Pierce" type="Label" parent="."]
+offset_left = 161.0
+offset_top = 475.0
+offset_right = 416.0
+offset_bottom = 509.0
+text = "Bullet Pierce"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="AddBulletPierce" type="Button" parent="Pierce"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.34100002
+anchor_top = 0.17300001
+anchor_right = 0.379
+anchor_bottom = 0.24100001
+offset_left = 127.045
+offset_top = -14.882002
+offset_right = 174.52498
+offset_bottom = 32.397987
+text = "+"
+
+[node name="Health" type="Label" parent="."]
+offset_left = 632.0
+offset_top = 112.0
+offset_right = 887.0
+offset_bottom = 146.0
+text = "Health"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="AddHealth" type="Button" parent="Health"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.34100002
+anchor_top = 0.17300001
+anchor_right = 0.379
+anchor_bottom = 0.24100001
+offset_left = 127.045
+offset_top = -14.882002
+offset_right = 174.52498
+offset_bottom = 32.397987
+text = "+"
+
+[node name="RotationSpeed" type="Label" parent="."]
+offset_left = 632.0
+offset_top = 195.0
+offset_right = 887.0
+offset_bottom = 229.0
+text = "Rotation Speed"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="AddRotationSpeed" type="Button" parent="RotationSpeed"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.34100002
+anchor_top = 0.17300001
+anchor_right = 0.379
+anchor_bottom = 0.24100001
+offset_left = 127.045
+offset_top = -14.882002
+offset_right = 174.52498
+offset_bottom = 32.397987
+text = "+"
+
+[node name="Firerate" type="Label" parent="."]
+offset_left = 632.0
+offset_top = 279.0
+offset_right = 887.0
+offset_bottom = 313.0
+text = "Firerate"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="AddFirerate" type="Button" parent="Firerate"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.34100002
+anchor_top = 0.17300001
+anchor_right = 0.379
+anchor_bottom = 0.24100001
+offset_left = 127.045
+offset_top = -14.882002
+offset_right = 174.52498
+offset_bottom = 32.397987
+text = "+"
+
+[node name="UpgradePoints" type="Label" parent="."]
+offset_left = 632.0
+offset_top = 364.0
+offset_right = 909.0
+offset_bottom = 414.25
+text = "Upgrade Points:"
+label_settings = SubResource("LabelSettings_ksfom")
+
+[node name="Continue" type="Button" parent="."]
+offset_left = 632.0
+offset_top = 475.0
+offset_right = 793.0
+offset_bottom = 535.0
+text = "Continue"
+
+[connection signal="pressed" from="Speed/AddBulletSpeed" to="." method="_on_add_bullet_speed_pressed"]
+[connection signal="pressed" from="Damage/AddBulletDamage" to="." method="_on_add_bullet_damage_pressed"]
+[connection signal="pressed" from="Lifetime/AddBulletLifetime" to="." method="_on_add_bullet_lifetime_pressed"]
+[connection signal="pressed" from="Size/AddBulletSize" to="." method="_on_add_bullet_size_pressed"]
+[connection signal="pressed" from="Pierce/AddBulletPierce" to="." method="_on_add_bullet_pierce_pressed"]
+[connection signal="pressed" from="Health/AddHealth" to="." method="_on_add_health_pressed"]
+[connection signal="pressed" from="RotationSpeed/AddRotationSpeed" to="." method="_on_add_rotation_speed_pressed"]
+[connection signal="pressed" from="Firerate/AddFirerate" to="." method="_on_add_firerate_pressed"]
+[connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]

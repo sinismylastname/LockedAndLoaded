@@ -10,6 +10,7 @@ func _ready():
 
 func enemyDied():
 	Global.decrease_enemy_count()
+	Global.addXP(25)
 	queue_free()
 
 func takeDamage(damageAmount):

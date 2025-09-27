@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://2yvq6yiiep7y"]
+[gd_scene load_steps=3 format=3 uid="uid://2yvq6yiiep7y"]
+
+[ext_resource type="Script" uid="uid://03jbkpkjqktm" path="res://scripts/main_menu.gd" id="1_l6cm7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vue75"]
 font_size = 72
@@ -10,12 +12,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_l6cm7")
 
 [node name="background" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.25545633, 0.3437047, 0.3218117, 1)
 
 [node name="Title" type="Label" parent="."]
@@ -27,7 +32,7 @@ offset_bottom = 251.0
 text = "Locked and Loaded"
 label_settings = SubResource("LabelSettings_vue75")
 
-[node name="Play" type="Button" parent="."]
+[node name="PlayButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 421.0
 offset_top = 277.0
@@ -35,7 +40,7 @@ offset_right = 725.0
 offset_bottom = 333.0
 text = "Play"
 
-[node name="Settings" type="Button" parent="."]
+[node name="SettingsButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 421.0
 offset_top = 353.0
@@ -43,10 +48,13 @@ offset_right = 725.0
 offset_bottom = 409.0
 text = "Settings"
 
-[node name="Exit" type="Button" parent="."]
+[node name="ExitButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 421.0
 offset_top = 429.0
 offset_right = 725.0
 offset_bottom = 485.0
 text = "Exit"
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]

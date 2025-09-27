@@ -1,14 +1,84 @@
-[gd_scene load_steps=3 format=3 uid="uid://be8qbmt0fe144"]
+[gd_scene load_steps=8 format=3 uid="uid://be8qbmt0fe144"]
 
 [ext_resource type="Script" uid="uid://cb4djnmhlvho" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Shader" uid="uid://bo6pfmpyqeo6a" path="res://scenes/glow.gdshader" id="1_g2els"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qhqgy"]
+render_priority = 0
+shader = ExtResource("1_g2els")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
 
+[sub_resource type="Animation" id="Animation_3vyb7"]
+resource_name = "fire"
+length = 0.14
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("gun:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(20, -0.25, 0, 0.25, 0, 4, -0.033333335, 2.6666667, 0, 0, 20, -0.050000004, -2.6666667, 0, 0),
+"times": PackedFloat32Array(0, 0.06666668, 0.13333336)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("gun:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(-4, -0.25, 0, 0.25, 0, -4, -0.033333335, 0, 0, 0, -4, -0.050000004, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.06666668, 0.13333336)
+}
+
+[sub_resource type="Animation" id="Animation_g2els"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("gun:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(20, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("gun:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-4, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qhqgy"]
+_data = {
+&"RESET": SubResource("Animation_g2els"),
+&"fire": SubResource("Animation_3vyb7")
+}
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+material = SubResource("ShaderMaterial_qhqgy")
 script = ExtResource("1_3vyb7")
 
-[node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(20, 0)
+[node name="collision" type="CollisionShape2D" parent="."]
+scale = Vector2(1.9817158, 1.9817158)
+shape = SubResource("RectangleShape2D_u8vuu")
+
+[node name="gun" type="ColorRect" parent="."]
+offset_left = 20.0
+offset_top = -4.0
+offset_right = 44.000008
+offset_bottom = 4.0
 
 [node name="body" type="ColorRect" parent="."]
 offset_left = -20.0
@@ -16,22 +86,10 @@ offset_top = -20.0
 offset_right = 20.0
 offset_bottom = 20.0
 
-[node name="gun" type="ColorRect" parent="."]
-offset_left = 20.0
-offset_top = -4.0
-offset_right = 44.0
-offset_bottom = 4.0
-color = Color(0, 0, 0, 1)
-
 [node name="FireTimer" type="Timer" parent="."]
-wait_time = 0.5
 autostart = true
 
 [node name="InvincibilityTimer" type="Timer" parent="."]
-
-[node name="collision" type="CollisionShape2D" parent="."]
-scale = Vector2(1.9817158, 1.9817158)
-shape = SubResource("RectangleShape2D_u8vuu")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = 44.0
@@ -39,5 +97,15 @@ offset_top = -1.0
 offset_right = 608.0
 offset_bottom = 1.0
 color = Color(0.63888407, 2.0214916e-06, 4.813075e-07, 1)
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qhqgy")
+}
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(20, 0)
+
+[node name="Glow" type="Sprite2D" parent="."]
 
 [connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]

@@ -1,0 +1,120 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8l80emx6xhqg"]
+
+[ext_resource type="Script" uid="uid://c5ra0r64jptjl" path="res://scripts/settings.gd" id="1_5p8wc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_36l1p"]
+font_size = 32
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5p8wc")
+
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.3779193, 0.3779187, 0.37791884, 1)
+
+[node name="VolumeLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.254
+anchor_top = 0.26500002
+anchor_right = 0.31
+anchor_bottom = 0.30100003
+offset_left = -25.608002
+offset_top = 4.2799835
+offset_right = 36.880005
+offset_bottom = 25.618652
+text = "Volume:"
+label_settings = SubResource("LabelSettings_36l1p")
+
+[node name="VolumeSlider" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.388
+anchor_top = 0.29200003
+anchor_right = 0.82900006
+anchor_bottom = 0.316
+offset_left = -25.976013
+offset_top = 3.7839813
+offset_right = -26.008057
+offset_bottom = 4.2319946
+min_value = -40.0
+max_value = 0.0
+step = 0.5
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 129.0
+offset_bottom = 48.0
+text = "Back"
+
+[node name="Fullscreen" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.254
+anchor_top = 0.26500002
+anchor_right = 0.31
+anchor_bottom = 0.30100003
+offset_left = -25.608002
+offset_top = 69.27998
+offset_right = 76.880005
+offset_bottom = 90.61867
+text = "Fullscreen:"
+label_settings = SubResource("LabelSettings_36l1p")
+
+[node name="FullscreenButton" type="CheckButton" parent="Fullscreen"]
+layout_mode = 0
+offset_left = 167.0
+offset_top = 8.0
+offset_right = 211.0
+offset_bottom = 32.0
+scale = Vector2(1.5, 1.5)
+
+[node name="filler text" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.254
+anchor_top = 0.26500002
+anchor_right = 0.31
+anchor_bottom = 0.30100003
+offset_left = 35.392
+offset_top = 244.27998
+offset_right = 434.88
+offset_bottom = 265.61865
+text = "ADD MORE STUFF LATER HERE"
+label_settings = SubResource("LabelSettings_36l1p")
+
+[node name="Fullscreen2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.254
+anchor_top = 0.26500002
+anchor_right = 0.31
+anchor_bottom = 0.30100003
+offset_left = -25.608002
+offset_top = 141.27998
+offset_right = 73.880005
+offset_bottom = 162.61867
+text = "CRT Effect:"
+label_settings = SubResource("LabelSettings_36l1p")
+
+[node name="FullscreenButton" type="CheckButton" parent="Fullscreen2"]
+layout_mode = 0
+offset_left = 167.0
+offset_top = 8.0
+offset_right = 211.0
+offset_bottom = 32.0
+scale = Vector2(1.5, 1.5)
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="toggled" from="Fullscreen/FullscreenButton" to="." method="_on_fullscreen_button_toggled"]
