@@ -26,58 +26,64 @@ color = Color(0.3779193, 0.3779187, 0.37791884, 1)
 [node name="VolumeLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.254
-anchor_top = 0.26500002
-anchor_right = 0.31
-anchor_bottom = 0.30100003
-offset_left = -25.608002
-offset_top = 4.2799835
-offset_right = 36.880005
-offset_bottom = 25.618652
+anchor_left = 0.23200001
+anchor_top = 0.272
+anchor_right = 0.342
+anchor_bottom = 0.34100002
+offset_left = -0.26400757
+offset_top = -0.25601196
+offset_right = 0.015991211
+offset_bottom = -0.30134583
 text = "Volume:"
 label_settings = SubResource("LabelSettings_36l1p")
 
 [node name="VolumeSlider" type="HSlider" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.388
-anchor_top = 0.29200003
-anchor_right = 0.82900006
+anchor_left = 0.365
+anchor_top = 0.298
+anchor_right = 0.80600005
 anchor_bottom = 0.316
-offset_left = -25.976013
-offset_top = 3.7839813
-offset_right = -26.008057
+offset_left = 0.519989
+offset_top = -0.104003906
+offset_right = 0.48791504
 offset_bottom = 4.2319946
-min_value = -40.0
-max_value = 0.0
-step = 0.5
+max_value = 1.5
+step = 0.001
 
 [node name="BackButton" type="Button" parent="."]
-layout_mode = 0
-offset_right = 129.0
-offset_bottom = 48.0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.112
+anchor_bottom = 0.074
+offset_right = -0.024002075
+offset_bottom = 0.048000336
 text = "Back"
 
 [node name="Fullscreen" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.254
-anchor_top = 0.26500002
-anchor_right = 0.31
-anchor_bottom = 0.30100003
-offset_left = -25.608002
-offset_top = 69.27998
-offset_right = 76.880005
-offset_bottom = 90.61867
+anchor_left = 0.23200001
+anchor_top = 0.372
+anchor_right = 0.374
+anchor_bottom = 0.44000003
+offset_left = -0.26400757
+offset_top = -0.055999756
+offset_right = 3.1519775
+offset_bottom = 0.5466614
 text = "Fullscreen:"
 label_settings = SubResource("LabelSettings_36l1p")
 
 [node name="FullscreenButton" type="CheckButton" parent="Fullscreen"]
-layout_mode = 0
-offset_left = 167.0
-offset_top = 8.0
-offset_right = 211.0
-offset_bottom = 32.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.179
+anchor_right = 1.3950001
+anchor_bottom = 0.9850001
+offset_top = 0.0046629906
+offset_right = -21.965012
+offset_bottom = -11.996689
 scale = Vector2(1.5, 1.5)
 
 [node name="filler text" type="Label" parent="."]
@@ -97,24 +103,30 @@ label_settings = SubResource("LabelSettings_36l1p")
 [node name="Fullscreen2" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.254
-anchor_top = 0.26500002
-anchor_right = 0.31
-anchor_bottom = 0.30100003
-offset_left = -25.608002
-offset_top = 141.27998
-offset_right = 73.880005
-offset_bottom = 162.61867
+anchor_left = 0.23200001
+anchor_top = 0.483
+anchor_right = 0.374
+anchor_bottom = 0.551
+offset_left = -0.26400757
+offset_top = 0.015991211
+offset_right = 0.15197754
+offset_bottom = 0.61868286
 text = "CRT Effect:"
 label_settings = SubResource("LabelSettings_36l1p")
 
 [node name="FullscreenButton" type="CheckButton" parent="Fullscreen2"]
-layout_mode = 0
-offset_left = 167.0
-offset_top = 8.0
-offset_right = 211.0
-offset_bottom = 32.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.018
+anchor_top = 0.179
+anchor_right = 1.4210001
+anchor_bottom = 0.9850001
+offset_left = 0.04800415
+offset_top = 0.0046629906
+offset_right = -22.044022
+offset_bottom = -11.996689
 scale = Vector2(1.5, 1.5)
 
+[connection signal="value_changed" from="VolumeSlider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="toggled" from="Fullscreen/FullscreenButton" to="." method="_on_fullscreen_button_toggled"]

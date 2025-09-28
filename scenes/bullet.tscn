@@ -1,27 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtclgpudk4ih3"]
+[gd_scene load_steps=3 format=3 uid="uid://dtclgpudk4ih3"]
 
 [ext_resource type="Script" uid="uid://cy1a7wsyka4j6" path="res://scripts/bullet.gd" id="1_mkf8s"]
-[ext_resource type="Texture2D" uid="uid://brnkbxjms6wge" path="res://images/download.png" id="2_y25gk"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_l5glv"]
-radius = 12.0
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_y25gk"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mkf8s"]
+size = Vector2(16, 8)
 
 [node name="Bullet" type="Area2D"]
 script = ExtResource("1_mkf8s")
 
 [node name="bulletHitbox" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_l5glv")
+shape = SubResource("RectangleShape2D_mkf8s")
 
 [node name="bulletLifespan" type="Timer" parent="."]
 wait_time = 0.6
 one_shot = true
 
-[node name="bullet" type="Sprite2D" parent="."]
-material = SubResource("CanvasItemMaterial_y25gk")
-scale = Vector2(0.03902439, 0.03902439)
-texture = ExtResource("2_y25gk")
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -8.0
+offset_top = -4.0
+offset_right = 8.0
+offset_bottom = 4.0
+color = Color(0, 0.50980395, 1, 1)
 
 [connection signal="area_entered" from="." to="." method="_on_bullet_entered"]
 [connection signal="timeout" from="bulletLifespan" to="." method="_on_bullet_lifespan_timeout"]

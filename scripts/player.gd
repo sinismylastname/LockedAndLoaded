@@ -1,8 +1,14 @@
 extends CharacterBody2D
-var rSpeed = 2
+
+enum Tool { BLASTER, SHIELD }
+var active_tool = Tool.BLASTER
+const SWAP_TIMEOUT = 0.25
+var last_space_press_time = 0.0
+
 var rDir = 1
 var lastDir
-var rDegrees
+var rotationAccel = 15.0
+var currentRotationSpeed = 0.0
 var iFrameSeconds = 0.5
 var bullet = preload("res://scenes/bullet.tscn")
 
@@ -14,6 +20,7 @@ var finalBulletPierce
 var finalRotationSpeed
 var finalBulletLifetime
 var finalBulletSize
+var currentHealth = 0.0
 
 const baseFireRate = 1.0
 const baseFireRateReduction = 0.05
@@ -21,10 +28,10 @@ const baseBulletSpeed = 500
 const baseSpeedAddition = 50
 const baseBulletDamage = 10
 const baseHealth = 100
-const baseHealthAddition = 50
+const baseHealthAddition = 25
 const baseDamage = 10
 const baseDamageAddition = 5
-const basePierce = 1
+const basePierce = 0
 const basePierceAddition = 1
 const baseRotationSpeed = 2
 const baseRotationSpeedAddition = 0.5
@@ -32,6 +39,9 @@ const baseBulletLifetime = 0.5
 const baseBulletLifetimeAddition = 0.25
 const baseBulletSize = 1
 const baseBulletSizeAddition = 0.2
+const AIM_ASSIST_RANGE = 300
+const AIM_ASSIST_STRENGTH = 0.5
+const AIM_CONE_ANGLE = PI / 16.0
 
 signal fireRateChanged(newFiringRate)
 signal cooldownUpdated
@@ -51,7 +61,7 @@ func update_stats():
 	var speed_level = Global.upgrades["bullet_speed_level"] #2
 	finalBulletSpeed = baseBulletSpeed + (speed_level * baseSpeedAddition)
 	
-	var health_level = Global.upgrades["health_level"] #3
+	var health_level = Global.upgrades["health_level"]#3
 	finalHealth = baseHealth + (health_level * baseHealthAddition)
 	
 	var damage_level = Global.upgrades["bullet_damage_level"] #4
@@ -68,22 +78,42 @@ func update_stats():
 	
 	var lifetime_level = Global.upgrades["bullet_lifetime_level"] #8
 	finalBulletLifetime = baseBulletLifetime + (lifetime_level * baseBulletLifetimeAddition)
-	# 3. FIX: finalHealth
-	# You should re-calculate and set the player's max finalHealth here too,
-	# but for now, we only update the signal.
-	emit_signal("healthUpdated", finalHealth)
 
+	emit_signal("healthUpdated", currentHealth)
 
 func takeDamage(damageAmount):
-	finalHealth -= damageAmount
-	print(finalHealth)
-	if finalHealth <= 0:
+	AudioGlobal.play_hurt()
+	currentHealth -= damageAmount
+	print(currentHealth)
+	if currentHealth <= 0:
 		emit_signal("playerDied")
 		print("player died.")
+		AudioGlobal.play_death()
 		queue_free()
+	emit_signal("healthUpdated", currentHealth)
+		
+func get_closest_target() -> Node2D:
+	var closest_target: Node2D = null
+	var min_distance = AIM_ASSIST_RANGE
+	var player_direction = Vector2.RIGHT.rotated(rotation).normalized() 
 	
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if is_instance_valid(enemy):
+			var distance = global_position.distance_to(enemy.global_position)
+			if distance < min_distance:
+				var to_enemy_vector = (enemy.global_position - global_position).normalized()
+				var required_dot = cos(AIM_CONE_ANGLE)
+				var actual_dot = player_direction.dot(to_enemy_vector)
+				
+				if actual_dot >= required_dot:
+					min_distance = distance
+					closest_target = enemy
+					
+	return closest_target
+
 func fireProjectile():
 	playerAnimator.play("fire")
+	AudioGlobal.play_default_shoot_sound()
 	var projectile = bullet.instantiate()
 	projectile.setRotation(rotation)
 	get_tree().root.add_child(projectile)
@@ -104,21 +134,63 @@ func fireProjectile():
 	
 func _ready() -> void:
 	update_stats()
+	currentHealth = finalHealth
 	
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("changeDir"):
+		var current_time = Time.get_ticks_msec() / 1000.0
+		if current_time - last_space_press_time < SWAP_TIMEOUT:
+			_swap_tool()
+			last_space_press_time = 0.0
+			rDir = 0
+			return
+		last_space_press_time = current_time
 		lastDir = rDir
 		rDir = 0
+		
 	if event.is_action_released("changeDir"):
 		rDir = lastDir * -1
-		
-func _process(delta: float) -> void:
-	rDegrees = finalRotationSpeed * rDir * delta
-	rotation = rotation + rDegrees
-	emit_signal("cooldownUpdated", fireTimer.time_left)
-	emit_signal("healthUpdated", finalHealth)
-	#print(fireTimer.time_left)
-	
+
+func _swap_tool():
+	if active_tool == Tool.BLASTER:
+		active_tool = Tool.SHIELD
+		$BlasterNode.visible = false
+		$ShieldNode.visible = true
+		$ShieldNode.monitoring = true
+		fireTimer.stop()
+	else:
+		active_tool = Tool.BLASTER
+		$ShieldNode.visible = false
+		$BlasterNode.visible = true
+		$ShieldNode.monitoring = false
+		fireTimer.start()
+
 func _on_fire_timer_timeout() -> void:
 	fireProjectile()
+
+func apply_health_upgrade():
+	var old_max_health = finalHealth 
+	update_stats() 
+	
+	var health_gain = finalHealth - old_max_health
+	currentHealth += health_gain 
+	currentHealth = min(currentHealth, finalHealth)
+	emit_signal("healthUpdated", currentHealth)
+
+func _process(delta: float) -> void:
+	var targetSpeed = rDir * finalRotationSpeed
+	var input_direction = Vector2.RIGHT.rotated(rotation)
+	var target = get_closest_target()
+	if is_instance_valid(target):
+		var target_direction = (target.global_position - global_position).normalized()
+		var required_rotation = target_direction.angle()
+		var angle_delta = wrapf(required_rotation - rotation, -PI, PI)
+		var assisted_speed = angle_delta * finalRotationSpeed * 1.5 
+		targetSpeed = lerp(targetSpeed, assisted_speed, AIM_ASSIST_STRENGTH)
+	currentRotationSpeed = lerp(currentRotationSpeed, targetSpeed, rotationAccel * delta)
+	rotation += currentRotationSpeed * delta
+
+	emit_signal("cooldownUpdated", fireTimer.time_left)
+	emit_signal("healthUpdated", currentHealth)
+	
