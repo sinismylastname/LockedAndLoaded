@@ -7,18 +7,12 @@ func _ready():
 	
 func _on_upgrade_points_changed(new_points: int):
 	points_label.text = "Points: %d" % new_points
-	
-func _on_add_bullet_speed_pressed() -> void:
-	Global.apply_upgrade("bullet_speed_level")
 
-func _on_add_bullet_damage_pressed() -> void:
-	Global.apply_upgrade("bullet_damage_level")
+func _on_add_bullet_damage_pressed() -> void: #power
+	Global.apply_upgrade("bullet_power_level")
 
-func _on_add_bullet_lifetime_pressed() -> void:
-	Global.apply_upgrade("bullet_lifetime_level")
-
-func _on_add_bullet_size_pressed() -> void:
-	Global.apply_upgrade("bullet_size_level")
+func _on_add_bullet_lifetime_pressed() -> void: #range
+	Global.apply_upgrade("bullet_range_level")
 
 func _on_add_bullet_pierce_pressed() -> void:
 	Global.apply_upgrade("bullet_pierce_level")

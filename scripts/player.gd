@@ -23,14 +23,14 @@ var finalBulletSize
 var currentHealth = 0.0
 
 const baseFireRate = 1.0
-const baseFireRateReduction = 0.05
+const baseFireRateReduction = 0.020
 const baseBulletSpeed = 500
 const baseSpeedAddition = 50
 const baseBulletDamage = 10
 const baseHealth = 100
-const baseHealthAddition = 25
+const baseHealthAddition = 10
 const baseDamage = 10
-const baseDamageAddition = 5
+const baseDamageAddition = 2.5
 const basePierce = 0
 const basePierceAddition = 1
 const baseRotationSpeed = 2
@@ -55,17 +55,19 @@ signal playerDied
 func update_stats():
 	var fire_level = Global.upgrades["fire_rate_level"] #1
 	finalFireRate = baseFireRate - (fire_level * baseFireRateReduction)
-	fireTimer.wait_time = max(0.05, finalFireRate)
+	fireTimer.wait_time = max(0.020, finalFireRate)
 	emit_signal("fireRateChanged", fireTimer.wait_time)
 	
-	var speed_level = Global.upgrades["bullet_speed_level"] #2
-	finalBulletSpeed = baseBulletSpeed + (speed_level * baseSpeedAddition)
+	var range_level = Global.upgrades["bullet_range_level"] #2
+	finalBulletSpeed = baseBulletSpeed + (range_level * baseSpeedAddition)
+	finalBulletLifetime = baseBulletLifetime + (range_level * baseBulletLifetimeAddition)
 	
 	var health_level = Global.upgrades["health_level"]#3
 	finalHealth = baseHealth + (health_level * baseHealthAddition)
 	
-	var damage_level = Global.upgrades["bullet_damage_level"] #4
-	finalDamage = baseDamage + (damage_level * baseDamageAddition)
+	var power_level = Global.upgrades["bullet_power_level"] #4
+	finalDamage = baseDamage + (power_level * baseDamageAddition)
+	finalBulletSize = baseBulletSize + (power_level * baseBulletSizeAddition)
 	
 	var pierce_level = Global.upgrades["bullet_pierce_level"] #5
 	finalBulletPierce = basePierce + (pierce_level * basePierceAddition)
@@ -73,12 +75,6 @@ func update_stats():
 	var rotation_level = Global.upgrades["rotation_speed_level"] #6
 	finalRotationSpeed = baseRotationSpeed + (rotation_level * baseRotationSpeedAddition)
 	
-	var size_level = Global.upgrades["bullet_size_level"] #7
-	finalBulletSize = baseBulletSize + (size_level * baseBulletSizeAddition)
-	
-	var lifetime_level = Global.upgrades["bullet_lifetime_level"] #8
-	finalBulletLifetime = baseBulletLifetime + (lifetime_level * baseBulletLifetimeAddition)
-
 	emit_signal("healthUpdated", currentHealth)
 
 func takeDamage(damageAmount):

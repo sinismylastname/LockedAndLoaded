@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvqdlolknbgyj"]
+
+[ext_resource type="Texture2D" uid="uid://5fx3n2jasduf" path="res://images/TheBushman.png" id="1_i4mhp"]
+[ext_resource type="Texture2D" uid="uid://ddrtntmyxcdph" path="res://images/bushmanBackground.png" id="1_ia10y"]
+[ext_resource type="Script" uid="uid://bhluos47tdato" path="res://bushmanCards.gd" id="1_v3sk0"]
+[ext_resource type="Texture2D" uid="uid://bmqvtlok1hle3" path="res://images/card.png" id="3_hqt74"]
+
+[node name="BushmanUI" type="CanvasLayer"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ia10y")
+
+[node name="TheBushman" type="TextureRect" parent="."]
+offset_left = 61.0
+offset_top = 48.0
+offset_right = 365.0
+offset_bottom = 352.0
+texture = ExtResource("1_i4mhp")
+
+[node name="Cards" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 463.0
+offset_top = 254.0
+offset_right = 1107.0
+offset_bottom = 503.0
+script = ExtResource("1_v3sk0")
+
+[node name="Card1" type="TextureButton" parent="Cards"]
+layout_mode = 0
+offset_right = 185.0
+offset_bottom = 249.0
+texture_normal = ExtResource("3_hqt74")
+
+[node name="Card2" type="TextureButton" parent="Cards"]
+layout_mode = 0
+offset_left = 228.0
+offset_right = 413.0
+offset_bottom = 249.0
+texture_normal = ExtResource("3_hqt74")
+
+[node name="Card3" type="TextureButton" parent="Cards"]
+layout_mode = 0
+offset_left = 459.0
+offset_right = 644.0
+offset_bottom = 249.0
+texture_normal = ExtResource("3_hqt74")

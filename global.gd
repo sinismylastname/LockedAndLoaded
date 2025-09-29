@@ -24,14 +24,12 @@ var Player = null
 var UpgradeUI = null
 
 var upgrades = {
-	"bullet_speed_level": 0,
-	"bullet_damage_level": 0,
+	"bullet_power_level": 0,
+	"bullet_range_level": 0,
 	"bullet_pierce_level": 0,
-	"bullet_size_level": 0,
 	"rotation_speed_level": 0,
 	"fire_rate_level": 0,
 	"health_level": 0,
-	"bullet_lifetime_level": 0
 }
 
 var upgradePoints = 0
@@ -49,9 +47,9 @@ func addXP(amount: int):
 func level_up():
 	currentLevel += 1
 	currentXP -= XPNeeded 
-	XPNeeded *= 1.15
+	XPNeeded *= 1.2
 	Engine.time_scale = 0.005
-	upgradePoints += 3
+	upgradePoints += 5
 	upgrade_menu_open.emit()
 	leveled_up.emit(currentLevel)
 

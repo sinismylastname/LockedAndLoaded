@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://h2v3q5wulcfc"]
+
+[ext_resource type="PackedScene" uid="uid://bs1ndojca7sk" path="res://scenes/player3d.tscn" id="1_0byyq"]
+[ext_resource type="PackedScene" uid="uid://d3a14nmfbxru5" path="res://scenes/arcade_machine_v_2.tscn" id="2_pqnyw"]
+[ext_resource type="PackedScene" uid="uid://bgb2uubc5jt1e" path="res://scenes/arcade_viewport.tscn" id="3_r8x4v"]
+[ext_resource type="PackedScene" uid="uid://c20loeq3s36mt" path="res://scenes/arcade_game_shell.tscn" id="4_vthjv"]
+[ext_resource type="Script" uid="uid://dcjod4q5o4q0l" path="res://scenes/TransitionController.gd" id="5_0byyq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2yshf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_llonp"]
+
+[sub_resource type="Environment" id="Environment_2yshf"]
+ambient_light_source = 3
+ambient_light_color = Color(0.0030829671, 0.14284062, 0.66557765, 1)
+ambient_light_energy = 3.0
+
+[node name="arcadeMenuThing" type="Node3D"]
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_0byyq")]
+transform = Transform3D(0.99995786, 0.009180304, 0, -0.009180304, 0.99995786, 0, 0, 0, 1, 0, 1.8173423, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="FLOOR" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(-14.996448, -0.005074196, -0.1220486, -0.076245666, 0.9999863, 0.019224986, -0.11751549, -0.0012750835, 15.56247, 0, 0, 0)
+mesh = SubResource("BoxMesh_2yshf")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-14.9971075, 0, 0, 0, 1, 0, 0, 0, 15.562959, 0, 0, 0)
+shape = SubResource("BoxShape3D_llonp")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.036294907, 0.99934113, 0, 0.99934113, 0.036294907, 0, 10.20939, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2yshf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="ArcadeCabinet" parent="." instance=ExtResource("2_pqnyw")]
+transform = Transform3D(-1.5, 0, -1.3113416e-07, 0, 1.5, 0, 1.3113416e-07, 0, -1.5, 0.65084255, 0.5, 3.846527)
+
+[node name="ArcadeViewport" parent="." instance=ExtResource("3_r8x4v")]
+
+[node name="ArcadeGameSubViewport" parent="ArcadeViewport" index="0"]
+size = Vector2i(720, 480)
+render_target_update_mode = 4
+
+[node name="FullscreenCanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ArcadeGameShell" parent="FullscreenCanvasLayer" instance=ExtResource("4_vthjv")]
+
+[node name="ArcadeTransitionController" type="Node3D" parent="." node_paths=PackedStringArray("main_camera", "target_screen_mesh", "fullscreen_2d_layer", "arcade_game_shell")]
+script = ExtResource("5_0byyq")
+main_camera = NodePath("../CharacterBody3D/CameraPivot/Camera3D")
+target_screen_mesh = NodePath("../ArcadeCabinet/ArcadeMachineV2/ScreenOverlay")
+fullscreen_2d_layer = NodePath("../FullscreenCanvasLayer")
+arcade_game_shell = NodePath("../ArcadeViewport/ArcadeGameSubViewport/ArcadeGameShell")
+
+[editable path="CharacterBody3D"]
+[editable path="ArcadeCabinet"]
+[editable path="ArcadeViewport"]

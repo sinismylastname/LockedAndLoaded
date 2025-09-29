@@ -5,7 +5,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4acyo"]
 shader = ExtResource("1_edea4")
-shader_parameter/overlay = false
+shader_parameter/overlay = true
 shader_parameter/scanlines_opacity = 0.03200000152
 shader_parameter/scanlines_width = 0.06000000285
 shader_parameter/grille_opacity = 0.162000007695
@@ -38,3 +38,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2

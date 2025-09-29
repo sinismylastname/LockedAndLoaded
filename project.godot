@@ -20,9 +20,11 @@ config/icon="res://icon.svg"
 Global="*res://global.gd"
 AudioGlobal="*res://audio_global.gd"
 CRT="*res://scenes/CRT.tscn"
+FortuneManager="*res://fortune_manager.gd"
 
 [display]
 
+window/size/borderless=true
 window/stretch/mode="canvas_items"
 
 [editor_plugins]

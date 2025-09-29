@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3a14nmfbxru5"]
+
+[ext_resource type="PackedScene" uid="uid://bnl1k1khrdihu" path="res://3dMeshes/ArcadeMachineV2.fbx" id="1_h18b3"]
+[ext_resource type="Script" uid="uid://dns48hln212k0" path="res://scenes/screen_overlay.gd" id="2_22jql"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_h18b3"]
+
+[node name="ArcadeCabinet" instance=ExtResource("1_h18b3")]
+
+[node name="ScreenOverlay" type="MeshInstance3D" parent="ArcadeMachineV2" index="0"]
+transform = Transform3D(0.25816256, 0, 0, 0, -0.0906808, -0.15994132, 0, 0.97087604, -0.014938678, 0.3296783, 1.1452515, 0.44304138)
+mesh = SubResource("PlaneMesh_h18b3")
+script = ExtResource("2_22jql")
