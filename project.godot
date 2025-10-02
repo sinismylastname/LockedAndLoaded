@@ -21,6 +21,7 @@ Global="*res://global.gd"
 AudioGlobal="*res://audio_global.gd"
 CRT="*res://scenes/CRT.tscn"
 FortuneManager="*res://fortune_manager.gd"
+UI_Global="*res://ui_global.gd"
 
 [display]
 

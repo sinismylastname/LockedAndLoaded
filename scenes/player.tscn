@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://be8qbmt0fe144"]
+[gd_scene load_steps=9 format=3 uid="uid://be8qbmt0fe144"]
 
 [ext_resource type="Script" uid="uid://cb4djnmhlvho" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://lwbnlhipv8wy" path="res://scripts/shield.gd" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://c1mqwckd34iwk" path="res://images/888647-200.png" id="2_qhqgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
 
@@ -68,7 +69,7 @@ size = Vector2(4, 48)
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_3vyb7")
 
-[node name="BodyCollion" type="CollisionShape2D" parent="."]
+[node name="BodyCollision" type="CollisionShape2D" parent="."]
 scale = Vector2(1.9817158, 1.9817158)
 shape = SubResource("RectangleShape2D_u8vuu")
 
@@ -97,9 +98,10 @@ libraries = {
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(44, 0)
 
-[node name="Glow" type="Sprite2D" parent="."]
-
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="directionArrow" type="Sprite2D" parent="."]
+rotation = 1.5707964
+scale = Vector2(0.225, 0.225)
+texture = ExtResource("2_qhqgy")
 
 [node name="ShieldNode" type="Area2D" parent="." groups=["shield"]]
 visible = false

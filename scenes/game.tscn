@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://155xx7s6y6ta"]
+[gd_scene load_steps=10 format=3 uid="uid://155xx7s6y6ta"]
 
 [ext_resource type="Script" uid="uid://cqvuw2k05ylvt" path="res://scenes/game.gd" id="1_gee14"]
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_o5qli"]
-[ext_resource type="PackedScene" uid="uid://ca564xg8473wv" path="res://scenes/shooter_enemy.tscn" id="2_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://ctl27dic16wxy" path="res://scenes/spawner.tscn" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://ddixajdp830em" path="res://scripts/wave_manager.gd" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dvo24mmacr7xq" path="res://scenes/player_ui.tscn" id="4_tbgi4"]
@@ -70,10 +69,13 @@ visible = false
 [node name="GameOver" parent="." instance=ExtResource("5_tbgi4")]
 visible = false
 
-[node name="shooter_enemy" parent="." instance=ExtResource("2_0tnpc")]
-position = Vector2(-52, -32)
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 323)
+ignore_rotation = false
 
 [connection signal="cooldownUpdated" from="Player" to="playerUI" method="_on_player_cooldown_updated"]
 [connection signal="fireRateChanged" from="Player" to="playerUI" method="_on_player_fire_rate_changed"]
 [connection signal="timeout" from="WaveManager/TimeInBetweenWaves" to="WaveManager" method="_on_time_in_between_waves_timeout"]
 [connection signal="timeout" from="WaveManager/SpawnTimer" to="WaveManager" method="_on_spawn_timer_timeout"]
+
+[editable path="Player"]

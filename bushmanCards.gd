@@ -1,5 +1,5 @@
 extends Control
-
+signal fortune_given(effect_name) 
 
 const TAROT_EFFECTS = ["HEAL_SMALL", "DAMAGE_BOOST", "RANGE_BUFF", "FIRERATE_BUFF"]
 
@@ -13,9 +13,10 @@ func _ready():
 	$Card3.disabled = false
 	
 func pick_card(card_index):
+	print("card clicked")
 	$Card1.disabled = true
 	$Card2.disabled = true
 	$Card3.disabled = true
 	var chosen_effect = TAROT_EFFECTS[randi() % TAROT_EFFECTS.size()]
-	FortuneManager.fortune_given.emit(chosen_effect)
+	fortune_given.emit(chosen_effect)
 	

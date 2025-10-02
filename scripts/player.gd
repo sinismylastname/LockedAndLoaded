@@ -7,7 +7,8 @@ var last_space_press_time = 0.0
 
 var rDir = 1
 var lastDir
-var rotationAccel = 15.0
+var lastArrowDirection = 0.0
+var rotationAccel = 5.0
 var currentRotationSpeed = 0.0
 var iFrameSeconds = 0.5
 var bullet = preload("res://scenes/bullet.tscn")
@@ -134,6 +135,7 @@ func _ready() -> void:
 	
 	
 func _input(event: InputEvent) -> void:
+	
 	if event.is_action_pressed("changeDir"):
 		var current_time = Time.get_ticks_msec() / 1000.0
 		if current_time - last_space_press_time < SWAP_TIMEOUT:
@@ -144,9 +146,12 @@ func _input(event: InputEvent) -> void:
 		last_space_press_time = current_time
 		lastDir = rDir
 		rDir = 0
+		lastArrowDirection = $directionArrow.rotation
+		$directionArrow.rotation = 0
 		
 	if event.is_action_released("changeDir"):
 		rDir = lastDir * -1
+		$directionArrow.rotation = lastArrowDirection * -1
 
 func _swap_tool():
 	if active_tool == Tool.BLASTER:

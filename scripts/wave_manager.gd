@@ -13,7 +13,6 @@ func _ready():
 
 func startWave():
 	spawnTimer.start(Global.spawnTime)
-	Global.wave_started.emit()
 
 func _on_spawn_timer_timeout() -> void:
 	if Global.enemiesSpawned < Global.enemiesToSpawn:

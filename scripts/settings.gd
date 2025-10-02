@@ -20,3 +20,9 @@ func _on_fullscreen_button_toggled(toggled_on: bool) -> void:
 
 func _on_volume_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value))
+
+func _on_crt_button_toggled(toggled_on: bool) -> void:
+	if toggled_on == true:
+		Global.CRTEffect = true
+	elif toggled_on == false:
+		Global.CRTEffect = false

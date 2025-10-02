@@ -100,7 +100,7 @@ offset_bottom = 265.61865
 text = "ADD MORE STUFF LATER HERE"
 label_settings = SubResource("LabelSettings_36l1p")
 
-[node name="Fullscreen2" type="Label" parent="."]
+[node name="CRTToggle" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.23200001
@@ -114,7 +114,7 @@ offset_bottom = 0.61868286
 text = "CRT Effect:"
 label_settings = SubResource("LabelSettings_36l1p")
 
-[node name="FullscreenButton" type="CheckButton" parent="Fullscreen2"]
+[node name="CRTButton" type="CheckButton" parent="CRTToggle"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.018
@@ -130,3 +130,4 @@ scale = Vector2(1.5, 1.5)
 [connection signal="value_changed" from="VolumeSlider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="toggled" from="Fullscreen/FullscreenButton" to="." method="_on_fullscreen_button_toggled"]
+[connection signal="toggled" from="CRTToggle/CRTButton" to="." method="_on_crt_button_toggled"]

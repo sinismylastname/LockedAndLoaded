@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://yp7mmox36all" path="res://scripts/player_ui.gd" id="1_jkj6h"]
 
 [sub_resource type="Gradient" id="Gradient_jkj6h"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_sk4pr"]
 gradient = SubResource("Gradient_jkj6h")
@@ -45,7 +47,7 @@ anchor_bottom = 0.09900001
 offset_right = -24.512001
 offset_bottom = -24.152008
 max_value = 1.0
-step = 0.01
+step = 0.0
 value = 0.25
 texture_under = SubResource("GradientTexture2D_sk4pr")
 texture_progress = SubResource("GradientTexture2D_8isll")

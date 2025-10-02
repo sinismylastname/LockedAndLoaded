@@ -19,6 +19,7 @@ func enemyDied():
 	AudioGlobal.play_death()
 	Global.decrease_enemy_count()
 	Global.addXP(25)
+	UI_Global.add_camera_shake(10, 0.2)
 	queue_free()
 
 func takeDamage(damageAmount):

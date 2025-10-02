@@ -5,5 +5,7 @@ func _ready():
 	Global.game_started.connect(_on_game_started)
 
 func _on_game_started():
-	print("--- CRT Node Received signal. Setting visible = true")
-	visible = true
+	if Global.CRTEffect == true:
+		visible = true
+	elif Global.CRTEffect == false:
+		visible = false

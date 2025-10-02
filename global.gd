@@ -22,6 +22,7 @@ var XPNeeded = 100
 
 var Player = null
 var UpgradeUI = null
+var CRTEffect = false
 
 var upgrades = {
 	"bullet_power_level": 0,
