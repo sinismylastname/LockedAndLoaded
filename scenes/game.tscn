@@ -58,15 +58,18 @@ one_shot = true
 [node name="SpawnTimer" type="Timer" parent="WaveManager"]
 
 [node name="playerUI" parent="." instance=ExtResource("4_tbgi4")]
+process_mode = 3
 
 [node name="CRT" parent="." instance=ExtResource("6_p57ef")]
 visible = false
 follow_viewport_enabled = true
 
 [node name="upgradeMenu" parent="." instance=ExtResource("7_u5sy4")]
+process_mode = 3
 visible = false
 
 [node name="GameOver" parent="." instance=ExtResource("5_tbgi4")]
+process_mode = 3
 visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]

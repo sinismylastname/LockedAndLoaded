@@ -49,7 +49,7 @@ func level_up():
 	currentLevel += 1
 	currentXP -= XPNeeded 
 	XPNeeded *= 1.2
-	Engine.time_scale = 0.005
+	get_tree().paused = true
 	upgradePoints += 5
 	upgrade_menu_open.emit()
 	leveled_up.emit(currentLevel)

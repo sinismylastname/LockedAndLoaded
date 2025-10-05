@@ -40,7 +40,7 @@ const baseBulletLifetime = 0.5
 const baseBulletLifetimeAddition = 0.25
 const baseBulletSize = 1
 const baseBulletSizeAddition = 0.2
-const AIM_ASSIST_RANGE = 300
+const AIM_ASSIST_RANGE = 400
 const AIM_ASSIST_STRENGTH = 0.5
 const AIM_CONE_ANGLE = PI / 16.0
 
@@ -130,13 +130,21 @@ func fireProjectile():
 	projectile.setDirection(directionVector)
 	
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	update_stats()
 	currentHealth = finalHealth
-	
-	
+
+func _notification(what):
+	if what == NOTIFICATION_PAUSED:
+		print("Game paused")
+		currentRotationSpeed = 0.0
+	elif what == NOTIFICATION_UNPAUSED:
+		print("Game resumed")
+
 func _input(event: InputEvent) -> void:
-	
 	if event.is_action_pressed("changeDir"):
+		if get_tree().is_paused():
+			return
 		var current_time = Time.get_ticks_msec() / 1000.0
 		if current_time - last_space_press_time < SWAP_TIMEOUT:
 			_swap_tool()
@@ -179,19 +187,24 @@ func apply_health_upgrade():
 	currentHealth = min(currentHealth, finalHealth)
 	emit_signal("healthUpdated", currentHealth)
 
-func _process(delta: float) -> void:
+func _process(delta):
+	if get_tree().is_paused():
+		return
+	
 	var targetSpeed = rDir * finalRotationSpeed
-	var input_direction = Vector2.RIGHT.rotated(rotation)
 	var target = get_closest_target()
+	
 	if is_instance_valid(target):
 		var target_direction = (target.global_position - global_position).normalized()
 		var required_rotation = target_direction.angle()
 		var angle_delta = wrapf(required_rotation - rotation, -PI, PI)
-		var assisted_speed = angle_delta * finalRotationSpeed * 1.5 
+		var assisted_speed = angle_delta * finalRotationSpeed * 1.5
 		targetSpeed = lerp(targetSpeed, assisted_speed, AIM_ASSIST_STRENGTH)
+	
 	currentRotationSpeed = lerp(currentRotationSpeed, targetSpeed, rotationAccel * delta)
 	rotation += currentRotationSpeed * delta
-
+	
 	emit_signal("cooldownUpdated", fireTimer.time_left)
 	emit_signal("healthUpdated", currentHealth)
+		
 	

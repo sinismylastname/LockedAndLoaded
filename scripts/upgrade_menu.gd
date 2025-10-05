@@ -28,7 +28,7 @@ func _on_add_firerate_pressed() -> void:
 	
 func _on_continue_pressed() -> void:
 	visible = false
-	Engine.time_scale = 1
+	get_tree().paused = false
 
 func _on_upgrade_menu_open() -> void:
 	_on_upgrade_points_changed(Global.upgradePoints)
