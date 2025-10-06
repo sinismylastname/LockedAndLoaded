@@ -24,6 +24,7 @@ func enemyDied():
 
 func takeDamage(damageAmount):
 	AudioGlobal.play_hurt()
+	UI_Global.add_shake(0.2)
 	health -= damageAmount
 	#print(health)
 	if health <= 0:

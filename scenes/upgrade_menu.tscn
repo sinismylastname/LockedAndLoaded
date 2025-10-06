@@ -43,9 +43,23 @@ anchor_bottom = 1.212
 offset_left = 0.054992676
 offset_top = 0.011500359
 offset_right = 0.10494995
-offset_bottom = -0.044010162
+offset_bottom = -0.044006348
 text = "+"
 script = ExtResource("2_ksfom")
+
+[node name="PowerLevelDisplay" type="Label" parent="Power"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.30100003
+anchor_right = 0.36100003
+anchor_bottom = 0.35300002
+offset_left = 263.3
+offset_top = -10.083501
+offset_right = 354.945
+offset_bottom = 21.6745
+text = "#"
+label_settings = SubResource("LabelSettings_ppglw")
 
 [node name="Range" type="Label" parent="."]
 anchors_preset = -1
@@ -72,6 +86,20 @@ offset_right = 0.10494995
 offset_bottom = 0.11997986
 text = "+"
 script = ExtResource("2_ksfom")
+
+[node name="RangeLevelDisplay" type="Label" parent="Range"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.30100003
+anchor_right = 0.36100003
+anchor_bottom = 0.35300002
+offset_left = 263.3
+offset_top = -10.083501
+offset_right = 354.945
+offset_bottom = 21.6745
+text = "#"
+label_settings = SubResource("LabelSettings_ppglw")
 
 [node name="Pierce" type="Label" parent="."]
 anchors_preset = -1
@@ -100,6 +128,20 @@ offset_bottom = -0.0040130615
 text = "+"
 script = ExtResource("2_ksfom")
 
+[node name="PierceLevelDisplay" type="Label" parent="Pierce"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.30100003
+anchor_right = 0.36100003
+anchor_bottom = 0.35300002
+offset_left = 263.3
+offset_top = -10.083501
+offset_right = 354.945
+offset_bottom = 21.6745
+text = "#"
+label_settings = SubResource("LabelSettings_ppglw")
+
 [node name="Health" type="Label" parent="."]
 anchors_preset = -1
 anchor_left = 0.56200004
@@ -126,6 +168,20 @@ offset_right = 0.10494995
 offset_bottom = -0.0040130615
 text = "+"
 script = ExtResource("2_ksfom")
+
+[node name="HealthLevelDisplay" type="Label" parent="Health"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.30100003
+anchor_right = 0.36100003
+anchor_bottom = 0.35300002
+offset_left = 263.3
+offset_top = -10.083501
+offset_right = 354.945
+offset_bottom = 21.6745
+text = "#"
+label_settings = SubResource("LabelSettings_ppglw")
 
 [node name="RotationSpeed" type="Label" parent="."]
 anchors_preset = -1
@@ -154,6 +210,20 @@ offset_bottom = -0.0040130615
 text = "+"
 script = ExtResource("2_ksfom")
 
+[node name="RotationLevelDisplay" type="Label" parent="RotationSpeed"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.30100003
+anchor_right = 0.36100003
+anchor_bottom = 0.35300002
+offset_left = 263.3
+offset_top = -10.083501
+offset_right = 354.945
+offset_bottom = 21.6745
+text = "#"
+label_settings = SubResource("LabelSettings_ppglw")
+
 [node name="Firerate" type="Label" parent="."]
 anchors_preset = -1
 anchor_left = 0.549
@@ -180,6 +250,20 @@ offset_right = 0.10494995
 offset_bottom = 6.5919876
 text = "+"
 script = ExtResource("2_ksfom")
+
+[node name="FirerateLevelDisplay" type="Label" parent="Firerate"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.30100003
+anchor_right = 0.36100003
+anchor_bottom = 0.35300002
+offset_left = 263.3
+offset_top = -10.083501
+offset_right = 354.945
+offset_bottom = 21.6745
+text = "#"
+label_settings = SubResource("LabelSettings_ppglw")
 
 [node name="UpgradePoints" type="Label" parent="."]
 anchors_preset = -1

@@ -1,8 +1,6 @@
 extends CharacterBody2D
 
-enum Tool { BLASTER, SHIELD }
-var active_tool = Tool.BLASTER
-const SWAP_TIMEOUT = 0.25
+const SWAP_TIMEOUT = 0.15
 var last_space_press_time = 0.0
 
 var rDir = 1
@@ -10,6 +8,7 @@ var lastDir
 var lastArrowDirection = 0.0
 var rotationAccel = 5.0
 var currentRotationSpeed = 0.0
+var savedRotationSpeed = 0.0
 var iFrameSeconds = 0.5
 var bullet = preload("res://scenes/bullet.tscn")
 
@@ -24,7 +23,7 @@ var finalBulletSize
 var currentHealth = 0.0
 
 const baseFireRate = 1.0
-const baseFireRateReduction = 0.020
+const baseFireRateReduction = 0.04
 const baseBulletSpeed = 500
 const baseSpeedAddition = 50
 const baseBulletDamage = 10
@@ -43,6 +42,11 @@ const baseBulletSizeAddition = 0.2
 const AIM_ASSIST_RANGE = 400
 const AIM_ASSIST_STRENGTH = 0.5
 const AIM_CONE_ANGLE = PI / 16.0
+
+var parry_active = false
+var parry_on_cooldown = false
+const PARRY_WINDOW = 0.25
+const PARRY_COOLDOWN = 0.5
 
 signal fireRateChanged(newFiringRate)
 signal cooldownUpdated
@@ -80,8 +84,13 @@ func update_stats():
 
 func takeDamage(damageAmount):
 	AudioGlobal.play_hurt()
-	currentHealth -= damageAmount
-	print(currentHealth)
+	if not parry_active: 
+		currentHealth -= damageAmount
+	elif parry_active:
+		print("holy crap you just parried")
+		#add shader effects here (might just steal it from my Skateboard Sacrifice game honestly, that effect was so fire).
+		#also add the logic here, might emit a signal tbh. actually that's probably the best idea
+		#actually should it be in my global?? maybe?? actually maybe not??? idk.
 	if currentHealth <= 0:
 		emit_signal("playerDied")
 		print("player died.")
@@ -137,43 +146,51 @@ func _ready() -> void:
 func _notification(what):
 	if what == NOTIFICATION_PAUSED:
 		print("Game paused")
+		savedRotationSpeed = currentRotationSpeed
 		currentRotationSpeed = 0.0
 	elif what == NOTIFICATION_UNPAUSED:
 		print("Game resumed")
-
+		currentRotationSpeed = savedRotationSpeed
+		if rDir == 0:
+			rDir = 1  # or whatever the last valid direction was
+			
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("changeDir"):
 		if get_tree().is_paused():
 			return
 		var current_time = Time.get_ticks_msec() / 1000.0
 		if current_time - last_space_press_time < SWAP_TIMEOUT:
-			_swap_tool()
+			_start_parry()
 			last_space_press_time = 0.0
 			rDir = 0
 			return
+			
 		last_space_press_time = current_time
 		lastDir = rDir
 		rDir = 0
 		lastArrowDirection = $directionArrow.rotation
-		$directionArrow.rotation = 0
+		$directionArrow.rotation = lerp(lastArrowDirection, 0.0, 1)
 		
 	if event.is_action_released("changeDir"):
+		if get_tree().is_paused():
+			lastDir = rDir
+			return
 		rDir = lastDir * -1
-		$directionArrow.rotation = lastArrowDirection * -1
+		$directionArrow.rotation = lerp(lastArrowDirection, lastArrowDirection * -1, 1)
 
-func _swap_tool():
-	if active_tool == Tool.BLASTER:
-		active_tool = Tool.SHIELD
-		$BlasterNode.visible = false
-		$ShieldNode.visible = true
-		$ShieldNode.monitoring = true
-		fireTimer.stop()
-	else:
-		active_tool = Tool.BLASTER
-		$ShieldNode.visible = false
-		$BlasterNode.visible = true
-		$ShieldNode.monitoring = false
-		fireTimer.start()
+func _start_parry():
+	parry_active = true
+	parry_on_cooldown = true
+	print("PARRY ACTIVE")
+	
+	await get_tree().create_timer(PARRY_WINDOW).timeout
+	parry_active = false
+	print("PARRY ENDED")
+	
+	await get_tree().create_timer(PARRY_COOLDOWN).timeout
+	parry_on_cooldown = false
+	print("PARRY READY")
+
 
 func _on_fire_timer_timeout() -> void:
 	fireProjectile()
@@ -189,22 +206,24 @@ func apply_health_upgrade():
 
 func _process(delta):
 	if get_tree().is_paused():
+		fireTimer.paused = true
 		return
+	else:
+		fireTimer.paused = false
+		var targetSpeed = rDir * finalRotationSpeed
+		var target = get_closest_target()
 	
-	var targetSpeed = rDir * finalRotationSpeed
-	var target = get_closest_target()
+		if is_instance_valid(target):
+			var target_direction = (target.global_position - global_position).normalized()
+			var required_rotation = target_direction.angle()
+			var angle_delta = wrapf(required_rotation - rotation, -PI, PI)
+			var assisted_speed = angle_delta * finalRotationSpeed * 1.5
+			targetSpeed = lerp(targetSpeed, assisted_speed, AIM_ASSIST_STRENGTH)
 	
-	if is_instance_valid(target):
-		var target_direction = (target.global_position - global_position).normalized()
-		var required_rotation = target_direction.angle()
-		var angle_delta = wrapf(required_rotation - rotation, -PI, PI)
-		var assisted_speed = angle_delta * finalRotationSpeed * 1.5
-		targetSpeed = lerp(targetSpeed, assisted_speed, AIM_ASSIST_STRENGTH)
+		currentRotationSpeed = lerp(currentRotationSpeed, targetSpeed, rotationAccel * delta)
+		rotation += currentRotationSpeed * delta
 	
-	currentRotationSpeed = lerp(currentRotationSpeed, targetSpeed, rotationAccel * delta)
-	rotation += currentRotationSpeed * delta
-	
-	emit_signal("cooldownUpdated", fireTimer.time_left)
-	emit_signal("healthUpdated", currentHealth)
+		emit_signal("cooldownUpdated", fireTimer.time_left)
+		emit_signal("healthUpdated", currentHealth)
 		
 	

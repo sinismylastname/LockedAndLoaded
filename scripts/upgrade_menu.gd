@@ -34,3 +34,11 @@ func _on_upgrade_menu_open() -> void:
 	_on_upgrade_points_changed(Global.upgradePoints)
 	visible = true
 	
+func _process(delta: float) -> void:
+	$Power/PowerLevelDisplay.text = str(Global.upgrades["bullet_power_level"])
+	$Range/RangeLevelDisplay.text = str(Global.upgrades["bullet_range_level"])
+	$Pierce/PierceLevelDisplay.text = str(Global.upgrades["bullet_pierce_level"])
+	$Health/HealthLevelDisplay.text = str(Global.upgrades["health_level"])
+	$RotationSpeed/RotationLevelDisplay.text = str(Global.upgrades["rotation_speed_level"])
+	$Firerate/FirerateLevelDisplaySpeed.text = str(Global.upgrades["fire_rate_level"])
+	#all of this to display the current level of your thingamabob.

@@ -25,7 +25,6 @@ UI_Global="*res://ui_global.gd"
 
 [display]
 
-window/size/borderless=true
 window/stretch/mode="canvas_items"
 
 [editor_plugins]
