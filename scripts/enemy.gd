@@ -19,12 +19,12 @@ func enemyDied():
 	AudioGlobal.play_death()
 	Global.decrease_enemy_count()
 	Global.addXP(25)
-	UI_Global.add_shake(0.3)
+	UI_Global.add_shake(0.2)
 	queue_free()
 
 func takeDamage(damageAmount):
 	AudioGlobal.play_hurt()
-	UI_Global.add_shake(0.2)
+	UI_Global.add_shake(0.1)
 	health -= damageAmount
 	#print(health)
 	if health <= 0:

@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lofwd"]
 size = Vector2(16, 8)
 
-[node name="enemy_projectile" type="Area2D"]
+[node name="enemy_projectile" type="Area2D" groups=["enemy_projectile"]]
 script = ExtResource("1_lofwd")
 
 [node name="bulletHitbox" type="CollisionShape2D" parent="."]

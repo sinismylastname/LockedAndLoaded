@@ -45,17 +45,19 @@ const AIM_CONE_ANGLE = PI / 16.0
 
 var parry_active = false
 var parry_on_cooldown = false
-const PARRY_WINDOW = 0.25
-const PARRY_COOLDOWN = 0.5
+const PARRY_WINDOW = 0.3
+const PARRY_COOLDOWN = 0.7
 
 signal fireRateChanged(newFiringRate)
 signal cooldownUpdated
 signal healthUpdated
 signal playerDied
+signal parried
 
 @onready var fireTimer = $FireTimer
 @onready var invincTimer = $InvincibilityTimer
 @onready var playerAnimator = $Animator
+@onready var parry_hitbox = $ParryHitbox
 
 func update_stats():
 	var fire_level = Global.upgrades["fire_rate_level"] #1
@@ -173,24 +175,51 @@ func _input(event: InputEvent) -> void:
 		
 	if event.is_action_released("changeDir"):
 		if get_tree().is_paused():
-			lastDir = rDir
+			rDir = lastDir
+			$directionArrow.rotation = lastArrowDirection
 			return
 		rDir = lastDir * -1
 		$directionArrow.rotation = lerp(lastArrowDirection, lastArrowDirection * -1, 1)
 
 func _start_parry():
+	if parry_on_cooldown:
+		return
+	
 	parry_active = true
 	parry_on_cooldown = true
 	print("PARRY ACTIVE")
+	parry_hitbox.monitoring = true
 	
 	await get_tree().create_timer(PARRY_WINDOW).timeout
 	parry_active = false
+	parry_hitbox.monitoring = false
 	print("PARRY ENDED")
 	
 	await get_tree().create_timer(PARRY_COOLDOWN).timeout
 	parry_on_cooldown = false
 	print("PARRY READY")
+	
+func _on_parry_hitbox_area_entered(area: Area2D) -> void:
+	if parry_active and area.is_in_group("enemies"):
+		if area.has_method("apply_knockback"):
+			area.apply_knockback(global_position.direction_to(area.global_position), 3000)
+			#parried.emit()
+			parry_vfx()
+			AudioGlobal.play_parry() #holy crap im a frickin genius bro parrying is so cool LOOL WOWIE ZOWIE
+	elif parry_active and area.is_in_group("enemy_projectiles"):
+		area.reverse_direction() 
 
+func parry_vfx():
+	var flash = ColorRect.new()
+	flash.color = Color(0.882, 0.835, 0.624, 0.204)
+	flash.size = get_viewport_rect().size
+	get_tree().current_scene.add_child(flash)
+	await get_tree().create_timer(0.05).timeout
+	Engine.time_scale = 0.005
+	await get_tree().create_timer(0.001, true).timeout
+	Engine.time_scale = 1.0
+	flash.queue_free()
+	UI_Global.add_shake(0.1)
 
 func _on_fire_timer_timeout() -> void:
 	fireProjectile()

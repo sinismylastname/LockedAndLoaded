@@ -40,5 +40,5 @@ func _process(delta: float) -> void:
 	$Pierce/PierceLevelDisplay.text = str(Global.upgrades["bullet_pierce_level"])
 	$Health/HealthLevelDisplay.text = str(Global.upgrades["health_level"])
 	$RotationSpeed/RotationLevelDisplay.text = str(Global.upgrades["rotation_speed_level"])
-	$Firerate/FirerateLevelDisplaySpeed.text = str(Global.upgrades["fire_rate_level"])
+	$Firerate/FirerateLevelDisplay.text = str(Global.upgrades["fire_rate_level"])
 	#all of this to display the current level of your thingamabob.

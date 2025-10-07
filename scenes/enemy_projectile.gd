@@ -14,7 +14,6 @@ func _ready():
 
 func _process(delta: float) -> void:
 	global_position += velocity * delta
-	
 	timer += delta
 	if timer >= LIFESPAN:
 		queue_free()
@@ -27,3 +26,6 @@ func _on_body_entered(body: Node2D):
 	if body.is_in_group("player"):
 		body.takeDamage(10)
 		queue_free()
+
+func reverse_direction():
+	velocity = -velocity

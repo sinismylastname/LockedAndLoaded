@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbvax6hceurff"]
+
+[ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_pucbo"]
+[ext_resource type="Script" uid="uid://rb71kkhkumo5" path="res://scenes/sniper_player.gd" id="2_163gr"]
+
+[node name="Player" instance=ExtResource("1_pucbo")]
+script = ExtResource("2_163gr")

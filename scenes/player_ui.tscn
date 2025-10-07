@@ -88,3 +88,9 @@ offset_right = -0.4880371
 offset_bottom = 0.1289978
 text = "WAVE 3"
 label_settings = SubResource("LabelSettings_jkj6h")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(1, 1, 1, 0.44313726)
