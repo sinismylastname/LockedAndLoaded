@@ -92,6 +92,7 @@ func takeDamage(damageAmount):
 		print("holy crap you just parried")
 		#add shader effects here (might just steal it from my Skateboard Sacrifice game honestly, that effect was so fire).
 		#also add the logic here, might emit a signal tbh. actually that's probably the best idea
+		#future comment: signal was NOT the best idea lol, just use an area2d you stupid idiot
 		#actually should it be in my global?? maybe?? actually maybe not??? idk.
 	if currentHealth <= 0:
 		emit_signal("playerDied")

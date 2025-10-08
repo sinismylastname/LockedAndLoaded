@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhhbhyxlfk1fs"]
+
+[ext_resource type="Script" uid="uid://pq5r23rvsn5n" path="res://scenes/class_change_ui.gd" id="1_ye64y"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ye64y"]
+font_size = 48
+
+[node name="ClassChangeUI" type="CanvasLayer"]
+script = ExtResource("1_ye64y")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.11372549, 0.11372549, 0.11372549, 0.34901962)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 35.0
+offset_top = 37.0
+offset_right = 391.0
+offset_bottom = 109.0
+text = "change ur class"
+label_settings = SubResource("LabelSettings_ye64y")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 35.0
+offset_top = 146.0
+offset_right = 277.0
+offset_bottom = 255.0
+text = "change to sniper class lol"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

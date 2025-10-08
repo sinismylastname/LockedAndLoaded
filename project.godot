@@ -23,6 +23,7 @@ CRT="*res://scenes/CRT.tscn"
 FortuneManager="*res://fortune_manager.gd"
 UI_Global="*res://ui_global.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+ClassManager="*res://class_manager.gd"
 
 [display]
 
