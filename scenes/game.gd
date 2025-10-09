@@ -10,3 +10,6 @@ func _ready():
 	Global.set_game_references(player_node, upgrade_ui_node)
 	FortuneManager.set_game_references(player_node)
 	UI_Global.set_game_references(player_node, camera_node)
+	
+	var base_class_path = "res://scenes/player.tscn"
+	ClassManager.spawn_player(base_class_path)

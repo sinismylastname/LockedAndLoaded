@@ -2,10 +2,7 @@ extends Node
 
 var current_player : Node
 var player_class_scene : PackedScene
-
-func _ready():
-	var base_class_path = "res://scenes/player.tscn"
-	
+signal player_spawned(player)
 
 func spawn_player(path):
 	player_class_scene = load(path)
@@ -18,6 +15,7 @@ func spawn_player(path):
 		current_player.global_position = Vector2(576.0, 323.0)
 		
 	add_child(current_player)
+	emit_signal("player_spawned", current_player)
 
 func switch_class(new_class_scene_path: String):
 	if current_player:

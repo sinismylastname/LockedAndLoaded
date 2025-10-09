@@ -59,6 +59,8 @@ signal parried
 @onready var playerAnimator = $Animator
 @onready var parry_hitbox = $ParryHitbox
 
+
+
 func update_stats():
 	var fire_level = Global.upgrades["fire_rate_level"] #1
 	finalFireRate = baseFireRate - (fire_level * baseFireRateReduction)
