@@ -145,17 +145,6 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	update_stats()
 	currentHealth = finalHealth
-
-func _notification(what):
-	if what == NOTIFICATION_PAUSED:
-		print("Game paused")
-		savedRotationSpeed = currentRotationSpeed
-		currentRotationSpeed = 0.0
-	elif what == NOTIFICATION_UNPAUSED:
-		print("Game resumed")
-		currentRotationSpeed = savedRotationSpeed
-		if rDir == 0:
-			rDir = 1  # or whatever the last valid direction was
 			
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("changeDir"):
@@ -233,6 +222,21 @@ func apply_health_upgrade():
 	currentHealth += health_gain 
 	currentHealth = min(currentHealth, finalHealth)
 	emit_signal("healthUpdated", currentHealth)
+
+func get_state() -> Dictionary:
+	return {
+		"health": currentHealth,
+		"upgrades": Global.upgrades.duplicate(true),
+		"position": global_position
+	}
+
+func apply_state(state: Dictionary):
+	if state.has("health"):
+		currentHealth = state["health"]
+	if state.has("upgrade"):
+		Global.upgrades = state["upgrades"].duplicate(true)
+	if state.has("position"):
+		global_position = state["position"]
 
 func _process(delta):
 	if get_tree().is_paused():
