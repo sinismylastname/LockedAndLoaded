@@ -1,4 +1,7 @@
 extends CanvasLayer
 
+var sniper_class_path = "res://scenes/SniperPlayer.tscn"
+
+
 func _on_button_pressed() -> void:
-	pass # Replace with function body.
+	ClassManager.switch_class(sniper_class_path)

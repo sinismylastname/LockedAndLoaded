@@ -59,8 +59,7 @@ signal parried
 @onready var playerAnimator = $Animator
 @onready var parry_hitbox = $ParryHitbox
 
-
-
+ 
 func update_stats():
 	var fire_level = Global.upgrades["fire_rate_level"] #1
 	finalFireRate = baseFireRate - (fire_level * baseFireRateReduction)
@@ -229,7 +228,8 @@ func get_state() -> Dictionary:
 	return {
 		"health": currentHealth,
 		"upgrades": Global.upgrades.duplicate(true),
-		"position": global_position
+		"position": global_position,
+		"rotation": rotation
 	}
 
 func apply_state(state: Dictionary):
@@ -239,6 +239,9 @@ func apply_state(state: Dictionary):
 		Global.upgrades = state["upgrades"].duplicate(true)
 	if state.has("position"):
 		global_position = state["position"]
+	if state.has("rotation"):
+		rotation = state["rotation"]
+	
 
 func _process(delta):
 	if get_tree().is_paused():

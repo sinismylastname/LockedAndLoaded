@@ -14,7 +14,9 @@ func spawn_player(path):
 	else:
 		current_player.global_position = Vector2(576.0, 323.0)
 		
-	add_child(current_player)
+	get_parent().add_child(current_player)   
+	await get_tree().process_frame
+	Global.Player = current_player
 	emit_signal("player_spawned", current_player)
 
 func switch_class(new_class_scene_path: String):
@@ -27,6 +29,8 @@ func switch_class(new_class_scene_path: String):
 		parent.add_child(current_player)
 		current_player.global_position = state["position"]
 		current_player.apply_state(state) 
+		Global.Player = current_player
+		emit_signal("player_spawned", current_player)
 
 func get_current_class():
 	return player_class_scene

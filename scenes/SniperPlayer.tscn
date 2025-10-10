@@ -11,3 +11,6 @@ offset_right = 120.0
 
 [node name="BlasterNode" parent="." index="2"]
 offset_right = 92.0
+
+[node name="Muzzle" parent="." index="7"]
+position = Vector2(96, 0)

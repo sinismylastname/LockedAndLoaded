@@ -7,6 +7,7 @@ signal leveled_up(newLevel)
 signal all_enemies_cleared
 signal wave_started(waveNumber)
 signal game_started
+signal player_changed(new_player)
 
 var enemyCount = 0
 var enemiesToSpawn = 10
@@ -20,7 +21,13 @@ var currentLevel = 1
 var currentXP = 0
 var XPNeeded = 100
 
-var Player = null
+var _player = null
+var Player:
+	get:
+		return _player
+	set(value):
+		_player = value
+		emit_signal("player_changed", _player)
 var UpgradeUI = null
 var CRTEffect = false
 

@@ -8,4 +8,6 @@ func _ready():
 	super._ready()
 	finalFireRate *= 0.5
 	finalDamage *= 2
+	finalBulletPierce += 1
+	finalBulletSpeed *= 3
 	finalHealth *= 0.75

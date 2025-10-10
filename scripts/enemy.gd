@@ -6,7 +6,7 @@ var health = Global.enemyHP
 var knockback_vector = Vector2.ZERO
 var knockback_timer = 0.0
 const KNOCKBACK_DURATION = 0.15
-@onready var player = get_tree().get_root().find_child("Player", true, false)
+var player = null
 
 func apply_knockback(direction_vector: Vector2, force: float):
 	knockback_vector = direction_vector * force
@@ -14,6 +14,11 @@ func apply_knockback(direction_vector: Vector2, force: float):
 
 func _ready():
 	Global.increaseEnemyCount()
+	Global.connect("player_changed", Callable(self, "_on_player_changed"))
+	_on_player_changed(Global.Player) # initialize immediately
+
+func _on_player_changed(new_player):
+	player = new_player
 
 func enemyDied():
 	AudioGlobal.play_death()
@@ -26,10 +31,9 @@ func takeDamage(damageAmount):
 	AudioGlobal.play_hurt()
 	UI_Global.add_shake(0.1)
 	health -= damageAmount
-	#print(health)
 	if health <= 0:
 		enemyDied()
-		
+
 func _process(delta: float) -> void:
 	if knockback_timer > 0:
 		global_position += knockback_vector * delta

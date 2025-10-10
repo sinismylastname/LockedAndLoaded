@@ -1,10 +1,14 @@
 extends CanvasLayer
 
+var Player = null
 
 func _ready() -> void:
-	var Player = get_tree().get_root().find_child("Player", true, false)
-	Player.connect("playerDied", _on_player_died)
+	Player = get_tree().get_root().find_child("Player", true, false)
+	ClassManager.connect("player_spawned", Callable(self, "_on_player_spawned"))
 	visible = false
+
+func _on_player_spawned(player):
+	player.connect("playerDied", Callable(self, "_on_player_died"))
 
 func _on_player_died():
 	visible = true
