@@ -13,7 +13,7 @@ offset_left = -20.0
 offset_top = -16.0
 offset_right = 20.0
 offset_bottom = 24.0
-color = Color(1, 0.3014981, 0.22307697, 1)
+color = Color(0.9307529, 0.08098643, 3.272891e-06, 1)
 
 [node name="ColorRect" type="ColorRect" parent="ColorRect"]
 layout_mode = 0
@@ -21,7 +21,7 @@ offset_left = 36.0
 offset_top = 12.0
 offset_right = 60.0
 offset_bottom = 28.0
-color = Color(1, 0.3014981, 0.22307697, 1)
+color = Color(0.9029328, 0.07714788, 3.272891e-06, 1)
 
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)

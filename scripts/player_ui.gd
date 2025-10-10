@@ -3,6 +3,7 @@ extends CanvasLayer
 @onready var healthBar = $HealthBarUI
 @onready var enemyCounter = $EnemyCount
 @onready var wave_notification = $WaveNotification
+@onready var xp_bar = $XPBAR
 var Player = null
 
 func _ready():
@@ -12,6 +13,7 @@ func _ready():
 	enemyCounter.text = "Enemies: %d" % Global.enemyCount
 	Global.wave_started.connect(_on_wave_started) 
 	Global.connect("player_changed", Callable(self, "_on_player_changed"))
+	Global.connect("xp_changed", Callable(self, "_on_player_xp_changed"))
 	_on_player_changed(Global.Player)
 
 func connect_player_signals():
@@ -35,7 +37,12 @@ func _on_player_fire_rate_changed(newFiringRate):
 func _on_player_health_changed(health):
 	healthBar.max_value = Global.Player.finalHealth
 	healthBar.value = health
+
+func _on_player_xp_changed(xp):
+	xp_bar.max_value = Global.XPNeeded
+	xp_bar.value = Global.currentXP
 	
+
 func _on_player_changed(new_player):
 	Player = new_player
 

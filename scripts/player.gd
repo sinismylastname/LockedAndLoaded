@@ -9,8 +9,7 @@ var lastArrowDirection = 0.0
 var rotationAccel = 5.0
 var currentRotationSpeed = 0.0
 var savedRotationSpeed = 0.0
-var iFrameSeconds = 0.5
-var bullet = preload("res://scenes/bullet.tscn")
+var projectile = preload("res://scenes/projectiles/bullet.tscn")
 
 var finalFireRate
 var finalBulletSpeed
@@ -61,29 +60,36 @@ signal parried
 
  
 func update_stats():
-	var fire_level = Global.upgrades["fire_rate_level"] #1
+	var fire_level = Global.upgrades["fire_rate_level"]
 	finalFireRate = baseFireRate - (fire_level * baseFireRateReduction)
 	fireTimer.wait_time = max(0.020, finalFireRate)
 	emit_signal("fireRateChanged", fireTimer.wait_time)
 	
-	var range_level = Global.upgrades["bullet_range_level"] #2
+	var range_level = Global.upgrades["bullet_range_level"]
 	finalBulletSpeed = baseBulletSpeed + (range_level * baseSpeedAddition)
 	finalBulletLifetime = baseBulletLifetime + (range_level * baseBulletLifetimeAddition)
 	
-	var health_level = Global.upgrades["health_level"]#3
+	var health_level = Global.upgrades["health_level"]
 	finalHealth = baseHealth + (health_level * baseHealthAddition)
 	
-	var power_level = Global.upgrades["bullet_power_level"] #4
+	var power_level = Global.upgrades["bullet_power_level"]
 	finalDamage = baseDamage + (power_level * baseDamageAddition)
 	finalBulletSize = baseBulletSize + (power_level * baseBulletSizeAddition)
 	
-	var pierce_level = Global.upgrades["bullet_pierce_level"] #5
+	var pierce_level = Global.upgrades["bullet_pierce_level"]
 	finalBulletPierce = basePierce + (pierce_level * basePierceAddition)
 	
-	var rotation_level = Global.upgrades["rotation_speed_level"] #6
+	var rotation_level = Global.upgrades["rotation_speed_level"]
 	finalRotationSpeed = baseRotationSpeed + (rotation_level * baseRotationSpeedAddition)
 	
+	apply_class_modifiers() #New line
+
 	emit_signal("healthUpdated", currentHealth)
+
+
+func apply_class_modifiers():
+	# Placeholder; subclasses override this.
+	pass
 
 func takeDamage(damageAmount):
 	AudioGlobal.play_hurt()
@@ -124,7 +130,7 @@ func get_closest_target() -> Node2D:
 func fireProjectile():
 	playerAnimator.play("fire")
 	AudioGlobal.play_default_shoot_sound()
-	var projectile = bullet.instantiate()
+	var projectile = projectile.instantiate()
 	projectile.setRotation(rotation)
 	get_tree().root.add_child(projectile)
 	

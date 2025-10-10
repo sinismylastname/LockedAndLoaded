@@ -24,14 +24,17 @@ func enemyDied():
 	AudioGlobal.play_death()
 	Global.decrease_enemy_count()
 	Global.addXP(25)
+	Global.emit_signal("xp_changed", 25)
 	UI_Global.add_shake(0.2)
 	queue_free()
 
 func takeDamage(damageAmount):
+	if !is_inside_tree(): 
+		return
 	AudioGlobal.play_hurt()
 	UI_Global.add_shake(0.1)
 	health -= damageAmount
-	if health <= 0:
+	if health <= 0 and is_inside_tree():
 		enemyDied()
 
 func _process(delta: float) -> void:

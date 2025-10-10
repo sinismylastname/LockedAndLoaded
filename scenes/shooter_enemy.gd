@@ -13,7 +13,7 @@ const MIN_SHOOTING_DISTANCE = 300
 @onready var player = get_tree().get_root().find_child("Player", true, false)
 @onready var fireTimer = $FireTimer 
 @onready var Muzzle = $Muzzle 
-var enemy_projectile = preload("res://scenes/enemy_projectile.tscn")
+var enemy_projectile = preload("res://scenes/projectiles/enemy_projectile.tscn")
 const FIRE_RATE = 2.0 
 const PROJECTILE_SPEED = 300
 
@@ -26,6 +26,7 @@ func enemyDied():
 	AudioGlobal.play_death()
 	Global.decrease_enemy_count()
 	Global.addXP(50) 
+	Global.emit_signal("xp_changed", 50)
 	queue_free()
 
 func takeDamage(damageAmount):

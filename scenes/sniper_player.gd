@@ -4,8 +4,7 @@ extends "res://scripts/player.gd"
 #also add faster spinning and stronger aim assist power?
 #i mean i want it to freakin snipe, but should i give it infinite pierce? seems like it'd be freakin op
 
-func _ready():
-	super._ready()
+func apply_class_modifiers():
 	finalFireRate *= 0.5
 	finalDamage *= 2
 	finalBulletPierce += 1

@@ -3,11 +3,13 @@ extends Node
 signal upgrade_points_changed(new_points)
 signal upgrade_menu_open
 signal enemy_count_changed(newCount)
+signal xp_changed(xp)
 signal leveled_up(newLevel)
 signal all_enemies_cleared
 signal wave_started(waveNumber)
 signal game_started
 signal player_changed(new_player)
+signal upgrade_continue(boolean)
 
 var enemyCount = 0
 var enemiesToSpawn = 10
@@ -60,6 +62,7 @@ func level_up():
 	upgradePoints += 5
 	upgrade_menu_open.emit()
 	leveled_up.emit(currentLevel)
+	upgrade_continue.emit(false)
 
 func next_wave():
 	waveNumber += 1
@@ -76,10 +79,10 @@ func increaseEnemyCount():
 	enemy_count_changed.emit(enemyCount)
 
 func decrease_enemy_count():
-	enemyCount -= 1
+	enemyCount = max(enemyCount - 1, 0)
 	enemy_count_changed.emit(enemyCount)
 	
-	if enemyCount == 0 and enemiesSpawned == enemiesToSpawn:
+	if enemyCount <= 0 and enemiesSpawned >= enemiesToSpawn:
 		all_enemies_cleared.emit()
 	
 func apply_upgrade(stat_name: String):

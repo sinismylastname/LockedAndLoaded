@@ -1,36 +1,60 @@
-# bullet.gd
 extends Area2D
- 
+
 var speed = 0.0
 var damage = 0
-var bullet_lifetime = 0.0 
+var bullet_lifetime = 0.0
 var bullet_rotation = 0.0
-var direction = Vector2.ZERO 
-var size = 1.0 
+var direction = Vector2.ZERO
+var size = 1.0
 var pierce = 1
 
+var life_timer = 0.0
+var fade_ratio = 0.3 
+var fade_start_time = 0.0
+
+@onready var sprite = $ColorRect
 @onready var bulletLife = $bulletLifespan
 
-# --- FIX: New function to receive all stats from the Player ---
 func set_bullet_stats(new_speed, new_damage, new_lifetime, new_size, new_pierce):
 	speed = new_speed
 	damage = new_damage
 	bullet_lifetime = new_lifetime
 	pierce = new_pierce
-	scale = Vector2(new_size, new_size) 
-
-func _ready() -> void:
+	size = new_size
+	scale = Vector2(size, size)
+	
+	life_timer = bullet_lifetime
+	fade_start_time = bullet_lifetime * (1.0 - fade_ratio)
 	bulletLife.start(bullet_lifetime)
+
 
 func setDirection(newDirection):
 	direction = newDirection
-	
+
 func setRotation(newRotation):
-	bullet_rotation = newRotation 
+	bullet_rotation = newRotation
 
 func _process(delta):
-	position += direction * speed * delta
+	life_timer -= delta
+	var elapsed = bullet_lifetime - life_timer
+
+	if elapsed >= fade_start_time:
+		var fade_t = (elapsed - fade_start_time) / (bullet_lifetime - fade_start_time)
+		fade_t = clamp(fade_t, 0.0, 1.0)
+
+		var alpha = 1.0 - fade_t
+		sprite.modulate.a = alpha
+
+		var speed_factor = lerp(1.0, 0.3, fade_t)
+		var size_factor = lerp(1.0, 0.2, fade_t)
+
+		position += direction * (speed * speed_factor) * delta
+		scale = Vector2(size, size) * size_factor
+	else:
+		position += direction * speed * delta
+
 	rotation = bullet_rotation
+
 
 func _on_bullet_lifespan_timeout() -> void:
 	queue_free()
