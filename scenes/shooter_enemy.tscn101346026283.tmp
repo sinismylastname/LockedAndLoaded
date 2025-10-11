@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://ca564xg8473wv"]
+
+[ext_resource type="Script" uid="uid://dqitaxiacratd" path="res://scenes/shooter_enemy.gd" id="1_id4l2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_id4l2"]
+size = Vector2(32, 32)
+
+[node name="shooter_enemy" type="Area2D" groups=["enemies"]]
+script = ExtResource("1_id4l2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -20.0
+offset_top = -16.0
+offset_right = 20.0
+offset_bottom = 24.0
+color = Color(0.9307529, 0.08098643, 3.272891e-06, 1)
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 12.0
+offset_right = 60.0
+offset_bottom = 28.0
+color = Color(0.9029328, 0.07714788, 3.272891e-06, 1)
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_id4l2")
+
+[node name="EnemyBody" type="ColorRect" parent="."]
+offset_left = -16.0
+offset_top = -12.0
+offset_right = 16.0
+offset_bottom = 20.0
+color = Color(0.9999997, 0.23772821, 0.055679277, 1)
+
+[node name="Blaster" type="ColorRect" parent="."]
+offset_left = 16.0
+offset_right = 36.0
+offset_bottom = 8.0
+color = Color(0.9999997, 0.23772821, 0.055679277, 1)
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(52, 16)
+
+[node name="FireTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]

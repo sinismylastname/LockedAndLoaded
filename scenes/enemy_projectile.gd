@@ -17,10 +17,6 @@ func _process(delta: float) -> void:
 	timer += delta
 	if timer >= LIFESPAN:
 		queue_free()
-
-func _on_area_entered(area: Area2D):
-	if area.is_in_group("shield"):
-		queue_free() 
 		
 func _on_body_entered(body: Node2D):
 	if body.is_in_group("player"):

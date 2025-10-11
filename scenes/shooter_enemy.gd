@@ -12,7 +12,7 @@ const MIN_SHOOTING_DISTANCE = 300
 # SHOOTER VARIABLES
 @onready var player = get_tree().get_root().find_child("Player", true, false)
 @onready var fireTimer = $FireTimer 
-@onready var Muzzle = $Muzzle 
+@onready var Muzzle = $Muzzle
 var enemy_projectile = preload("res://scenes/projectiles/enemy_projectile.tscn")
 const FIRE_RATE = 2.0 
 const PROJECTILE_SPEED = 300

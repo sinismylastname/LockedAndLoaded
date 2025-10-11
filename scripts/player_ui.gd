@@ -8,7 +8,6 @@ var Player = null
 
 func _ready():
 	call_deferred("connect_player_signals")
-	
 	Global.enemy_count_changed.connect(on_enemy_count_changed)
 	enemyCounter.text = "Enemies: %d" % Global.enemyCount
 	Global.wave_started.connect(_on_wave_started) 

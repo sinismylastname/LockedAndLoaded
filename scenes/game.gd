@@ -1,6 +1,5 @@
 extends Node2D
 
-@onready var player_node = $Player
 @onready var camera_node = $Camera2D
 @onready var upgrade_ui_node = $upgradeMenu
 @onready var wave_tracker = $WaveManager

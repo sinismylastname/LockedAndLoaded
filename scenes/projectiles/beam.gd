@@ -9,6 +9,7 @@ var size = 1.0
 var pierce = 1
 
 @onready var beam_life = $BeamLifespan
+@onready var sprite = $ColorRect
 
 func set_bullet_stats(new_damage, new_lifetime, new_pierce):
 	damage = new_damage
@@ -26,6 +27,11 @@ func setRotation(newRotation):
 
 func _process(delta):
 	rotation = beam_rotation
+	var beam_time = beam_lifetime
+	beam_time -= delta
+	
+	var alpha = 1.0 - beam_time/delta
+	sprite.modulate.a = alpha
 
 func _on_bullet_lifespan_timeout() -> void:
 	call_deferred("queue_free")
