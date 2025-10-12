@@ -41,11 +41,13 @@ func _process(delta: float) -> void:
 	var rot = 0.0
 
 	if shake_amount > 0.0:
+		print("shake_amount:", shake_amount)
 		shake_amount = max(shake_amount - decay * delta, 0)
 		var result = shake()
 		offset = result[0]
 		rot = result[1]
 		noise_y += delta * 20.0
-
-	Camera.global_position = Player.global_position + offset
-	Camera.rotation = rot
+	
+	if Player:
+		Camera.global_position = Player.global_position + offset
+	
