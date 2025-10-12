@@ -34,12 +34,17 @@ func _on_player_fire_rate_changed(newFiringRate):
 	pass
 
 func _on_player_health_changed(health):
+	if !is_instance_valid(Global.Player):
+		return
+	if Global.Player.finalHealth == null:
+		return
 	healthBar.max_value = Global.Player.finalHealth
 	healthBar.value = health
 
 func _on_player_xp_changed(xp):
-	xp_bar.max_value = Global.XPNeeded
-	xp_bar.value = Global.currentXP
+	var new_value = Global.currentXP
+	var tween = create_tween()
+	tween.tween_property(xp_bar, "value", new_value, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
 
 func _on_player_changed(new_player):

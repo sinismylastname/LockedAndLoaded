@@ -149,10 +149,10 @@ func fireProjectile():
 	projectile.setDirection(directionVector)
 	
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
 	update_stats()
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	currentHealth = finalHealth
-			
+	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("changeDir"):
 		if get_tree().is_paused():

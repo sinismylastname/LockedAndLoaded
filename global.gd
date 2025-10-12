@@ -44,6 +44,32 @@ var upgrades = {
 
 var upgradePoints = 0
 
+func reset_game():
+	upgrades["bullet_power_level"] = 0
+	upgrades["bullet_range_level"] = 0
+	upgrades["bullet_pierce_level"] = 0
+	upgrades["rotation_speed_level"] = 0
+	upgrades["fire_rate_level"] = 0
+	upgrades["health_level"] = 0
+	
+	upgradePoints = 0
+	currentLevel = 1
+	currentXP = 0
+	XPNeeded = 100
+	
+	waveNumber = 1
+	enemiesToSpawn = 10
+	enemiesSpawned = 0
+	enemyCount = 0
+	enemyHP = 10
+	enemySpeed = 50
+	spawnTime = 1.0
+	
+	ClassManager.connect("player_spawned", Callable(self, "_on_player_spawned"))
+	var base_class_path = "res://scenes/player.tscn"
+	ClassManager.spawn_player(base_class_path)
+	get_tree().paused = false
+
 func set_game_references(player_node, ui_node):
 	Player = player_node
 	UpgradeUI = ui_node

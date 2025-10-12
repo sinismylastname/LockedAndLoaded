@@ -62,3 +62,4 @@ text = "Play Again (nonfunctional)"
 script = ExtResource("2_wqhvx")
 
 [connection signal="pressed" from="Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="PlayAgain" to="PlayAgain" method="_on_pressed"]

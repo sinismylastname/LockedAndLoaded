@@ -3,6 +3,7 @@ extends Control
 @onready var volumeSlider = $VolumeSlider
 
 func _ready():
+	$CRTToggle/CRTButton.button_pressed = false
 	var master_bus_idx = AudioServer.get_bus_index("Master")
 	var initialVolume = AudioServer.get_bus_volume_db(master_bus_idx)
 	volumeSlider.value = initialVolume
@@ -25,4 +26,10 @@ func _on_crt_button_toggled(toggled_on: bool) -> void:
 	if toggled_on == true:
 		Global.CRTEffect = true
 	elif toggled_on == false:
+		Global.CRTEffect = false
+
+func _process(delta: float) -> void:
+	if $CRTToggle/CRTButton.button_pressed == true:
+		Global.CRTEffect = true
+	else: 
 		Global.CRTEffect = false

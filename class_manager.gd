@@ -29,7 +29,10 @@ func switch_class(new_class_scene_path: String):
 		parent.add_child(current_player)
 		current_player.global_position = state["position"]
 		current_player.apply_state(state) 
+		current_player.update_stats()
+		current_player.currentHealth = current_player.finalHealth
 		Global.Player = current_player
+		
 		emit_signal("player_spawned", current_player)
 
 func get_current_class():

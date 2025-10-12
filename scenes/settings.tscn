@@ -127,7 +127,6 @@ offset_top = 0.0046629906
 offset_right = -22.044022
 offset_bottom = -11.996689
 scale = Vector2(1.5, 1.5)
-button_pressed = true
 
 [connection signal="value_changed" from="VolumeSlider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

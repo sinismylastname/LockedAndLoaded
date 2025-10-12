@@ -97,9 +97,9 @@ offset_right = -5.0240173
 offset_bottom = 20.179993
 text = "Controls: 
 Press Spacebar to change rotation
-Hold Spacebar to hold rotation
-Double tap Spacebar for a shield 
-that can knock enemies back"
+Hold Spacebar to pause rotation
+Double tap Spacebar to parry 
+enemies away"
 label_settings = SubResource("LabelSettings_ekxnf")
 
 [connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]

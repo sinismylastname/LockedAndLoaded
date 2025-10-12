@@ -5,11 +5,8 @@ extends Node2D
 @onready var wave_tracker = $WaveManager
 
 func _ready():
-	ClassManager.connect("player_spawned", Callable(self, "_on_player_spawned"))
-	
-	var base_class_path = "res://scenes/player.tscn"
-	ClassManager.spawn_player(base_class_path)
-	
+	CRT.visible = Global.CRTEffect
+	Global.reset_game()
 
 func _on_player_spawned(player):
 	Global.set_game_references(player, $upgradeMenu)
