@@ -11,7 +11,7 @@ func _ready() -> void:
 func _upgrade_continue(bool):
 	print("gonna show up!!")
 	if bool == true:
-		if Global.currentLevel == 2:
+		if Global.currentLevel == 8:
 			await get_tree().process_frame
 			visible = true
 			get_tree().paused = true

@@ -7,10 +7,14 @@ const DEFAULT_SHOOT_SOUND = preload("res://sounds/laserShoot.wav")
 const MAIN_MENU_SONG = preload("res://sounds/mainMenu.mp3") #sick bgm for the main menu btw it's so awesome (heh im so cool heh)
 const GAME_SONG = preload("res://sounds/placeholderGameSong.mp3")
 const PARRY_SOUND = preload("res://sounds/parry_sound.wav")
+const STARTUP_SOUND = preload("res://sounds/startupSound.mp3")
 
 var bgm_player = AudioStreamPlayer.new()
 
 func _ready():
+	pass
+
+func play_main_menu():
 	add_child(bgm_player)
 	bgm_player.stream = MAIN_MENU_SONG
 	bgm_player.play()
@@ -36,3 +40,6 @@ func play_default_shoot_sound():
 
 func play_parry():
 	play_sfx(PARRY_SOUND)
+
+func play_start_up():
+	play_sfx(STARTUP_SOUND)

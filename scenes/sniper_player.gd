@@ -9,7 +9,7 @@ func _ready() -> void:
 
 func apply_class_modifiers():
 	super.apply_class_modifiers()
-	finalFireRate *= 0.4
+	finalFireRate *= 0.2
 	finalDamage *= 1.25
 	finalBulletPierce += 999999
 	finalHealth *= 0.5

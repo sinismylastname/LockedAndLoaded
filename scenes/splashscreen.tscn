@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvjnoj5m13vnx"]
+
+[ext_resource type="FontFile" uid="uid://bdct0vp2h6jh6" path="res://fonts/Lnlfont-Regular.ttf" id="1_1u6fw"]
+[ext_resource type="Script" uid="uid://cht4dum7iw2vc" path="res://scripts/splashscreen.gd" id="1_jnvd6"]
+[ext_resource type="PackedScene" uid="uid://2yvq6yiiep7y" path="res://scenes/main_menu.tscn" id="2_vtbok"]
+[ext_resource type="Texture2D" uid="uid://cmio7bg7cpxse" path="res://images/SpeedyShibaShipper.png" id="4_vtbok"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vtbok"]
+font_size = 48
+outline_size = 9
+outline_color = Color(0.25118297, 0.4181331, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1tst7"]
+font = ExtResource("1_1u6fw")
+font_size = 48
+outline_size = 9
+outline_color = Color(0.76933354, 0.22708786, 0, 1)
+
+[node name="Splash" type="Control" node_paths=PackedStringArray("splash_screen_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jnvd6")
+load_scene = ExtResource("2_vtbok")
+fade_in_time = 0.5
+fade_out_time = 0.5
+splash_screen_container = NodePath("Node")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Node" type="Control" parent="."]
+anchors_preset = 0
+
+[node name="MadeByME" type="Label" parent="Node"]
+visible = false
+layout_mode = 0
+offset_left = 286.0
+offset_top = 251.0
+offset_right = 873.0
+offset_bottom = 352.0
+theme_override_font_sizes/font_size = 48
+text = "MADE BY 
+SINISMYLASTNAME"
+label_settings = SubResource("LabelSettings_vtbok")
+horizontal_alignment = 1
+
+[node name="MADEFORSHIBA" type="Label" parent="Node"]
+visible = false
+layout_mode = 0
+offset_left = 329.0
+offset_top = 251.0
+offset_right = 845.0
+offset_bottom = 404.0
+theme_override_font_sizes/font_size = 48
+text = "MADE FOR
+SHIBA 
+HACKCLUB"
+label_settings = SubResource("LabelSettings_1tst7")
+
+[node name="SpeedyShibaShipper" type="TextureRect" parent="Node/MADEFORSHIBA"]
+layout_mode = 0
+offset_left = 317.0
+offset_top = -63.0
+offset_right = 829.0
+offset_bottom = 449.0
+rotation = 0.10471976
+scale = Vector2(0.43945313, 0.43945313)
+texture = ExtResource("4_vtbok")

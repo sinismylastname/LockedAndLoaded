@@ -4,6 +4,9 @@ extends Control
 @onready var settingsButton = $SettingsButton
 @onready var exitButton = $ExitButton
 
+func _ready() -> void:
+	AudioGlobal.play_main_menu()
+
 func _on_play_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
 	

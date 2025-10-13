@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SWAP_TIMEOUT = 0.15
+const SWAP_TIMEOUT = 0.2
 var last_space_press_time = 0.0
 
 var rDir = 1
