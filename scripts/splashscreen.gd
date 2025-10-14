@@ -21,11 +21,10 @@ func get_screens() -> void:
 		screen.visible = true
 		screen.modulate.a = 0.0
 		
-
-func _skip_screens(event: InputEvent) -> void:
+func _input(event):
 	if event.is_pressed():
 		get_tree().change_scene_to_packed(load_scene)
-
+		
 func fade() -> void:
 	for screen in splash_screens:
 		var tween = self.create_tween()
