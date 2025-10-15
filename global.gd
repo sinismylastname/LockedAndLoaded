@@ -93,10 +93,10 @@ func level_up():
 func next_wave():
 	waveNumber += 1
 	enemiesSpawned = 0
-	enemiesToSpawn += 2 
-	spawnTime -= 0.05
-	enemyHP += 5
-	enemySpeed += 5
+	enemiesToSpawn += randi_range(1, 4) 
+	spawnTime -= 0.075
+	enemyHP += 2.5
+	enemySpeed += 2.5
 	
 	wave_started.emit(waveNumber)
 

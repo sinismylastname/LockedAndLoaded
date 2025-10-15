@@ -13,7 +13,8 @@ const MIN_SHOOTING_DISTANCE = 300
 @onready var player = get_tree().get_root().find_child("Player", true, false)
 @onready var fireTimer = $FireTimer 
 @onready var Muzzle = $Muzzle
-var enemy_projectile = preload("res://scenes/projectiles/enemy_projectile.tscn")
+@onready var death_particles_scene = preload("res://scenes/death_particles.tscn")
+@onready var enemy_projectile = preload("res://scenes/projectiles/enemy_projectile.tscn")
 const FIRE_RATE = 2.0 
 const PROJECTILE_SPEED = 300
 
@@ -23,10 +24,17 @@ func _ready():
 	fireTimer.stop()
 
 func enemyDied():
+	UI_Global.add_shake(0.2)
 	AudioGlobal.play_death()
 	Global.decrease_enemy_count()
-	Global.addXP(50) 
-	Global.emit_signal("xp_changed", 50)
+	Global.addXP(50)
+	Global.emit_signal("xp_changed", 25)
+	
+	var particles = death_particles_scene.instantiate()
+	particles.global_position = global_position
+	particles.modulate = Color(1.0, 0.267, 0.0, 1.0)
+	get_tree().current_scene.add_child(particles)
+	particles.emitting = true
 	queue_free()
 
 func takeDamage(damageAmount):

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0i5xxnhbhjre"]
+
+[ext_resource type="PackedScene" uid="uid://cohiqpndtgam" path="res://scenes/enemy.tscn" id="1_vfn1x"]
+[ext_resource type="Script" uid="uid://c0yad00i45blg" path="res://tanky_enemy.gd" id="2_scss8"]
+
+[node name="TankyEnemy" instance=ExtResource("1_vfn1x")]
+script = ExtResource("2_scss8")
+
+[node name="ColorRect2" parent="." index="1"]
+offset_left = -28.0
+offset_top = -28.0
+offset_right = 28.0
+offset_bottom = 28.0
+color = Color(0.4514988, 0.15395662, 0.45280796, 1)
+
+[node name="ColorRect" parent="." index="2"]
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+color = Color(0.61761814, 0.15518934, 0.9997875, 1)

@@ -56,7 +56,7 @@ offset_right = 1442.6666
 offset_bottom = 794.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.07378516, 0.017333388, 0.06152294, 1)
 
 [node name="LAYER2" type="Control" parent="."]
 anchors_preset = 0
@@ -143,10 +143,10 @@ anchor_left = 0.016
 anchor_top = 0.688
 anchor_right = 0.36200002
 anchor_bottom = 0.96500003
-offset_left = 502.36
-offset_top = 337.48
-offset_right = 1076.52
-offset_bottom = 503.4
+offset_left = 481.36
+offset_top = 364.48
+offset_right = 1055.52
+offset_bottom = 530.4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_8ln24")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_5dd4i")
@@ -160,6 +160,7 @@ horizontal_alignment = 3
 autowrap_mode = 3
 
 [node name="FadeRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0

@@ -30,6 +30,7 @@ func enemyDied():
 	
 	var particles = death_particles_scene.instantiate()
 	particles.global_position = global_position
+	particles.modulate = Color(0.965, 0.0, 0.0, 1.0)
 	get_tree().current_scene.add_child(particles)
 	particles.emitting = true
 	queue_free()

@@ -19,23 +19,24 @@ var finalBulletPierce
 var finalRotationSpeed
 var finalBulletLifetime
 var finalBulletSize
+var finalAimAssist
 var currentHealth = 0.0
 
 const baseFireRate = 1.0
 const baseFireRateReduction = 0.04
 const baseBulletSpeed = 500
-const baseSpeedAddition = 50
+const baseSpeedAddition = 25
 const baseBulletDamage = 10
 const baseHealth = 100
-const baseHealthAddition = 10
+const baseHealthAddition = 25
 const baseDamage = 10
 const baseDamageAddition = 2.5
-const basePierce = 0
+const basePierce = 1
 const basePierceAddition = 1
 const baseRotationSpeed = 2
-const baseRotationSpeedAddition = 0.5
+const baseRotationSpeedAddition = 0.25
 const baseBulletLifetime = 0.5
-const baseBulletLifetimeAddition = 0.25
+const baseBulletLifetimeAddition = 0.1
 const baseBulletSize = 1
 const baseBulletSizeAddition = 0.2
 const AIM_ASSIST_RANGE = 400
@@ -152,6 +153,7 @@ func _ready() -> void:
 	update_stats()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	currentHealth = finalHealth
+	$ParryCircle.visible = false
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("changeDir"):
@@ -186,15 +188,30 @@ func _start_parry():
 	parry_on_cooldown = true
 	print("PARRY ACTIVE")
 	parry_hitbox.monitoring = true
+	$ParryCircle.visible = true
 	
 	await get_tree().create_timer(PARRY_WINDOW).timeout
 	parry_active = false
 	parry_hitbox.monitoring = false
 	print("PARRY ENDED")
+	$ParryCircle.visible = false
 	
 	await get_tree().create_timer(PARRY_COOLDOWN).timeout
 	parry_on_cooldown = false
 	print("PARRY READY")
+	#_show_parry_ready_pulse()
+	
+func _show_parry_ready_pulse():
+	var sprite = $Sprite.duplicate() #Replace with your sprite node name
+	sprite.modulate = Color(1, 1, 1, 0.4)
+	sprite.scale = Vector2.ONE
+	add_child(sprite)
+	
+	var tween = create_tween()
+	tween.tween_property(sprite, "scale", Vector2(2, 2), 0.1)
+	tween.tween_property(sprite, "modulate:a", 0.0, 0.1)
+	await tween.finished
+	sprite.queue_free()
 	
 func _on_parry_hitbox_area_entered(area: Area2D) -> void:
 	if parry_active and area.is_in_group("enemies"):

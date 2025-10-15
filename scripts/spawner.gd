@@ -4,10 +4,11 @@ var enemyScene = preload("res://scenes/enemy.tscn")
 var shooterEnemyScene = preload("res://scenes/shooter_enemy.tscn")
 
 var speedy_scene = preload("res://scenes/fast_enemy.tscn")
+var tanky_scene = preload("res://scenes/tanky_enemy.tscn")
 var SHOOTER_CHANCE = 0.15
-var SPEEDY_CHANCE = 0.4
+var SPEEDY_CHANCE = 0.3
+var TANKY_CHANCE = 0.3
 
-var SHOOTER_CHANCE = 0.15
 
 @onready var spawnerArea = $SpawnerArea
 @onready var spawnAreaX = spawnerArea.shape.size.x
@@ -24,7 +25,12 @@ func spawnEnemy():
 		get_parent().add_child(newSpeedyEnemy)
 		return
 	
-
+	if randf() < TANKY_CHANCE:
+		var newTankyEnemy = tanky_scene.instantiate()
+		newTankyEnemy.global_position = spawn_position
+		get_parent().add_child(newTankyEnemy)
+		return
+		
 	if Global.waveNumber >= 3:
 		if randf() < SHOOTER_CHANCE:
 			var newShooterEnemy = shooterEnemyScene.instantiate()
