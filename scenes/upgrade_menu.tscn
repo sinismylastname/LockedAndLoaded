@@ -1,0 +1,300 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmwwkeikequqt"]
+
+[ext_resource type="Script" uid="uid://mvf4s3tubf5n" path="res://scripts/upgrade_menu.gd" id="1_e3qxy"]
+[ext_resource type="Script" uid="uid://cpd4dpoo5q4kv" path="res://scripts/ButtonSFX.gd" id="2_ksfom"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ppglw"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_ksfom"]
+font_size = 36
+
+[node name="upgradeMenu" type="CanvasLayer"]
+script = ExtResource("1_e3qxy")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08235294, 0.08235294, 0.08235294, 0.63529414)
+
+[node name="Power" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.30100003
+anchor_right = 0.36100003
+anchor_bottom = 0.35300002
+offset_left = -0.27999878
+offset_top = -92.04802
+offset_right = 0.1279602
+offset_bottom = -92.244
+text = "Bullet Power"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="AddBulletPower" type="Button" parent="Power"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.83900005
+anchor_top = -0.26900002
+anchor_right = 1.0630001
+anchor_bottom = 1.212
+offset_left = 0.054992676
+offset_top = 0.011500359
+offset_right = 0.10494995
+offset_bottom = -0.044006348
+text = "+"
+script = ExtResource("2_ksfom")
+
+[node name="PowerLevelDisplay" type="Label" parent="Power"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.30100003
+anchor_right = 0.36100003
+anchor_bottom = 0.35300002
+offset_left = 263.3
+offset_top = -10.083501
+offset_right = 354.945
+offset_bottom = 21.6745
+text = "#"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="Range" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.43100002
+anchor_right = 0.36100003
+anchor_bottom = 0.48600003
+offset_left = -0.27999878
+offset_top = -92.288025
+offset_right = 0.1279602
+offset_bottom = -91.92801
+text = "Bullet Range"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="AddBulletRange" type="Button" parent="Range"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.83900005
+anchor_top = -0.25
+anchor_right = 1.0630001
+anchor_bottom = 1.128
+offset_left = 0.054992676
+offset_right = 0.10494995
+offset_bottom = 0.11997986
+text = "+"
+script = ExtResource("2_ksfom")
+
+[node name="RangeLevelDisplay" type="Label" parent="Range"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.30100003
+anchor_right = 0.36100003
+anchor_bottom = 0.35300002
+offset_left = 263.3
+offset_top = -10.083501
+offset_right = 354.945
+offset_bottom = 21.6745
+text = "#"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="Pierce" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.73300004
+anchor_right = 0.36100003
+anchor_bottom = 0.785
+offset_left = -0.27999878
+offset_top = -202.98404
+offset_right = 0.1279602
+offset_bottom = -202.68002
+text = "Bullet Pierce"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="AddBulletPierce" type="Button" parent="Pierce"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.83900005
+anchor_top = -0.26500002
+anchor_right = 1.0630001
+anchor_bottom = 1.194
+offset_left = 0.054992676
+offset_top = 0.0099983215
+offset_right = -0.06503296
+offset_bottom = -0.0040130615
+text = "+"
+script = ExtResource("2_ksfom")
+
+[node name="PierceLevelDisplay" type="Label" parent="Pierce"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.30100003
+anchor_right = 0.36100003
+anchor_bottom = 0.35300002
+offset_left = 263.3
+offset_top = -10.083501
+offset_right = 354.945
+offset_bottom = 21.6745
+text = "#"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="Health" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.56200004
+anchor_top = 0.17300001
+anchor_right = 0.77000004
+anchor_bottom = 0.22500001
+offset_left = -486.42407
+offset_top = 242.896
+offset_right = -471.04004
+offset_bottom = 243.2
+text = "Health"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="AddHealth" type="Button" parent="Health"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.83900005
+anchor_top = -0.26500002
+anchor_right = 1.0630001
+anchor_bottom = 1.194
+offset_left = 0.054992676
+offset_top = 0.0099983215
+offset_right = 0.10494995
+offset_bottom = -0.0040130615
+text = "+"
+script = ExtResource("2_ksfom")
+
+[node name="HealthLevelDisplay" type="Label" parent="Health"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.30100003
+anchor_right = 0.36100003
+anchor_bottom = 0.35300002
+offset_left = 263.3
+offset_top = -10.083501
+offset_right = 354.945
+offset_bottom = 21.6745
+text = "#"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="RotationSpeed" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.549
+anchor_top = 0.30100003
+anchor_right = 0.77000004
+anchor_bottom = 0.35300002
+offset_left = -471.448
+offset_top = 242.95198
+offset_right = -471.04004
+offset_bottom = 243.256
+text = "Rotation Speed"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="AddRotationSpeed" type="Button" parent="RotationSpeed"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.83900005
+anchor_top = -0.26500002
+anchor_right = 1.0630001
+anchor_bottom = 1.194
+offset_left = 0.054992676
+offset_top = 0.0099983215
+offset_right = 0.10494995
+offset_bottom = -0.0040130615
+text = "+"
+script = ExtResource("2_ksfom")
+
+[node name="RotationLevelDisplay" type="Label" parent="RotationSpeed"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.30100003
+anchor_right = 0.36100003
+anchor_bottom = 0.35300002
+offset_left = 263.3
+offset_top = -10.083501
+offset_right = 354.945
+offset_bottom = 21.6745
+text = "#"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="Firerate" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.549
+anchor_top = 0.43100002
+anchor_right = 0.78400004
+anchor_bottom = 0.483
+offset_left = -471.448
+offset_top = 242.71198
+offset_right = -487.16803
+offset_bottom = 243.01599
+text = "Firerate"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="AddFirerate" type="Button" parent="Firerate"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.83900005
+anchor_top = -0.26500002
+anchor_right = 1.0630001
+anchor_bottom = 1.0
+offset_left = 0.054992676
+offset_top = 0.0099983215
+offset_right = 0.10494995
+offset_bottom = 6.5919876
+text = "+"
+script = ExtResource("2_ksfom")
+
+[node name="FirerateLevelDisplay" type="Label" parent="Firerate"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.14
+anchor_top = 0.30100003
+anchor_right = 0.36100003
+anchor_bottom = 0.35300002
+offset_left = 263.3
+offset_top = -10.083501
+offset_right = 354.945
+offset_bottom = 21.6745
+text = "#"
+label_settings = SubResource("LabelSettings_ppglw")
+
+[node name="UpgradePoints" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.549
+anchor_top = 0.56200004
+anchor_right = 0.78900003
+anchor_bottom = 0.63900006
+offset_left = -0.44799805
+offset_top = -0.17602539
+offset_right = 0.07196045
+offset_bottom = 0.177948
+text = "Upgrade Points:"
+label_settings = SubResource("LabelSettings_ksfom")
+
+[node name="Continue" type="Button" parent="."]
+anchors_preset = -1
+anchor_left = 0.549
+anchor_top = 0.73300004
+anchor_right = 0.688
+anchor_bottom = 0.82600003
+offset_left = -0.44799805
+offset_top = 0.015960693
+offset_right = 0.4239502
+offset_bottom = -0.24804688
+text = "Continue"
+script = ExtResource("2_ksfom")
+
+[connection signal="pressed" from="Power/AddBulletPower" to="." method="_on_add_bullet_damage_pressed"]
+[connection signal="pressed" from="Range/AddBulletRange" to="." method="_on_add_bullet_lifetime_pressed"]
+[connection signal="pressed" from="Pierce/AddBulletPierce" to="." method="_on_add_bullet_pierce_pressed"]
+[connection signal="pressed" from="Health/AddHealth" to="." method="_on_add_health_pressed"]
+[connection signal="pressed" from="RotationSpeed/AddRotationSpeed" to="." method="_on_add_rotation_speed_pressed"]
+[connection signal="pressed" from="Firerate/AddFirerate" to="." method="_on_add_firerate_pressed"]
+[connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]

@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvjnoj5m13vnx"]
+
+[ext_resource type="FontFile" uid="uid://bdct0vp2h6jh6" path="res://fonts/Lnlfont-Regular.ttf" id="1_1u6fw"]
+[ext_resource type="Script" uid="uid://cht4dum7iw2vc" path="res://scripts/splashscreen.gd" id="1_jnvd6"]
+[ext_resource type="PackedScene" uid="uid://2yvq6yiiep7y" path="res://scenes/main_menu.tscn" id="2_vtbok"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1tst7"]
+font = ExtResource("1_1u6fw")
+font_size = 48
+outline_size = 9
+outline_color = Color(0.09532227, 0.36166865, 1, 1)
+
+[node name="Splash" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jnvd6")
+load_scene = ExtResource("2_vtbok")
+in_time = null
+fade_in_time = null
+pause_time = null
+fade_out_time = null
+out_time = null
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Node" type="Control" parent="."]
+anchors_preset = 0
+
+[node name="TextLabel" type="Label" parent="Node"]
+layout_mode = 0
+offset_left = 275.0
+offset_top = 21.0
+offset_right = 862.0
+offset_bottom = 122.0
+theme_override_font_sizes/font_size = 48
+text = "MADE BY 
+SINISMYLASTNAME"
+label_settings = SubResource("LabelSettings_1tst7")
+horizontal_alignment = 1

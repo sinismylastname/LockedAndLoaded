@@ -1,0 +1,170 @@
+[gd_scene load_steps=18 format=3 uid="uid://2yvq6yiiep7y"]
+
+[ext_resource type="Script" uid="uid://03jbkpkjqktm" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="Script" uid="uid://c0kvv7r267ubi" path="res://scripts/play_button.gd" id="2_bqqt6"]
+[ext_resource type="Script" uid="uid://cpd4dpoo5q4kv" path="res://scripts/ButtonSFX.gd" id="2_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://b281gq37k3p08" path="res://images/title.png" id="2_wu84c"]
+[ext_resource type="FontFile" uid="uid://bdct0vp2h6jh6" path="res://fonts/Lnlfont-Regular.ttf" id="3_8ln24"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ln24"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tbmy8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jk1qb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rtw2f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_flqon"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rcqid"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oa1go"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1ajci"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7b55j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5dd4i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lgwnu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ekxnf"]
+font_size = 30
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6cm7")
+
+[node name="LAYER1" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="background" type="ColorRect" parent="LAYER1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -330.66663
+offset_top = -186.0
+offset_right = 1442.6666
+offset_bottom = 794.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LAYER2" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Sprite2D" parent="LAYER2"]
+texture_filter = 1
+position = Vector2(486.00003, 138)
+scale = Vector2(3.515625, 3.515625)
+texture = ExtResource("2_wu84c")
+
+[node name="LAYER3" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BUTTONS" type="Control" parent="LAYER3"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayButton" type="Button" parent="LAYER3/BUTTONS"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.365
+anchor_top = 0.42700002
+anchor_right = 0.629
+anchor_bottom = 0.514
+offset_left = 25.4
+offset_top = 275.92
+offset_right = 265.84
+offset_bottom = 321.44
+theme_override_fonts/font = ExtResource("3_8ln24")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8ln24")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_tbmy8")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_jk1qb")
+text = "LOCK IN"
+script = ExtResource("2_bqqt6")
+
+[node name="SettingsButton" type="Button" parent="LAYER3/BUTTONS"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.365
+anchor_top = 0.545
+anchor_right = 0.629
+anchor_bottom = 0.63100004
+offset_left = 25.4
+offset_top = 370.2
+offset_right = 328.84
+offset_bottom = 415.76
+theme_override_fonts/font = ExtResource("3_8ln24")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxEmpty_rtw2f")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_flqon")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_rcqid")
+text = "SETTINGS"
+script = ExtResource("2_ekxnf")
+
+[node name="ExitButton" type="Button" parent="LAYER3/BUTTONS"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.365
+anchor_top = 0.66200006
+anchor_right = 0.629
+anchor_bottom = 0.748
+offset_left = 25.4
+offset_top = 470.52
+offset_right = 294.84
+offset_bottom = 516.08
+theme_override_fonts/font = ExtResource("3_8ln24")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxEmpty_oa1go")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_1ajci")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7b55j")
+text = "FREEDOM"
+script = ExtResource("2_ekxnf")
+
+[node name="Controls" type="Label" parent="LAYER3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_top = 0.688
+anchor_right = 0.36200002
+anchor_bottom = 0.96500003
+offset_left = 502.36
+offset_top = 337.48
+offset_right = 1076.52
+offset_bottom = 503.4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_8ln24")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5dd4i")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lgwnu")
+text = "Controls: 
+Press Spacebar to change rotation
+Hold Spacebar to pause rotation
+Double tap Spacebar to parry enemies away"
+label_settings = SubResource("LabelSettings_ekxnf")
+horizontal_alignment = 3
+autowrap_mode = 3
+
+[node name="FadeRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[connection signal="pressed" from="LAYER3/BUTTONS/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="LAYER3/BUTTONS/PlayButton" to="LAYER3/BUTTONS/PlayButton" method="_on_pressed"]
+[connection signal="pressed" from="LAYER3/BUTTONS/SettingsButton" to="." method="_on_settings_button_pressed"]

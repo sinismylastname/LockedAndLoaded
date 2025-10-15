@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://r437i30nv2ic"]
+
+[ext_resource type="PackedScene" uid="uid://cohiqpndtgam" path="res://scenes/enemy.tscn" id="1_7dcje"]
+[ext_resource type="Script" uid="uid://bk8coatksoy1i" path="res://fast_enemy.gd" id="2_lpnxe"]
+
+[node name="FastEnemy" instance=ExtResource("1_7dcje")]
+script = ExtResource("2_lpnxe")
+
+[node name="ColorRect2" parent="." index="1"]
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
+color = Color(0.7372549, 1, 0.043137256, 1)
+
+[node name="ColorRect" parent="." index="2"]
+offset_left = -13.0
+offset_top = -13.0
+offset_right = 13.0
+offset_bottom = 13.0
+color = Color(1, 1, 0.08627451, 1)

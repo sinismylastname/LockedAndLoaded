@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://fw5jj56n6qlp"]
+
+[sub_resource type="Gradient" id="Gradient_tc5so"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o8pqr"]
+gradient = SubResource("Gradient_tc5so")
+width = 116
+
+[node name="enemy_minimap_icon" type="TextureRect"]
+custom_minimum_size = Vector2(8, 8)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -4.0
+offset_right = -1148.0
+offset_bottom = -644.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_o8pqr")
+expand_mode = 1
+stretch_mode = 2

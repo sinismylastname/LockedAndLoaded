@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8dfm14uifgl7"]
+
+[ext_resource type="Script" uid="uid://dixe3t1408uad" path="res://scenes/projectiles/beam.gd" id="1_6i4ya"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h3q14"]
+size = Vector2(732, 8)
+
+[node name="Beam" type="Area2D"]
+script = ExtResource("1_6i4ya")
+
+[node name="BeamHitbox" type="CollisionShape2D" parent="."]
+position = Vector2(366, 0)
+shape = SubResource("RectangleShape2D_h3q14")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_top = -4.0
+offset_right = 732.0
+offset_bottom = 4.0
+
+[node name="BeamLifespan" type="Timer" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_beam_entered"]
+[connection signal="timeout" from="BeamLifespan" to="." method="_on_beam_lifespan_timeout"]

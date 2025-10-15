@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgb2uubc5jt1e"]
+
+[ext_resource type="PackedScene" uid="uid://c20loeq3s36mt" path="res://scenes/arcade_game_shell.tscn" id="1_7bhy3"]
+[ext_resource type="Script" uid="uid://c66c3x0jkskvj" path="res://scenes/arcade_game_sub_viewport.gd" id="1_t7m3r"]
+
+[node name="ArcadeViewport" type="Node3D"]
+
+[node name="ArcadeGameSubViewport" type="SubViewport" parent="."]
+script = ExtResource("1_t7m3r")
+
+[node name="ArcadeGameShell" parent="ArcadeGameSubViewport" instance=ExtResource("1_7bhy3")]
+z_index = 1
+mouse_filter = 1

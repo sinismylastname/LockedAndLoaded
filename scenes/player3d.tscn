@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bs1ndojca7sk"]
+
+[ext_resource type="Script" uid="uid://cd0wyw01gy3g5" path="res://scenes/player_3d.gd" id="1_b6dr0"]
+[ext_resource type="Script" uid="uid://m2we1446e0jh" path="res://scenes/camera_pivot.gd" id="2_k868f"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g68ta"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_g68ta"]
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+script = ExtResource("1_b6dr0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_g68ta")
+debug_color = Color(0.93344903, 0.23400116, 0, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_g68ta")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+script = ExtResource("2_k868f")
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5584408, -0.45719698)
+fov = 90.0

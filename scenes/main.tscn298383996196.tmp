@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://155xx7s6y6ta"]
+
+[ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://ctl27dic16wxy" path="res://scenes/spawner.tscn" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://ddixajdp830em" path="res://scripts/wave_manager.gd" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://dvo24mmacr7xq" path="res://scenes/player_ui.tscn" id="4_tbgi4"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_o5qli")]
+position = Vector2(585, 300)
+
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2(-653, -317)
+
+[node name="Spawner1" parent="Spawner" instance=ExtResource("3_sugp2")]
+position = Vector2(11, -9)
+
+[node name="Spawner2" parent="Spawner" instance=ExtResource("3_sugp2")]
+position = Vector2(1161, -2)
+
+[node name="Spawner3" parent="Spawner" instance=ExtResource("3_sugp2")]
+position = Vector2(2310, 29)
+
+[node name="Spawner4" parent="Spawner" instance=ExtResource("3_sugp2")]
+position = Vector2(2316, 636)
+
+[node name="Spawner5" parent="Spawner" instance=ExtResource("3_sugp2")]
+position = Vector2(2325, 1250)
+
+[node name="Spawner6" parent="Spawner" instance=ExtResource("3_sugp2")]
+position = Vector2(1169, 1255)
+
+[node name="Spawner7" parent="Spawner" instance=ExtResource("3_sugp2")]
+position = Vector2(17, 1204)
+
+[node name="Spawner8" parent="Spawner" instance=ExtResource("3_sugp2")]
+position = Vector2(8, 596)
+
+[node name="WaveManager" type="Node2D" parent="."]
+script = ExtResource("4_jyhfs")
+
+[node name="TimeInBetweenWaves" type="Timer" parent="WaveManager"]
+one_shot = true
+
+[node name="SpawnTimer" type="Timer" parent="WaveManager"]
+
+[node name="playerUI" parent="." instance=ExtResource("4_tbgi4")]
+
+[connection signal="cooldownUpdated" from="Player" to="playerUI" method="_on_player_cooldown_updated"]
+[connection signal="fireRateChanged" from="Player" to="playerUI" method="_on_player_fire_rate_changed"]
+[connection signal="timeout" from="WaveManager/TimeInBetweenWaves" to="WaveManager" method="_on_time_in_between_waves_timeout"]
+[connection signal="timeout" from="WaveManager/SpawnTimer" to="WaveManager" method="_on_spawn_timer_timeout"]

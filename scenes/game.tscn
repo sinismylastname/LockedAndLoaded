@@ -1,0 +1,84 @@
+[gd_scene load_steps=11 format=3 uid="uid://155xx7s6y6ta"]
+
+[ext_resource type="Script" uid="uid://cqvuw2k05ylvt" path="res://scenes/game.gd" id="1_gee14"]
+[ext_resource type="PackedScene" uid="uid://ctl27dic16wxy" path="res://scenes/spawner.tscn" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://ddixajdp830em" path="res://scripts/wave_manager.gd" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://dvo24mmacr7xq" path="res://scenes/player_ui.tscn" id="4_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://lbbvjxnebsga" path="res://scenes/game_over.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://cms225pv5kx7w" path="res://scenes/CRT.tscn" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://cmwwkeikequqt" path="res://scenes/upgrade_menu.tscn" id="7_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://dhhbhyxlfk1fs" path="res://scenes/class_change_ui.tscn" id="9_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://bma4xw6l6nk1j" path="res://scenes/pixelate.tscn" id="9_vtaks"]
+
+[sub_resource type="Environment" id="Environment_p57ef"]
+background_mode = 3
+glow_enabled = true
+glow_bloom = 0.25
+glow_hdr_threshold = 2.2
+glow_hdr_luminance_cap = 64.3
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_gee14")
+
+[node name="background" type="ColorRect" parent="."]
+offset_left = -1020.0
+offset_top = -676.0
+offset_right = 2172.0
+offset_bottom = 1324.0
+color = Color(0.038397167, 0.038397167, 0.03839716, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_p57ef")
+
+[node name="Spawner" type="Node2D" parent="."]
+position = Vector2(-653, -317)
+
+[node name="Spawner1" parent="Spawner" instance=ExtResource("3_sugp2")]
+position = Vector2(1161, -95)
+
+[node name="Spawner2" parent="Spawner" instance=ExtResource("3_sugp2")]
+position = Vector2(2297, 546)
+rotation = 1.5707964
+
+[node name="Spawner3" parent="Spawner" instance=ExtResource("3_sugp2")]
+position = Vector2(1161, 1401)
+
+[node name="Spawner4" parent="Spawner" instance=ExtResource("3_sugp2")]
+position = Vector2(213, 553)
+rotation = 1.5707964
+
+[node name="WaveManager" type="Node2D" parent="."]
+script = ExtResource("4_jyhfs")
+
+[node name="TimeInBetweenWaves" type="Timer" parent="WaveManager"]
+one_shot = true
+
+[node name="SpawnTimer" type="Timer" parent="WaveManager"]
+
+[node name="PIXELATE" parent="." instance=ExtResource("9_vtaks")]
+
+[node name="SpawnPoint" type="Node2D" parent="."]
+position = Vector2(576, 323)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 323)
+ignore_rotation = false
+
+[node name="playerUI" parent="." instance=ExtResource("4_tbgi4")]
+process_mode = 3
+
+[node name="upgradeMenu" parent="." instance=ExtResource("7_u5sy4")]
+process_mode = 3
+visible = false
+
+[node name="GameOver" parent="." instance=ExtResource("5_tbgi4")]
+process_mode = 3
+visible = false
+
+[node name="ClassChangeUI" parent="." instance=ExtResource("9_0tnpc")]
+
+[node name="CRT" parent="." instance=ExtResource("6_p57ef")]
+follow_viewport_enabled = true
+
+[connection signal="timeout" from="WaveManager/TimeInBetweenWaves" to="WaveManager" method="_on_time_in_between_waves_timeout"]
+[connection signal="timeout" from="WaveManager/SpawnTimer" to="WaveManager" method="_on_spawn_timer_timeout"]

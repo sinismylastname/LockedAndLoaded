@@ -1,0 +1,274 @@
+extends CharacterBody2D
+
+const SWAP_TIMEOUT = 0.2
+var last_space_press_time = 0.0
+
+var rDir = 1
+var lastDir
+var lastArrowDirection = 0.0
+var rotationAccel = 5.0
+var currentRotationSpeed = 0.0
+var savedRotationSpeed = 0.0
+var projectile = preload("res://scenes/projectiles/bullet.tscn")
+
+var finalFireRate
+var finalBulletSpeed
+var finalHealth
+var finalDamage
+var finalBulletPierce
+var finalRotationSpeed
+var finalBulletLifetime
+var finalBulletSize
+var currentHealth = 0.0
+
+const baseFireRate = 1.0
+const baseFireRateReduction = 0.04
+const baseBulletSpeed = 500
+const baseSpeedAddition = 50
+const baseBulletDamage = 10
+const baseHealth = 100
+const baseHealthAddition = 10
+const baseDamage = 10
+const baseDamageAddition = 2.5
+const basePierce = 0
+const basePierceAddition = 1
+const baseRotationSpeed = 2
+const baseRotationSpeedAddition = 0.5
+const baseBulletLifetime = 0.5
+const baseBulletLifetimeAddition = 0.25
+const baseBulletSize = 1
+const baseBulletSizeAddition = 0.2
+const AIM_ASSIST_RANGE = 400
+const AIM_ASSIST_STRENGTH = 0.5
+const AIM_CONE_ANGLE = PI / 16.0
+
+var parry_active = false
+var parry_on_cooldown = false
+const PARRY_WINDOW = 0.3
+const PARRY_COOLDOWN = 0.7
+
+signal fireRateChanged(newFiringRate)
+signal cooldownUpdated
+signal healthUpdated
+signal playerDied
+signal parried
+
+@onready var fireTimer = $FireTimer
+@onready var invincTimer = $InvincibilityTimer
+@onready var playerAnimator = $Animator
+@onready var parry_hitbox = $ParryHitbox
+
+ 
+func update_stats():
+	var fire_level = Global.upgrades["fire_rate_level"]
+	finalFireRate = baseFireRate - (fire_level * baseFireRateReduction)
+	fireTimer.wait_time = max(0.020, finalFireRate)
+	emit_signal("fireRateChanged", fireTimer.wait_time)
+	
+	var range_level = Global.upgrades["bullet_range_level"]
+	finalBulletSpeed = baseBulletSpeed + (range_level * baseSpeedAddition)
+	finalBulletLifetime = baseBulletLifetime + (range_level * baseBulletLifetimeAddition)
+	
+	var health_level = Global.upgrades["health_level"]
+	finalHealth = baseHealth + (health_level * baseHealthAddition)
+	
+	var power_level = Global.upgrades["bullet_power_level"]
+	finalDamage = baseDamage + (power_level * baseDamageAddition)
+	finalBulletSize = baseBulletSize + (power_level * baseBulletSizeAddition)
+	
+	var pierce_level = Global.upgrades["bullet_pierce_level"]
+	finalBulletPierce = basePierce + (pierce_level * basePierceAddition)
+	
+	var rotation_level = Global.upgrades["rotation_speed_level"]
+	finalRotationSpeed = baseRotationSpeed + (rotation_level * baseRotationSpeedAddition)
+	
+	apply_class_modifiers() #New line
+
+	emit_signal("healthUpdated", currentHealth)
+
+
+func apply_class_modifiers():
+	# Placeholder; subclasses override this.
+	pass
+
+func takeDamage(damageAmount):
+	AudioGlobal.play_hurt()
+	if not parry_active: 
+		currentHealth -= damageAmount
+	elif parry_active:
+		print("holy crap you just parried")
+		#add shader effects here (might just steal it from my Skateboard Sacrifice game honestly, that effect was so fire).
+		#also add the logic here, might emit a signal tbh. actually that's probably the best idea
+		#future comment: signal was NOT the best idea lol, just use an area2d you stupid idiot
+		#actually should it be in my global?? maybe?? actually maybe not??? idk.
+	if currentHealth <= 0:
+		emit_signal("playerDied")
+		print("player died.")
+		AudioGlobal.play_death()
+		queue_free()
+	emit_signal("healthUpdated", currentHealth)
+		
+func get_closest_target() -> Node2D:
+	var closest_target: Node2D = null
+	var min_distance = AIM_ASSIST_RANGE
+	var player_direction = Vector2.RIGHT.rotated(rotation).normalized() 
+	
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if is_instance_valid(enemy):
+			var distance = global_position.distance_to(enemy.global_position)
+			if distance < min_distance:
+				var to_enemy_vector = (enemy.global_position - global_position).normalized()
+				var required_dot = cos(AIM_CONE_ANGLE)
+				var actual_dot = player_direction.dot(to_enemy_vector)
+				
+				if actual_dot >= required_dot:
+					min_distance = distance
+					closest_target = enemy
+					
+	return closest_target
+
+func fireProjectile():
+	playerAnimator.play("fire")
+	AudioGlobal.play_default_shoot_sound()
+	var projectile = projectile.instantiate()
+	projectile.setRotation(rotation)
+	get_tree().root.add_child(projectile)
+	
+	projectile.set_bullet_stats(
+		finalBulletSpeed, 
+		finalDamage, 
+		finalBulletLifetime, 
+		finalBulletSize,
+		finalBulletPierce
+	)
+	
+	var muzzle = $Muzzle
+	projectile.global_position = muzzle.global_position
+	
+	var directionVector = Vector2.RIGHT.rotated(rotation)
+	projectile.setDirection(directionVector)
+	
+func _ready() -> void:
+	update_stats()
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	currentHealth = finalHealth
+	
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("changeDir"):
+		if get_tree().is_paused():
+			return
+		var current_time = Time.get_ticks_msec() / 1000.0
+		if current_time - last_space_press_time < SWAP_TIMEOUT:
+			_start_parry()
+			last_space_press_time = 0.0
+			rDir = 0
+			return
+			
+		last_space_press_time = current_time
+		lastDir = rDir
+		rDir = 0
+		lastArrowDirection = $directionArrow.rotation
+		$directionArrow.rotation = lerp(lastArrowDirection, 0.0, 1)
+		
+	if event.is_action_released("changeDir"):
+		if get_tree().is_paused():
+			rDir = lastDir
+			$directionArrow.rotation = lastArrowDirection
+			return
+		rDir = lastDir * -1
+		$directionArrow.rotation = lerp(lastArrowDirection, lastArrowDirection * -1, 1)
+
+func _start_parry():
+	if parry_on_cooldown:
+		return
+	
+	parry_active = true
+	parry_on_cooldown = true
+	print("PARRY ACTIVE")
+	parry_hitbox.monitoring = true
+	
+	await get_tree().create_timer(PARRY_WINDOW).timeout
+	parry_active = false
+	parry_hitbox.monitoring = false
+	print("PARRY ENDED")
+	
+	await get_tree().create_timer(PARRY_COOLDOWN).timeout
+	parry_on_cooldown = false
+	print("PARRY READY")
+	
+func _on_parry_hitbox_area_entered(area: Area2D) -> void:
+	if parry_active and area.is_in_group("enemies"):
+		if area.has_method("apply_knockback"):
+			area.apply_knockback(global_position.direction_to(area.global_position), 3000)
+			#parried.emit()
+			parry_vfx()
+			AudioGlobal.play_parry() #holy crap im a frickin genius bro parrying is so cool LOOL WOWIE ZOWIE
+	elif parry_active and area.is_in_group("enemy_projectiles"):
+		area.reverse_direction() 
+
+func parry_vfx():
+	var flash = ColorRect.new()
+	flash.color = Color(0.882, 0.835, 0.624, 0.204)
+	flash.size = get_viewport_rect().size
+	get_tree().current_scene.add_child(flash)
+	await get_tree().create_timer(0.05).timeout
+	Engine.time_scale = 0.005
+	await get_tree().create_timer(0.001, true).timeout
+	Engine.time_scale = 1.0
+	flash.queue_free()
+	UI_Global.add_shake(0.1)
+
+func _on_fire_timer_timeout() -> void:
+	fireProjectile()
+
+func apply_health_upgrade():
+	var old_max_health = finalHealth 
+	update_stats() 
+	
+	var health_gain = finalHealth - old_max_health
+	currentHealth += health_gain 
+	currentHealth = min(currentHealth, finalHealth)
+	emit_signal("healthUpdated", currentHealth)
+
+func get_state() -> Dictionary:
+	return {
+		"health": currentHealth,
+		"upgrades": Global.upgrades.duplicate(true),
+		"position": global_position,
+		"rotation": rotation
+	}
+
+func apply_state(state: Dictionary):
+	if state.has("health"):
+		currentHealth = state["health"]
+	if state.has("upgrade"):
+		Global.upgrades = state["upgrades"].duplicate(true)
+	if state.has("position"):
+		global_position = state["position"]
+	if state.has("rotation"):
+		rotation = state["rotation"]
+	
+
+func _process(delta):
+	if get_tree().is_paused():
+		fireTimer.paused = true
+		return
+	else:
+		fireTimer.paused = false
+		var targetSpeed = rDir * finalRotationSpeed
+		var target = get_closest_target()
+	
+		if is_instance_valid(target):
+			var target_direction = (target.global_position - global_position).normalized()
+			var required_rotation = target_direction.angle()
+			var angle_delta = wrapf(required_rotation - rotation, -PI, PI)
+			var assisted_speed = angle_delta * finalRotationSpeed * 1.5
+			targetSpeed = lerp(targetSpeed, assisted_speed, AIM_ASSIST_STRENGTH)
+	
+		currentRotationSpeed = lerp(currentRotationSpeed, targetSpeed, rotationAccel * delta)
+		rotation += currentRotationSpeed * delta
+	
+		emit_signal("cooldownUpdated", fireTimer.time_left)
+		emit_signal("healthUpdated", currentHealth)
+		
+	
