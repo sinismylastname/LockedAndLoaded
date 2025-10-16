@@ -3,14 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_pucbo"]
 [ext_resource type="Script" uid="uid://rb71kkhkumo5" path="res://scenes/sniper_player.gd" id="2_163gr"]
 
-[node name="Player" instance=ExtResource("1_pucbo")]
+[node name="SniperPlayer" instance=ExtResource("1_pucbo")]
 script = ExtResource("2_163gr")
 
 [node name="ColorRect" parent="Sprite" index="0"]
 offset_right = 119.0
-
-[node name="BlasterNode" parent="." index="3"]
-offset_right = 92.0
-
-[node name="Muzzle" parent="." index="8"]
-position = Vector2(96, 0)

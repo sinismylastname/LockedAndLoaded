@@ -63,7 +63,7 @@ signal parried
 func update_stats():
 	var fire_level = Global.upgrades["fire_rate_level"]
 	finalFireRate = baseFireRate - (fire_level * baseFireRateReduction)
-	fireTimer.wait_time = max(0.020, finalFireRate)
+	
 	emit_signal("fireRateChanged", fireTimer.wait_time)
 	
 	var range_level = Global.upgrades["bullet_range_level"]
@@ -83,8 +83,8 @@ func update_stats():
 	var rotation_level = Global.upgrades["rotation_speed_level"]
 	finalRotationSpeed = baseRotationSpeed + (rotation_level * baseRotationSpeedAddition)
 	
-	apply_class_modifiers() #New line
-
+	apply_class_modifiers()
+	fireTimer.wait_time = max(0.020, finalFireRate) #ok my fireTimer line is here because the class modifiers break the hell out of it
 	emit_signal("healthUpdated", currentHealth)
 
 

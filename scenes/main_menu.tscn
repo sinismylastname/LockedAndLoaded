@@ -56,7 +56,7 @@ offset_right = 1442.6666
 offset_bottom = 794.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.07378516, 0.017333388, 0.06152294, 1)
+color = Color(0.031824343, 0.0059260433, 0.02532038, 1)
 
 [node name="LAYER2" type="Control" parent="."]
 anchors_preset = 0

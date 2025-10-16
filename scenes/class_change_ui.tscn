@@ -24,8 +24,19 @@ label_settings = SubResource("LabelSettings_ye64y")
 [node name="Button" type="Button" parent="."]
 offset_left = 35.0
 offset_top = 146.0
-offset_right = 277.0
-offset_bottom = 255.0
-text = "change to sniper class lol"
+offset_right = 493.0
+offset_bottom = 312.0
+theme_override_font_sizes/font_size = 32
+text = "change to 
+sniper class lol"
+
+[node name="Button" type="Button" parent="Button"]
+layout_mode = 0
+offset_top = 230.0
+offset_right = 458.0
+offset_bottom = 396.0
+theme_override_font_sizes/font_size = 32
+text = "change to 
+flank class lol"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

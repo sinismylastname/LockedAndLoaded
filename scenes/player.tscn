@@ -11,7 +11,7 @@ length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BlasterNode:position:x")
+tracks/0/path = NodePath("FrontBlaster:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -22,7 +22,7 @@ tracks/0/keys = {
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BlasterNode:position:y")
+tracks/1/path = NodePath("FrontBlaster:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -37,7 +37,7 @@ length = 0.14
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BlasterNode:position:x")
+tracks/0/path = NodePath("FrontBlaster:position:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -48,7 +48,7 @@ tracks/0/keys = {
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BlasterNode:position:y")
+tracks/1/path = NodePath("FrontBlaster:position:y")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -101,7 +101,7 @@ color = Color(0.632542, 0.8301421, 1, 1)
 scale = Vector2(1.9817158, 1.9817158)
 shape = SubResource("RectangleShape2D_u8vuu")
 
-[node name="BlasterNode" type="ColorRect" parent="."]
+[node name="FrontBlaster" type="ColorRect" parent="."]
 offset_left = 20.0
 offset_top = -4.0
 offset_right = 44.000023
@@ -123,7 +123,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_qhqgy")
 }
 
-[node name="Muzzle" type="Marker2D" parent="."]
+[node name="FrontMuzzle" type="Marker2D" parent="."]
 position = Vector2(44, 0)
 
 [node name="directionArrow" type="Sprite2D" parent="."]
