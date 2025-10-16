@@ -199,17 +199,17 @@ func _start_parry():
 	await get_tree().create_timer(PARRY_COOLDOWN).timeout
 	parry_on_cooldown = false
 	print("PARRY READY")
-	#_show_parry_ready_pulse()
+	_show_parry_ready_pulse()
 	
 func _show_parry_ready_pulse():
-	var sprite = $Sprite.duplicate() #Replace with your sprite node name
+	var sprite = $ParryCircle.duplicate() #Replace with your sprite node name
 	sprite.modulate = Color(1, 1, 1, 0.4)
 	sprite.scale = Vector2.ONE
 	add_child(sprite)
 	
 	var tween = create_tween()
 	tween.tween_property(sprite, "scale", Vector2(2, 2), 0.1)
-	tween.tween_property(sprite, "modulate:a", 0.0, 0.1)
+	tween.parallel().tween_property(sprite, "modulate:a", 0.0, 0.1)
 	await tween.finished
 	sprite.queue_free()
 	

@@ -14,11 +14,16 @@ var base_positions := {}
 
 
 func _ready() -> void:
+	fade_rect.visible = true
 	fade_rect.modulate.a = 1.0
 	var fade_tween = create_tween()
 	fade_tween.tween_property(fade_rect, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	fade_tween.connect("finished", Callable(self, "_on_fade_finished"))
-
+	
+	$LAYER2/Title.position = Vector2(480.0, -138.0)
+	var title_tween = create_tween()
+	title_tween.tween_property($LAYER2/Title, "position", Vector2(486.0, 138.0), 0.5).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	
 	AudioGlobal.play_main_menu()
 	buttons = buttons_node.get_children()
 	for button in buttons:
@@ -75,14 +80,17 @@ func slide_in_buttons():
 func _process(delta):
 	var mouse_pos = get_viewport().get_mouse_position()
 	var center = get_viewport_rect().size / 2.0
-	var offset = (mouse_pos - center) * parallax_strength
+	var offset_x = (mouse_pos.x - center.x) * parallax_strength
 
 	for i in range(layers.size()):
 		var layer = layers[i]
 		if layer == null:
 			continue
 		var depth_factor = float(i) / layers.size()
-		var target_pos = base_positions[layer] + offset * (1.0 - depth_factor)
+		var base_pos = base_positions[layer]
+		var target_x = base_pos.x + offset_x * (1.0 - depth_factor)
+		
+		var target_pos = Vector2(-target_x, base_pos.y)
 		layer.position = layer.position.lerp(target_pos, delta * 5.0)
 		
 

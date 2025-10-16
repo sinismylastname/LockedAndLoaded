@@ -7,7 +7,11 @@ var knockback_vector = Vector2.ZERO
 var knockback_timer = 0.0
 const KNOCKBACK_DURATION = 0.15
 var player = null
+var offscreen_speed_multiplier = 6.0
+var is_visible_to_camera = false
 @onready var death_particles_scene = preload("res://scenes/death_particles.tscn")
+@onready var visibility = $VisibilityNotifier
+
 
 func apply_knockback(direction_vector: Vector2, force: float):
 	knockback_vector = direction_vector * force
@@ -17,6 +21,18 @@ func _ready():
 	Global.increaseEnemyCount()
 	Global.connect("player_changed", Callable(self, "_on_player_changed"))
 	_on_player_changed(Global.Player) # initialize immediately
+	
+	visibility.connect("screen_entered", Callable(self, "_on_screen_entered"))
+	visibility.connect("screen_exited", Callable(self, "_on_screen_exited"))
+
+
+func _on_screen_entered():
+	is_visible_to_camera = true
+
+
+func _on_screen_exited():
+	is_visible_to_camera = false
+	
 
 func _on_player_changed(new_player):
 	player = new_player
@@ -54,7 +70,12 @@ func _process(delta: float) -> void:
 	elif knockback_timer <= 0:
 		if is_instance_valid(player):
 			playerDirection = (player.global_position - global_position).normalized()
-			global_position += playerDirection * speed * delta
+			
+			var move_speed = speed
+			if not is_visible_to_camera:
+				move_speed *= offscreen_speed_multiplier
+			
+			global_position += playerDirection * move_speed * delta
 			look_at(player.global_position)
 	else:
 		queue_free()
