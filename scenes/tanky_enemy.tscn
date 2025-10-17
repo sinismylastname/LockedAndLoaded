@@ -19,3 +19,6 @@ offset_top = -24.0
 offset_right = 24.0
 offset_bottom = 24.0
 color = Color(0.61761814, 0.15518934, 0.9997875, 1)
+
+[node name="VisibilityNotifier" parent="." index="3"]
+rect = Rect2(-27, -27, 54, 54)

@@ -41,7 +41,6 @@ func _process(delta: float) -> void:
 	var rot = 0.0
 
 	if shake_amount > 0.0:
-		print("shake_amount:", shake_amount)
 		shake_amount = max(shake_amount - decay * delta, 0)
 		var result = shake()
 		offset = result[0]

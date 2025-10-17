@@ -2,12 +2,12 @@ extends Area2D
 
 # MOVEMENT/KNOCKBACK VARIABLES
 var playerDirection = Vector2.ZERO
-var speed = Global.enemySpeed * 0.5 # Shooters are often slower
-var health = Global.enemyHP * 0.75 # Shooters have more HP
+var speed = Global.enemySpeed * 0.5 
+var health = Global.enemyHP * 0.75 
 var knockback_vector = Vector2.ZERO
 var knockback_timer = 0.0
 const KNOCKBACK_DURATION = 0.15
-const MIN_SHOOTING_DISTANCE = 300
+const MIN_SHOOTING_DISTANCE = 200
 
 # SHOOTER VARIABLES
 @onready var player = get_tree().get_root().find_child("Player", true, false)

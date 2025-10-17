@@ -8,8 +8,10 @@ var knockback_timer = 0.0
 const KNOCKBACK_DURATION = 0.15
 var player = null
 var offscreen_speed_multiplier = 6.0
+var particle_color = Color(0.965, 0.0, 0.0, 1.0)
 var is_visible_to_camera = false
 @onready var death_particles_scene = preload("res://scenes/death_particles.tscn")
+@onready var hit_particles_scene = preload("res://scenes/hit_particles.tscn") 
 @onready var visibility = $VisibilityNotifier
 
 
@@ -46,19 +48,42 @@ func enemyDied():
 	
 	var particles = death_particles_scene.instantiate()
 	particles.global_position = global_position
-	particles.modulate = Color(0.965, 0.0, 0.0, 1.0)
+	particles.modulate = particle_color
 	get_tree().current_scene.add_child(particles)
 	particles.emitting = true
 	queue_free()
 
-func takeDamage(damageAmount):
-	if !is_inside_tree(): 
+func takeDamage(damageAmount, hit_direction: Vector2 = Vector2.ZERO, hit_position: Vector2 = Vector2.ZERO):
+	# quick safety
+	if not is_inside_tree():
 		return
+
 	AudioGlobal.play_hurt()
 	UI_Global.add_shake(0.1)
 	health -= damageAmount
-	if health <= 0 and is_inside_tree():
-		enemyDied()
+
+	if hit_direction == Vector2.ZERO:
+		if hit_position != null:
+			hit_direction = (hit_position - global_position).normalized()
+		elif is_instance_valid(player):
+			hit_direction = (global_position - player.global_position).normalized()
+	if hit_direction != Vector2.ZERO:
+		hit_direction = hit_direction.normalized()
+
+	if health <= 0:
+		if is_inside_tree():
+			enemyDied()
+	else:
+		var hit = hit_particles_scene.instantiate()
+		hit.global_position = global_position
+		get_tree().current_scene.add_child(hit)
+		hit.one_shot = true
+		
+		if "modulate" in hit:
+			hit.modulate = particle_color
+			
+		hit.emitting = true
+		print(hit_direction)
 
 func _process(delta: float) -> void:
 	if knockback_timer > 0:

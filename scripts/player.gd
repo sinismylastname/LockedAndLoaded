@@ -25,7 +25,7 @@ var currentHealth = 0.0
 const baseFireRate = 1.0
 const baseFireRateReduction = 0.04
 const baseBulletSpeed = 500
-const baseSpeedAddition = 25
+const baseSpeedAddition = 50
 const baseBulletDamage = 10
 const baseHealth = 100
 const baseHealthAddition = 25
@@ -36,7 +36,7 @@ const basePierceAddition = 1
 const baseRotationSpeed = 2
 const baseRotationSpeedAddition = 0.25
 const baseBulletLifetime = 0.5
-const baseBulletLifetimeAddition = 0.1
+const baseBulletLifetimeAddition = 0.05
 const baseBulletSize = 1
 const baseBulletSizeAddition = 0.2
 const AIM_ASSIST_RANGE = 400
@@ -45,14 +45,15 @@ const AIM_CONE_ANGLE = PI / 16.0
 
 var parry_active = false
 var parry_on_cooldown = false
-const PARRY_WINDOW = 0.3
+var parried = true
+const PARRY_WINDOW = 0.15
 const PARRY_COOLDOWN = 0.7
 
 signal fireRateChanged(newFiringRate)
 signal cooldownUpdated
 signal healthUpdated
 signal playerDied
-signal parried
+signal parried_signal
 
 @onready var fireTimer = $FireTimer
 @onready var invincTimer = $InvincibilityTimer
@@ -143,7 +144,7 @@ func fireProjectile():
 		finalBulletPierce
 	)
 	
-	var muzzle = $Muzzle
+	var muzzle = $FrontMuzzle
 	projectile.global_position = muzzle.global_position
 	
 	var directionVector = Vector2.RIGHT.rotated(rotation)
@@ -183,26 +184,33 @@ func _input(event: InputEvent) -> void:
 func _start_parry():
 	if parry_on_cooldown:
 		return
-	
+
 	parry_active = true
 	parry_on_cooldown = true
+	parried = false 
 	print("PARRY ACTIVE")
 	parry_hitbox.monitoring = true
 	$ParryCircle.visible = true
 	
 	await get_tree().create_timer(PARRY_WINDOW).timeout
+	
 	parry_active = false
 	parry_hitbox.monitoring = false
 	print("PARRY ENDED")
 	$ParryCircle.visible = false
 	
-	await get_tree().create_timer(PARRY_COOLDOWN).timeout
-	parry_on_cooldown = false
-	print("PARRY READY")
-	_show_parry_ready_pulse()
+	if parried:
+		parry_on_cooldown = false
+		print("PARRY SUCCESS – READY AGAIN")
+		_show_parry_ready_pulse()
+	else:
+		await get_tree().create_timer(PARRY_COOLDOWN).timeout
+		parry_on_cooldown = false
+		print("PARRY MISSED – COOLDOWN DONE")
+		_show_parry_ready_pulse()
 	
 func _show_parry_ready_pulse():
-	var sprite = $ParryCircle.duplicate() #Replace with your sprite node name
+	var sprite = $ParryCircle.duplicate() 
 	sprite.modulate = Color(1, 1, 1, 0.4)
 	sprite.scale = Vector2.ONE
 	add_child(sprite)
@@ -220,6 +228,7 @@ func _on_parry_hitbox_area_entered(area: Area2D) -> void:
 			#parried.emit()
 			parry_vfx()
 			AudioGlobal.play_parry() #holy crap im a frickin genius bro parrying is so cool LOOL WOWIE ZOWIE
+			parried = true
 	elif parry_active and area.is_in_group("enemy_projectiles"):
 		area.reverse_direction() 
 

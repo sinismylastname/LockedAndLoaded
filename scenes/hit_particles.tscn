@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://182b3n3spsq8"]
+
+[node name="hit_particles" type="CPUParticles2D"]
+emitting = false
+amount = 24
+lifetime = 0.09999999999999999
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(0, 1)
+spread = 135.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 820.89
+initial_velocity_max = 820.89
+angular_velocity_min = 365.37
+angular_velocity_max = 365.37
+orbit_velocity_min = -1000.0
+orbit_velocity_max = 1000.0
+angle_min = 86.0
+angle_max = 214.9
+scale_amount_min = 2.0
+scale_amount_max = 8.0
