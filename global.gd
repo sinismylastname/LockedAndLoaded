@@ -41,8 +41,11 @@ var upgrades = {
 	"fire_rate_level": 0,
 	"health_level": 0,
 }
-
 var upgradePoints = 0
+
+var intermission_time = 30
+var is_intermission = false
+
 
 func reset_game():
 	upgrades["bullet_power_level"] = 0
@@ -66,6 +69,7 @@ func reset_game():
 	spawnTime = 1.0
 	
 	ClassManager.connect("player_spawned", Callable(self, "_on_player_spawned"))
+	connect("all_enemies_cleared", Callable(self, "_on_all_enemies_cleared"))
 	var base_class_path = "res://scenes/player.tscn"
 	ClassManager.spawn_player(base_class_path)
 	get_tree().paused = false
@@ -110,7 +114,15 @@ func decrease_enemy_count():
 	
 	if enemyCount <= 0 and enemiesSpawned >= enemiesToSpawn:
 		all_enemies_cleared.emit()
+		is_intermission = true
 	
+func _on_all_enemies_cleared():
+	is_intermission = true
+	await get_tree().create_timer(intermission_time).timeout
+	is_intermission = false
+	next_wave()
+	
+
 func apply_upgrade(stat_name: String):
 	if upgradePoints > 0:
 		upgrades[stat_name] += 1

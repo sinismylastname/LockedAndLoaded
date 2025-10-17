@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://182b3n3spsq8"]
+[gd_scene load_steps=0 format=3 uid="uid://182b3n3spsq8"]
 
 [node name="hit_particles" type="CPUParticles2D"]
 emitting = false

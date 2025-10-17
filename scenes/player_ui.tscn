@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dvo24mmacr7xq"]
+[gd_scene load_steps=12 format=3 uid="uid://dvo24mmacr7xq"]
 
 [ext_resource type="Script" uid="uid://yp7mmox36all" path="res://scripts/player_ui.gd" id="1_jkj6h"]
 
@@ -43,7 +43,11 @@ height = 40
 [sub_resource type="LabelSettings" id="LabelSettings_jkj6h"]
 font_size = 42
 
+[sub_resource type="LabelSettings" id="LabelSettings_sk4pr"]
+font_size = 42
+
 [node name="playerUI" type="CanvasLayer"]
+follow_viewport_enabled = true
 script = ExtResource("1_jkj6h")
 
 [node name="FireRateUI" type="TextureProgressBar" parent="."]
@@ -91,10 +95,10 @@ anchor_left = 0.437
 anchor_top = 0.312
 anchor_right = 0.569
 anchor_bottom = 0.402
-offset_left = -0.42401123
-offset_top = -0.17601013
-offset_right = -0.4880371
-offset_bottom = 0.1289978
+offset_left = -47.42401
+offset_top = -10.17601
+offset_right = 0.5119629
+offset_bottom = -9.871002
 text = "WAVE 3"
 label_settings = SubResource("LabelSettings_jkj6h")
 
@@ -110,3 +114,25 @@ offset_right = 1152.0
 offset_bottom = 607.0
 fill_mode = 3
 show_percentage = false
+
+[node name="IntermissionLabel" type="Label" parent="."]
+visible = false
+anchors_preset = -1
+anchor_top = 0.95800006
+anchor_right = 0.109000005
+anchor_bottom = 1.0
+offset_left = 328.0
+offset_top = -400.78406
+offset_right = 537.432
+offset_bottom = -365.0
+text = "Intermission:  "
+label_settings = SubResource("LabelSettings_sk4pr")
+
+[node name="SkipIntermission" type="Button" parent="."]
+offset_left = 912.0
+offset_top = 568.0
+offset_right = 1135.0
+offset_bottom = 593.0
+text = "SKIP INTERMISSION"
+
+[connection signal="pressed" from="SkipIntermission" to="." method="_on_skip_intermission_pressed"]

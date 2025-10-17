@@ -18,7 +18,7 @@ func fireProjectile():
 	playerAnimator.play("fire")
 	AudioGlobal.play_default_shoot_sound()
 	var projectile = projectile.instantiate()
-	projectile.global_position = $Muzzle.global_position
+	projectile.global_position = $FrontMuzzle.global_position
 	projectile.setRotation(rotation)
 	get_tree().root.add_child(projectile)
 	

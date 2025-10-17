@@ -2,12 +2,13 @@ extends Area2D
 
 var enemyScene = preload("res://scenes/enemy.tscn")
 var shooterEnemyScene = preload("res://scenes/shooter_enemy.tscn")
-
 var speedy_scene = preload("res://scenes/fast_enemy.tscn")
 var tanky_scene = preload("res://scenes/tanky_enemy.tscn")
-var SHOOTER_CHANCE = 0.15
-var SPEEDY_CHANCE = 0.3
-var TANKY_CHANCE = 0.3
+var lucky_block_scene = preload("res://scenes/lucky_block_enemy.tscn")
+var SHOOTER_CHANCE = 0.2
+var SPEEDY_CHANCE = 0.2
+var TANKY_CHANCE = 0.2
+var LUCKY_BLOCK_CHANCE = 0.2
 
 
 @onready var spawnerArea = $SpawnerArea
@@ -15,48 +16,30 @@ var TANKY_CHANCE = 0.3
 @onready var spawnAreaY = spawnerArea.shape.size.y
 
 func spawnEnemy():
+	if Global.is_intermission:
+		return
+	
 	var randomAreaX = randf_range(0, spawnAreaX / 2.0)
 	var randomAreaY = randf_range(0, spawnAreaY / 2.0)
 	var spawn_position = global_position + Vector2(randomAreaX, randomAreaY)
-	
-	if randf() < SPEEDY_CHANCE:
-		var newSpeedyEnemy = speedy_scene.instantiate()
-		newSpeedyEnemy.global_position = spawn_position
-		get_parent().add_child(newSpeedyEnemy)
-		return
-	
-	if randf() < TANKY_CHANCE:
-		var newTankyEnemy = tanky_scene.instantiate()
-		newTankyEnemy.global_position = spawn_position
-		get_parent().add_child(newTankyEnemy)
-		return
-		
-	if Global.waveNumber >= 3:
-		if randf() < SHOOTER_CHANCE:
-			var newShooterEnemy = shooterEnemyScene.instantiate()
-			newShooterEnemy.global_position = spawn_position
-			get_parent().add_child(newShooterEnemy)
 
-			return
+	var roll = randf()
 
-
-		else:
-			var newBasicEnemy = enemyScene.instantiate()
-			newBasicEnemy.global_position = spawn_position
-			get_parent().add_child(newBasicEnemy)
-
-			return
-
-
+	if roll < SPEEDY_CHANCE:
+		_spawn(speedy_scene, spawn_position)
+	elif roll < SPEEDY_CHANCE + TANKY_CHANCE:
+		_spawn(tanky_scene, spawn_position)
+	elif roll < SPEEDY_CHANCE + TANKY_CHANCE + LUCKY_BLOCK_CHANCE:
+		_spawn(lucky_block_scene, spawn_position)
+	elif Global.waveNumber >= 3 and roll < SPEEDY_CHANCE + TANKY_CHANCE + LUCKY_BLOCK_CHANCE + SHOOTER_CHANCE:
+		_spawn(shooterEnemyScene, spawn_position)
 	else:
-		var newBasicEnemy = enemyScene.instantiate()
-		newBasicEnemy.global_position = spawn_position
-		get_parent().add_child(newBasicEnemy)
+		_spawn(enemyScene, spawn_position)
 
-		return
-
-
-	
+func _spawn(scene, pos):
+	var e = scene.instantiate()
+	e.global_position = pos
+	get_parent().add_child(e)
 
 func _process(delta: float) -> void:
 	pass

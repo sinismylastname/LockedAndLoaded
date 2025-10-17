@@ -39,8 +39,8 @@ const baseBulletLifetime = 0.5
 const baseBulletLifetimeAddition = 0.05
 const baseBulletSize = 1
 const baseBulletSizeAddition = 0.2
-const AIM_ASSIST_RANGE = 400
-const AIM_ASSIST_STRENGTH = 0.5
+const AIM_ASSIST_RANGE = 800
+const AIM_ASSIST_STRENGTH = 0.7
 const AIM_CONE_ANGLE = PI / 16.0
 
 var parry_active = false
@@ -99,10 +99,6 @@ func takeDamage(damageAmount):
 		currentHealth -= damageAmount
 	elif parry_active:
 		print("holy crap you just parried")
-		#add shader effects here (might just steal it from my Skateboard Sacrifice game honestly, that effect was so fire).
-		#also add the logic here, might emit a signal tbh. actually that's probably the best idea
-		#future comment: signal was NOT the best idea lol, just use an area2d you stupid idiot
-		#actually should it be in my global?? maybe?? actually maybe not??? idk.
 	if currentHealth <= 0:
 		emit_signal("playerDied")
 		print("player died.")
@@ -284,7 +280,7 @@ func _process(delta):
 		var targetSpeed = rDir * finalRotationSpeed
 		var target = get_closest_target()
 	
-		if is_instance_valid(target):
+		if is_instance_valid(target) and rDir == 0:
 			var target_direction = (target.global_position - global_position).normalized()
 			var required_rotation = target_direction.angle()
 			var angle_delta = wrapf(required_rotation - rotation, -PI, PI)

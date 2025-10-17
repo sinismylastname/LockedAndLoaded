@@ -30,13 +30,14 @@ theme_override_font_sizes/font_size = 32
 text = "change to 
 sniper class lol"
 
-[node name="Button" type="Button" parent="Button"]
-layout_mode = 0
-offset_top = 230.0
-offset_right = 458.0
-offset_bottom = 396.0
+[node name="Flank" type="Button" parent="."]
+offset_left = 35.0
+offset_top = 376.0
+offset_right = 493.0
+offset_bottom = 542.0
 theme_override_font_sizes/font_size = 32
 text = "change to 
 flank class lol"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Flank" to="." method="_on_flank_pressed"]

@@ -4,15 +4,19 @@ extends CanvasLayer
 @onready var enemyCounter = $EnemyCount
 @onready var wave_notification = $WaveNotification
 @onready var xp_bar = $XPBAR
+@onready var intermission_label = $IntermissionLabel
+@onready var skip_intermission = $SkipIntermission
 var Player = null
 
 func _ready():
+	skip_intermission.visible = false
 	call_deferred("connect_player_signals")
 	Global.enemy_count_changed.connect(on_enemy_count_changed)
 	enemyCounter.text = "Enemies: %d" % Global.enemyCount
 	Global.wave_started.connect(_on_wave_started) 
 	Global.connect("player_changed", Callable(self, "_on_player_changed"))
 	Global.connect("xp_changed", Callable(self, "_on_player_xp_changed"))
+	Global.connect("all_enemies_cleared", Callable(self, "_on_intermission_started"))
 	_on_player_changed(Global.Player)
 
 func connect_player_signals():
@@ -76,3 +80,30 @@ func _on_wave_started(new_wave_number):
 	tween.tween_property(wave_notification, "modulate", Color(1, 1, 1, 1), 0.5) 
 	tween.tween_interval(1.5) 
 	tween.tween_property(wave_notification, "modulate", Color(1, 1, 1, 0), 1.0)
+
+func _on_intermission_started():
+	if !is_instance_valid(intermission_label):
+		return
+
+	intermission_label.visible = true
+	skip_intermission.visible = true
+	var countdown = Global.intermission_time
+
+	while countdown > 0:
+		intermission_label.text = "INTERMISSION: %d" % int(ceil(countdown))
+		await get_tree().create_timer(0.1).timeout
+		countdown -= 0.1
+
+	intermission_label.visible = false
+
+
+func _on_skip_intermission_pressed() -> void:
+	if not Global.is_intermission:
+		return
+	intermission_label.visible = false
+	skip_intermission.visible = false
+	Global.is_intermission = false
+
+	var wave_manager = get_tree().current_scene.get_node_or_null("WaveManager")
+	if wave_manager:
+		wave_manager._on_intermission_ended()
