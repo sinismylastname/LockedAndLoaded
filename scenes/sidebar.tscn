@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://fyq5tsh5u5fr"]
+
+[ext_resource type="Script" uid="uid://5n8kmlym2vct" path="res://scenes/sidebar.gd" id="1_iqt6p"]
+
+[node name="SidebarCanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_iqt6p")
+
+[node name="SidebarRoot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="SidebarRoot"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 13.451
+anchor_bottom = 3.269
+offset_left = 1200.0
+offset_right = -14041.553
+offset_bottom = -1469.312
+
+[node name="SidebarContainer" type="VBoxContainer" parent="SidebarRoot/Panel"]
+layout_mode = 0
+offset_left = 1166.0
+offset_right = 1206.0
+offset_bottom = 649.0

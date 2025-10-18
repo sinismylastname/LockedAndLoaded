@@ -59,6 +59,7 @@ signal parried_signal
 @onready var invincTimer = $InvincibilityTimer
 @onready var playerAnimator = $Animator
 @onready var parry_hitbox = $ParryHitbox
+@onready var TP_Point = get_tree().current_scene.get_node_or_null("TPPoint")
 
  
 func update_stats():
@@ -153,29 +154,22 @@ func _ready() -> void:
 	$ParryCircle.visible = false
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("changeDir"):
-		if get_tree().is_paused():
-			return
-		var current_time = Time.get_ticks_msec() / 1000.0
-		if current_time - last_space_press_time < SWAP_TIMEOUT:
-			_start_parry()
-			last_space_press_time = 0.0
-			rDir = 0
-			return
-			
-		last_space_press_time = current_time
-		lastDir = rDir
+	if event.is_action_pressed("spinLeft"):
+		rDir = -1
+		$directionArrow.rotation = -PI/2
+	if event.is_action_pressed("spinRight"):
+		rDir = 1
+		$directionArrow.rotation = PI/2
+	
+	if event.is_action_released("spinLeft") or event.is_action_released("spinRight"):
 		rDir = 0
-		lastArrowDirection = $directionArrow.rotation
-		$directionArrow.rotation = lerp(lastArrowDirection, 0.0, 1)
-		
-	if event.is_action_released("changeDir"):
+		$directionArrow.rotation = 0
+	
+	if event.is_action_pressed("teleport"):
 		if get_tree().is_paused():
-			rDir = lastDir
-			$directionArrow.rotation = lastArrowDirection
 			return
-		rDir = lastDir * -1
-		$directionArrow.rotation = lerp(lastArrowDirection, lastArrowDirection * -1, 1)
+		else:
+			global_position = TP_Point.global_position
 
 func _start_parry():
 	if parry_on_cooldown:

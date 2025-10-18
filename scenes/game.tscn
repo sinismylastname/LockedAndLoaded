@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cmwwkeikequqt" path="res://scenes/upgrade_menu.tscn" id="7_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://dhhbhyxlfk1fs" path="res://scenes/class_change_ui.tscn" id="9_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://bma4xw6l6nk1j" path="res://scenes/pixelate.tscn" id="9_vtaks"]
-[ext_resource type="PackedScene" uid="uid://bwaac552tlllq" path="res://scenes/tp_point.tscn" id="10_vtaks"]
+[ext_resource type="PackedScene" uid="uid://ws84bexbu3f6" path="res://scenes/tp_point.tscn" id="10_vtaks"]
 
 [sub_resource type="Environment" id="Environment_p57ef"]
 background_mode = 3
@@ -27,6 +27,7 @@ offset_left = -1020.0
 offset_top = -676.0
 offset_right = 2172.0
 offset_bottom = 1324.0
+mouse_filter = 2
 color = Color(0.04129681, 2.6479433e-06, 0.04129626, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

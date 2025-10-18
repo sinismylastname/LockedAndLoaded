@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwaac552tlllq"]
+[gd_scene load_steps=4 format=3 uid="uid://ws84bexbu3f6"]
 
 [ext_resource type="Script" uid="uid://cyvp6o31qymly" path="res://scenes/tp_point.gd" id="1_dvxg5"]
 [ext_resource type="Script" uid="uid://cug7hbekyfo6k" path="res://addons/primitive_shapes/circle.gd" id="1_nwa0e"]

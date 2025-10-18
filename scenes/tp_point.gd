@@ -4,10 +4,10 @@ var is_dragging = false
 var mouse_offset = Vector2.ZERO
 
 func _ready():
-	input_pickable = true  # this is crucial in Godot 4
+	input_pickable = true  #
 
 func follow_mouse():
-	global_position = get_global_mouse_position() + mouse_offset
+	global_position = lerp(global_position, get_global_mouse_position() + mouse_offset, 0.1)
 
 func _process(delta):
 	if is_dragging:
