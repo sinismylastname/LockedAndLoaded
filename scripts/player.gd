@@ -49,6 +49,8 @@ var parried = true
 const PARRY_WINDOW = 0.15
 const PARRY_COOLDOWN = 0.7
 
+var tp_index = 0
+
 signal fireRateChanged(newFiringRate)
 signal cooldownUpdated
 signal healthUpdated
@@ -164,13 +166,18 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("spinLeft") or event.is_action_released("spinRight"):
 		rDir = 0
 		$directionArrow.rotation = 0
-	
-	if event.is_action_pressed("teleport"):
-		if get_tree().is_paused():
-			return
-		else:
-			global_position = TP_Point.global_position
 
+	if event.is_action_pressed("teleport") and Global.tp_point_array.size() > 0:
+		var next_index = (tp_index + 1) % Global.tp_point_array.size()
+		var next_point = Global.tp_point_array[next_index]
+		
+		if Global.tp_point_array.size() > 0:
+			Global.tp_point_array[tp_index].stored_position = global_position
+		
+		global_position = next_point.global_position
+		
+		tp_index = next_index
+		
 func _start_parry():
 	if parry_on_cooldown:
 		return

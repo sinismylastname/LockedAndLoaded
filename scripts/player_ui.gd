@@ -1,11 +1,12 @@
 extends CanvasLayer
-@onready var fireRateUI = $FireRateUI
-@onready var healthBar = $HealthBarUI
-@onready var enemyCounter = $EnemyCount
-@onready var wave_notification = $WaveNotification
-@onready var xp_bar = $XPBAR
-@onready var intermission_label = $IntermissionLabel
-@onready var skip_intermission = $SkipIntermission
+@onready var player_ui_root = $playerUIRoot
+@onready var fireRateUI = $playerUIRoot/FireRateUI
+@onready var healthBar = $playerUIRoot/HealthBarUI
+@onready var enemyCounter = $playerUIRoot/EnemyCount
+@onready var wave_notification = $playerUIRoot/WaveNotification
+@onready var xp_bar = $playerUIRoot/XPBAR
+@onready var intermission_label = $playerUIRoot/IntermissionLabel
+@onready var skip_intermission = $playerUIRoot/SkipIntermission
 var Player = null
 
 func _ready():
@@ -107,3 +108,8 @@ func _on_skip_intermission_pressed() -> void:
 	var wave_manager = get_tree().current_scene.get_node_or_null("WaveManager")
 	if wave_manager:
 		wave_manager._on_intermission_ended()
+
+
+func _process(delta):
+	if is_instance_valid(Global.Player):
+		player_ui_root.position = Global.Player.global_position

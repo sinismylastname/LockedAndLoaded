@@ -2,7 +2,8 @@ extends CanvasLayer
 
 var screen_width
 var mouse_x
-var menu_threshold = 900
+var menu_threshold = 1152
+var close_threshold = 800
 var opened
 var original_pos = Vector2(1200.0, 35.0)
 var opened_pos = Vector2(865.0, 35.0)
@@ -30,7 +31,7 @@ func _process(delta: float) -> void:
 		print("should open menu")
 		opened = true
 		open_menu()
-	elif mouse_x < menu_threshold and opened:
+	elif mouse_x < close_threshold and opened:
 		print("close menu")
 		opened = false
 		close_menu()
@@ -38,7 +39,13 @@ func _process(delta: float) -> void:
 
 
 func _on_tppointspawn_pressed() -> void:
-	var new_tp_point = tp_point_scene.instantiate()
-	new_tp_point.global_position = Vector2(400, 400)
-	get_tree().current_scene.add_child(new_tp_point)
-	return
+	if Global.tp_point_possible() == true:
+		var new_tp_point = tp_point_scene.instantiate()
+		new_tp_point.set_spawn(Vector2(400, 400))
+		get_tree().current_scene.add_child(new_tp_point)
+		
+		Global.tp_point_array.append(new_tp_point)
+		new_tp_point.index = Global.tp_point_array.size() - 1
+	elif Global.tp_point_possible() == false:
+		print("kys dont spawn")
+		return

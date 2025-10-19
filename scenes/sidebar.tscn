@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://fyq5tsh5u5fr"]
+[gd_scene load_steps=2 format=3 uid="uid://diyeb8epqtv1h"]
 
 [ext_resource type="Script" uid="uid://5n8kmlym2vct" path="res://scenes/sidebar.gd" id="1_iqt6p"]
 
@@ -12,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Panel" type="Panel" parent="SidebarRoot"]
 layout_mode = 1

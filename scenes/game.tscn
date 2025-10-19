@@ -1,15 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://155xx7s6y6ta"]
+[gd_scene load_steps=13 format=3 uid="uid://155xx7s6y6ta"]
 
 [ext_resource type="Script" uid="uid://cqvuw2k05ylvt" path="res://scenes/game.gd" id="1_gee14"]
 [ext_resource type="PackedScene" uid="uid://ctl27dic16wxy" path="res://scenes/spawner.tscn" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://ddixajdp830em" path="res://scripts/wave_manager.gd" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://5jw8hxh4su4k" path="res://scenes/camera_2d.tscn" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dvo24mmacr7xq" path="res://scenes/player_ui.tscn" id="4_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://lbbvjxnebsga" path="res://scenes/game_over.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://cms225pv5kx7w" path="res://scenes/CRT.tscn" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://cmwwkeikequqt" path="res://scenes/upgrade_menu.tscn" id="7_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://dhhbhyxlfk1fs" path="res://scenes/class_change_ui.tscn" id="9_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://bma4xw6l6nk1j" path="res://scenes/pixelate.tscn" id="9_vtaks"]
-[ext_resource type="PackedScene" uid="uid://ws84bexbu3f6" path="res://scenes/tp_point.tscn" id="10_vtaks"]
+[ext_resource type="PackedScene" uid="uid://diyeb8epqtv1h" path="res://scenes/sidebar.tscn" id="11_kvpfn"]
 
 [sub_resource type="Environment" id="Environment_p57ef"]
 background_mode = 3
@@ -58,19 +59,21 @@ one_shot = true
 
 [node name="SpawnTimer" type="Timer" parent="WaveManager"]
 
-[node name="PIXELATE" parent="." instance=ExtResource("9_vtaks")]
-visible = false
-
 [node name="SpawnPoint" type="Node2D" parent="."]
 visible = false
 position = Vector2(576, 323)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" parent="." instance=ExtResource("4_lbhrr")]
 position = Vector2(576, 323)
-ignore_rotation = false
+position_smoothing_enabled = true
+
+[node name="PIXELATE" parent="." instance=ExtResource("9_vtaks")]
+visible = false
 
 [node name="playerUI" parent="." instance=ExtResource("4_tbgi4")]
 process_mode = 3
+offset = Vector2(-576, -324)
+transform = Transform2D(1, 0, 0, 1, -576, -324)
 
 [node name="upgradeMenu" parent="." instance=ExtResource("7_u5sy4")]
 process_mode = 3
@@ -87,8 +90,9 @@ visible = false
 visible = false
 follow_viewport_enabled = true
 
-[node name="TPPoint" parent="." instance=ExtResource("10_vtaks")]
-position = Vector2(219, 137)
+[node name="SidebarCanvasLayer" parent="." instance=ExtResource("11_kvpfn")]
 
 [connection signal="timeout" from="WaveManager/TimeInBetweenWaves" to="WaveManager" method="_on_time_in_between_waves_timeout"]
 [connection signal="timeout" from="WaveManager/SpawnTimer" to="WaveManager" method="_on_spawn_timer_timeout"]
+
+[editable path="SidebarCanvasLayer"]
