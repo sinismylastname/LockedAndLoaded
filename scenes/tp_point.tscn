@@ -17,4 +17,12 @@ metadata/_custom_type_script = "uid://cug7hbekyfo6k"
 [node name="Area2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_nwa0e")
 
+[node name="Label" type="Label" parent="."]
+offset_left = -5.0
+offset_top = -12.0
+offset_right = 5.0
+offset_bottom = 11.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "#"
+
 [connection signal="input_event" from="." to="." method="_on_Area2D_input_event"]

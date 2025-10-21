@@ -9,6 +9,7 @@ signal all_enemies_cleared
 signal wave_started(waveNumber)
 signal game_started
 signal player_changed(new_player)
+signal next_tp_point_changed(new_point)
 signal upgrade_continue(boolean)
 
 var enemyCount = 0
@@ -47,10 +48,18 @@ var intermission_time = 30
 var is_intermission = false
 
 var current_tp_points = 0
-var max_tp_points = 2
+var max_tp_points = 9999
 
 var tp_point_array: Array = []
 var current_tp_index = 0
+var next_tp_index = 0
+var next_tp_point = null:
+	set(value):
+		next_tp_point = value
+		next_tp_point_changed.emit(value)
+	get:
+		return next_tp_point
+
 
 func reset_game():
 	upgrades["bullet_power_level"] = 0
@@ -127,12 +136,14 @@ func _on_all_enemies_cleared():
 	is_intermission = false
 	next_wave()
 	
+
 func tp_point_possible():
 	if current_tp_points < max_tp_points:
 		current_tp_points += 1
 		return true
 	elif current_tp_points >= max_tp_points:
 		return false
+
 
 func apply_upgrade(stat_name: String):
 	if upgradePoints > 0:

@@ -49,8 +49,6 @@ var parried = true
 const PARRY_WINDOW = 0.15
 const PARRY_COOLDOWN = 0.7
 
-var tp_index = 0
-
 signal fireRateChanged(newFiringRate)
 signal cooldownUpdated
 signal healthUpdated
@@ -168,16 +166,19 @@ func _input(event: InputEvent) -> void:
 		$directionArrow.rotation = 0
 
 	if event.is_action_pressed("teleport") and Global.tp_point_array.size() > 0:
-		var next_index = (tp_index + 1) % Global.tp_point_array.size()
-		var next_point = Global.tp_point_array[next_index]
-		
-		if Global.tp_point_array.size() > 0:
-			Global.tp_point_array[tp_index].stored_position = global_position
-		
-		global_position = next_point.global_position
-		
-		tp_index = next_index
-		
+		teleport_to_point()
+
+func teleport_to_point():
+	if Global.tp_point_array.size() == 0:
+		return
+
+	Global.current_tp_index = (Global.current_tp_index + 1) % Global.tp_point_array.size()
+	Global.next_tp_point = Global.tp_point_array[Global.current_tp_index]
+
+	# Teleport the player
+	global_position = Global.next_tp_point.global_position
+
+
 func _start_parry():
 	if parry_on_cooldown:
 		return
@@ -290,7 +291,7 @@ func _process(delta):
 	
 		currentRotationSpeed = lerp(currentRotationSpeed, targetSpeed, rotationAccel * delta)
 		rotation += currentRotationSpeed * delta
-	
+
 		emit_signal("cooldownUpdated", fireTimer.time_left)
 		emit_signal("healthUpdated", currentHealth)
 		

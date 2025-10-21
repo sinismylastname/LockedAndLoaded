@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bg8sgc3c2e2y4"]
+
+[ext_resource type="Texture2D" uid="uid://bat6qlba3t2dv" path="res://images/NextTPLocationIMG.png" id="1_umosx"]
+[ext_resource type="Script" uid="uid://d2lpkjv5m8165" path="res://scenes/arrow.gd" id="2_23jat"]
+
+[node name="Arrow" type="Sprite2D"]
+position = Vector2(4.7683716e-07, -4.5474735e-13)
+scale = Vector2(0.12638889, 0.12638892)
+texture = ExtResource("1_umosx")
+offset = Vector2(0, -359.99994)
+script = ExtResource("2_23jat")

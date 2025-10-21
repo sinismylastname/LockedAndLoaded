@@ -39,13 +39,10 @@ func _process(delta: float) -> void:
 
 
 func _on_tppointspawn_pressed() -> void:
-	if Global.tp_point_possible() == true:
+	if Global.tp_point_possible():
 		var new_tp_point = tp_point_scene.instantiate()
 		new_tp_point.set_spawn(Vector2(400, 400))
 		get_tree().current_scene.add_child(new_tp_point)
 		
 		Global.tp_point_array.append(new_tp_point)
 		new_tp_point.index = Global.tp_point_array.size() - 1
-	elif Global.tp_point_possible() == false:
-		print("kys dont spawn")
-		return

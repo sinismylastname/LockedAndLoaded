@@ -9,6 +9,7 @@ var index: int
 var stored_position: Vector2
 
 func _ready():
+	Global.connect("next_tp_point_changed", Callable(self, "_on_points_changed"))
 	input_pickable = true
 	set_process_input(true)
 
@@ -24,6 +25,9 @@ func _input(event):
 	if is_dragging and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
 		is_dragging = false
 		active_dragger = null
+
+func _on_points_changed():
+	$Label.text = str(Global.current_tp_index)
 
 func _on_Area2D_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:

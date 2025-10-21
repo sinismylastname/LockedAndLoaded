@@ -6,6 +6,7 @@ var spawners = []
 var intermissionTime = 30.0
 
 signal intermission_started
+
 func _ready():
 	spawners = spawnerNode.get_children()
 	Global.all_enemies_cleared.connect(_on_all_enemies_cleared)
@@ -23,7 +24,8 @@ func _on_spawn_timer_timeout() -> void:
 	if Global.enemiesSpawned < Global.enemiesToSpawn:
 		var randomSpawner = spawners[randi_range(0, spawners.size()-1)]
 		randomSpawner.spawnEnemy()
-		Global.enemiesSpawned += 1
+		#Global.enemiesSpawned += 1
+		Global.enemiesToSpawn = 0
 	else:
 		spawnTimer.stop()
 
