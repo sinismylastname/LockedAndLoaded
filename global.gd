@@ -1,7 +1,6 @@
 extends Node
 
 signal upgrade_points_changed(new_points)
-signal upgrade_menu_open
 signal enemy_count_changed(newCount)
 signal xp_changed(xp)
 signal leveled_up(newLevel)
@@ -10,7 +9,6 @@ signal wave_started(waveNumber)
 signal game_started
 signal player_changed(new_player)
 signal next_tp_point_changed(new_point)
-signal upgrade_continue(boolean)
 
 var enemyCount = 0
 var enemiesToSpawn = 10
@@ -102,11 +100,8 @@ func level_up():
 	currentLevel += 1
 	currentXP -= XPNeeded 
 	XPNeeded *= 1.2
-	get_tree().paused = true
 	upgradePoints += 5
-	upgrade_menu_open.emit()
 	leveled_up.emit(currentLevel)
-	upgrade_continue.emit(false)
 
 func next_wave():
 	waveNumber += 1
@@ -143,6 +138,7 @@ func tp_point_possible():
 		return true
 	elif current_tp_points >= max_tp_points:
 		return false
+
 
 
 func apply_upgrade(stat_name: String):

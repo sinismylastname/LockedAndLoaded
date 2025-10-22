@@ -3,12 +3,9 @@ extends CharacterBody2D
 const SWAP_TIMEOUT = 0.2
 var last_space_press_time = 0.0
 
-var rDir = 1
-var lastDir
-var lastArrowDirection = 0.0
 var rotationAccel = 5.0
 var currentRotationSpeed = 0.0
-var savedRotationSpeed = 0.0
+var input_direction = Vector2.ZERO
 var projectile = preload("res://scenes/projectiles/bullet.tscn")
 
 var finalFireRate
@@ -47,7 +44,7 @@ var parry_active = false
 var parry_on_cooldown = false
 var parried = true
 const PARRY_WINDOW = 0.15
-const PARRY_COOLDOWN = 0.7
+const PARRY_COOLDOWN = 1.5
 
 signal fireRateChanged(newFiringRate)
 signal cooldownUpdated
@@ -60,7 +57,6 @@ signal parried_signal
 @onready var playerAnimator = $Animator
 @onready var parry_hitbox = $ParryHitbox
 @onready var TP_Point = get_tree().current_scene.get_node_or_null("TPPoint")
-
  
 func update_stats():
 	var fire_level = Global.upgrades["fire_rate_level"]
@@ -107,6 +103,7 @@ func takeDamage(damageAmount):
 		queue_free()
 	emit_signal("healthUpdated", currentHealth)
 		
+
 func get_closest_target() -> Node2D:
 	var closest_target: Node2D = null
 	var min_distance = AIM_ASSIST_RANGE
@@ -117,13 +114,9 @@ func get_closest_target() -> Node2D:
 			var distance = global_position.distance_to(enemy.global_position)
 			if distance < min_distance:
 				var to_enemy_vector = (enemy.global_position - global_position).normalized()
-				var required_dot = cos(AIM_CONE_ANGLE)
-				var actual_dot = player_direction.dot(to_enemy_vector)
-				
-				if actual_dot >= required_dot:
+				if player_direction.dot(to_enemy_vector) >= cos(AIM_CONE_ANGLE):
 					min_distance = distance
 					closest_target = enemy
-					
 	return closest_target
 
 func fireProjectile():
@@ -154,17 +147,10 @@ func _ready() -> void:
 	$ParryCircle.visible = false
 	
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("spinLeft"):
-		rDir = -1
-		$directionArrow.rotation = -PI/2
-	if event.is_action_pressed("spinRight"):
-		rDir = 1
-		$directionArrow.rotation = PI/2
 	
-	if event.is_action_released("spinLeft") or event.is_action_released("spinRight"):
-		rDir = 0
-		$directionArrow.rotation = 0
-
+	if event.is_action_pressed("parry"):
+		_start_parry()
+	
 	if event.is_action_pressed("teleport") and Global.tp_point_array.size() > 0:
 		teleport_to_point()
 
@@ -275,24 +261,22 @@ func apply_state(state: Dictionary):
 
 func _process(delta):
 	if get_tree().is_paused():
-		fireTimer.paused = true
 		return
+
+	input_direction = Input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
+
+	if input_direction.length() > 0:
+		var aiming_angle = input_direction.angle()
+		rotation = lerp_angle(rotation, aiming_angle, clamp(finalRotationSpeed * delta, 0.05, 0.2))
 	else:
-		fireTimer.paused = false
-		var targetSpeed = rDir * finalRotationSpeed
 		var target = get_closest_target()
-	
-		if is_instance_valid(target) and rDir == 0:
+		if is_instance_valid(target):
 			var target_direction = (target.global_position - global_position).normalized()
 			var required_rotation = target_direction.angle()
 			var angle_delta = wrapf(required_rotation - rotation, -PI, PI)
-			var assisted_speed = angle_delta * finalRotationSpeed * 1.5
-			targetSpeed = lerp(targetSpeed, assisted_speed, AIM_ASSIST_STRENGTH)
-	
-		currentRotationSpeed = lerp(currentRotationSpeed, targetSpeed, rotationAccel * delta)
-		rotation += currentRotationSpeed * delta
+			rotation += angle_delta * finalRotationSpeed * AIM_ASSIST_STRENGTH * delta
 
-		emit_signal("cooldownUpdated", fireTimer.time_left)
-		emit_signal("healthUpdated", currentHealth)
+	emit_signal("cooldownUpdated", fireTimer.time_left)
+	emit_signal("healthUpdated", currentHealth)
 		
 	

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://diyeb8epqtv1h"]
+[gd_scene load_steps=3 format=3 uid="uid://diyeb8epqtv1h"]
 
 [ext_resource type="Script" uid="uid://5n8kmlym2vct" path="res://scenes/sidebar.gd" id="1_iqt6p"]
+[ext_resource type="PackedScene" uid="uid://cmwwkeikequqt" path="res://scenes/upgrade_menu.tscn" id="2_rx5q4"]
 
 [node name="SidebarCanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_iqt6p")
@@ -29,6 +30,125 @@ layout_mode = 0
 offset_right = 254.0
 offset_bottom = 579.0
 
+[node name="upgradeMenu" parent="SidebarRoot/Panel/SidebarContainer" instance=ExtResource("2_rx5q4")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="Power" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu" index="1"]
+offset_left = 16.0
+offset_top = 31.612991
+offset_right = 188.0
+offset_bottom = 56.61299
+
+[node name="AddBulletPower" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Power" index="0"]
+offset_left = 27.691986
+offset_top = -1.2604418
+offset_right = 8.163986
+offset_bottom = -29.38788
+
+[node name="PowerLevelDisplay" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Power" index="1"]
+offset_left = 178.91997
+offset_top = -18.017124
+offset_right = 150.90796
+offset_bottom = 2.9068289
+
+[node name="Range" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu" index="2"]
+offset_left = 16.0
+offset_top = -55.697006
+offset_right = 188.0
+offset_bottom = -54.48201
+
+[node name="AddBulletRange" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Range" index="0"]
+offset_left = 27.691986
+offset_top = -2.75
+offset_right = 8.163986
+offset_bottom = 4.8239994
+
+[node name="RangeLevelDisplay" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Range" index="1"]
+offset_left = 178.91997
+offset_top = -8.117001
+offset_right = 150.90796
+offset_bottom = 13.999
+
+[node name="Pierce" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu" index="3"]
+offset_left = 16.0
+offset_top = 38.628983
+offset_right = 195.0
+offset_bottom = 63.628967
+
+[node name="AddBulletPierce" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Pierce" index="0"]
+offset_left = 21.818985
+offset_top = 2.5798683
+offset_right = 0.72299194
+offset_bottom = -24.66922
+
+[node name="PierceLevelDisplay" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Pierce" index="1"]
+offset_left = 177.94
+offset_top = -15.017124
+offset_right = 148.381
+offset_bottom = 5.906831
+
+[node name="Health" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu" index="4"]
+offset_left = 16.0
+offset_top = 250.349
+offset_right = 107.0
+offset_bottom = 275.349
+
+[node name="AddHealth" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Health" index="0"]
+offset_left = 95.65099
+offset_top = -0.42014694
+offset_right = 94.26699
+offset_bottom = -27.669281
+
+[node name="HealthLevelDisplay" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Health" index="1"]
+offset_left = 190.25993
+offset_top = -19.017124
+offset_right = 180.14894
+offset_bottom = 1.906827
+
+[node name="RotationSpeed" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu" index="5"]
+offset_left = 16.0
+offset_top = 114.61299
+offset_right = 151.0
+offset_bottom = 116.688995
+
+[node name="AddRotationSpeed" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/RotationSpeed" index="0"]
+offset_left = 58.735023
+offset_top = -2.4950066
+offset_right = 47.495026
+offset_bottom = 3.701992
+
+[node name="RotationLevelDisplay" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/RotationSpeed" index="1"]
+offset_left = 184.10005
+offset_top = -8.117008
+offset_right = 164.26505
+offset_bottom = 13.998992
+
+[node name="Firerate" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu" index="6"]
+offset_left = 16.0
+offset_top = 34.302994
+offset_right = 135.0
+offset_bottom = 59.30298
+
+[node name="AddFirerate" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Firerate" index="0"]
+offset_left = 72.159
+offset_top = 1.579853
+offset_right = 64.50299
+offset_bottom = -17.923985
+
+[node name="FirerateLevelDisplay" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Firerate" index="1"]
+offset_left = 186.34003
+offset_top = -16.017124
+offset_right = 170.04103
+offset_bottom = 4.906831
+
+[node name="UpgradePoints" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu" index="7"]
+offset_left = 16.0
+offset_top = -143.294
+offset_right = 228.0
+offset_bottom = -128.39302
+
 [node name="tppointspawn" type="Button" parent="SidebarRoot/Panel/SidebarContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -36,3 +156,5 @@ size_flags_vertical = 6
 text = "spawn the funny point"
 
 [connection signal="pressed" from="SidebarRoot/Panel/SidebarContainer/tppointspawn" to="." method="_on_tppointspawn_pressed"]
+
+[editable path="SidebarRoot/Panel/SidebarContainer/upgradeMenu"]

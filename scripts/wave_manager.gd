@@ -24,8 +24,7 @@ func _on_spawn_timer_timeout() -> void:
 	if Global.enemiesSpawned < Global.enemiesToSpawn:
 		var randomSpawner = spawners[randi_range(0, spawners.size()-1)]
 		randomSpawner.spawnEnemy()
-		#Global.enemiesSpawned += 1
-		Global.enemiesToSpawn = 0
+		Global.enemiesSpawned += 1
 	else:
 		spawnTimer.stop()
 

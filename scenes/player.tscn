@@ -127,7 +127,6 @@ libraries = {
 position = Vector2(44, 0)
 
 [node name="directionArrow" type="Sprite2D" parent="."]
-rotation = 1.5707964
 scale = Vector2(0.225, 0.225)
 texture = ExtResource("2_qhqgy")
 
