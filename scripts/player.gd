@@ -263,11 +263,15 @@ func _process(delta):
 	if get_tree().is_paused():
 		return
 
+	# Get player input
 	input_direction = Input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
 
+	# WASD aiming rotation
 	if input_direction.length() > 0:
 		var aiming_angle = input_direction.angle()
-		rotation = lerp_angle(rotation, aiming_angle, clamp(finalRotationSpeed * delta, 0.05, 0.2))
+		rotation = lerp_angle(rotation, aiming_angle, clamp(finalRotationSpeed * delta, 0.001, 5))
+
+	# Aim assist if no WASD input
 	else:
 		var target = get_closest_target()
 		if is_instance_valid(target):

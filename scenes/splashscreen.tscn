@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cmio7bg7cpxse" path="res://images/SpeedyShibaShipper.png" id="4_vtbok"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vtbok"]
+font = ExtResource("1_1u6fw")
 font_size = 48
 outline_size = 9
 outline_color = Color(0.25118297, 0.4181331, 1, 1)

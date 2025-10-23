@@ -102,6 +102,7 @@ func level_up():
 	XPNeeded *= 1.2
 	upgradePoints += 5
 	leveled_up.emit(currentLevel)
+	AudioGlobal.play_level_up()
 
 func next_wave():
 	waveNumber += 1

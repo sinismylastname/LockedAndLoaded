@@ -41,7 +41,7 @@ offset_top = 31.612991
 offset_right = 188.0
 offset_bottom = 56.61299
 
-[node name="AddBulletPower" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Power" index="0"]
+[node name="AddBulletPower" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Power" index="0" groups=["buttons"]]
 offset_left = 27.691986
 offset_top = -1.2604418
 offset_right = 8.163986
@@ -59,7 +59,7 @@ offset_top = -55.697006
 offset_right = 188.0
 offset_bottom = -54.48201
 
-[node name="AddBulletRange" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Range" index="0"]
+[node name="AddBulletRange" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Range" index="0" groups=["buttons"]]
 offset_left = 27.691986
 offset_top = -2.75
 offset_right = 8.163986
@@ -77,7 +77,7 @@ offset_top = 38.628983
 offset_right = 195.0
 offset_bottom = 63.628967
 
-[node name="AddBulletPierce" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Pierce" index="0"]
+[node name="AddBulletPierce" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Pierce" index="0" groups=["buttons"]]
 offset_left = 21.818985
 offset_top = 2.5798683
 offset_right = 0.72299194
@@ -95,7 +95,7 @@ offset_top = 250.349
 offset_right = 107.0
 offset_bottom = 275.349
 
-[node name="AddHealth" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Health" index="0"]
+[node name="AddHealth" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Health" index="0" groups=["buttons"]]
 offset_left = 95.65099
 offset_top = -0.42014694
 offset_right = 94.26699
@@ -113,7 +113,7 @@ offset_top = 114.61299
 offset_right = 151.0
 offset_bottom = 116.688995
 
-[node name="AddRotationSpeed" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/RotationSpeed" index="0"]
+[node name="AddRotationSpeed" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/RotationSpeed" index="0" groups=["buttons"]]
 offset_left = 58.735023
 offset_top = -2.4950066
 offset_right = 47.495026
@@ -131,7 +131,7 @@ offset_top = 34.302994
 offset_right = 135.0
 offset_bottom = 59.30298
 
-[node name="AddFirerate" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Firerate" index="0"]
+[node name="AddFirerate" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Firerate" index="0" groups=["buttons"]]
 offset_left = 72.159
 offset_top = 1.579853
 offset_right = 64.50299
@@ -146,10 +146,16 @@ offset_bottom = 4.906831
 [node name="UpgradePoints" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu" index="7"]
 offset_left = 16.0
 offset_top = -143.294
-offset_right = 228.0
-offset_bottom = -128.39302
+offset_right = 200.0
+offset_bottom = -142.39302
 
-[node name="tppointspawn" type="Button" parent="SidebarRoot/Panel/SidebarContainer"]
+[node name="Levels" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu" index="8"]
+offset_left = 16.0
+offset_top = 423.61298
+offset_right = 70.0
+offset_bottom = 440.613
+
+[node name="tppointspawn" type="Button" parent="SidebarRoot/Panel/SidebarContainer" groups=["buttons"]]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6

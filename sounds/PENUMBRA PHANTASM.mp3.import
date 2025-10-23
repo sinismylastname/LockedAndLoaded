@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cok6en15nl5f6"
+path="res://.godot/imported/PENUMBRA PHANTASM.mp3-537aad1dfe40bb31b8290cc35280a91c.mp3str"
+
+[deps]
+
+source_file="res://sounds/PENUMBRA PHANTASM.mp3"
+dest_files=["res://.godot/imported/PENUMBRA PHANTASM.mp3-537aad1dfe40bb31b8290cc35280a91c.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

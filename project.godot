@@ -36,10 +36,14 @@ window/stretch/mode="canvas_items"
 
 enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/godot_super-wakatime/plugin.cfg", "res://addons/primitive_shapes/plugin.cfg")
 
+[global_group]
+
+buttons="for buttons (no duh)"
+
 [gui]
 
 theme/default_font_multichannel_signed_distance_field=true
-theme/custom_font="uid://bdct0vp2h6jh6"
+theme/custom_font="uid://degky6vuvwh6t"
 
 [input]
 

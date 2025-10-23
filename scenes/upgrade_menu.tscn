@@ -1,12 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmwwkeikequqt"]
+[gd_scene load_steps=7 format=3 uid="uid://cmwwkeikequqt"]
 
 [ext_resource type="Script" uid="uid://mvf4s3tubf5n" path="res://scripts/upgrade_menu.gd" id="1_e3qxy"]
 [ext_resource type="Script" uid="uid://cpd4dpoo5q4kv" path="res://scripts/ButtonSFX.gd" id="2_ksfom"]
 
+[sub_resource type="FontVariation" id="FontVariation_0e30j"]
+variation_embolden = 0.5
+
 [sub_resource type="LabelSettings" id="LabelSettings_ppglw"]
+font = SubResource("FontVariation_0e30j")
+
+[sub_resource type="FontVariation" id="FontVariation_ksfom"]
+variation_embolden = 1.55
 
 [sub_resource type="LabelSettings" id="LabelSettings_ksfom"]
-font_size = 20
+font = SubResource("FontVariation_ksfom")
+font_size = 24
 
 [node name="upgradeMenu" type="Control"]
 layout_mode = 3
@@ -35,7 +43,7 @@ offset_bottom = 147.0
 text = "Bullet Power"
 label_settings = SubResource("LabelSettings_ppglw")
 
-[node name="AddBulletPower" type="Button" parent="Power"]
+[node name="AddBulletPower" type="Button" parent="Power" groups=["buttons"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.83900005
@@ -76,7 +84,7 @@ offset_bottom = 89.0
 text = "Bullet Range"
 label_settings = SubResource("LabelSettings_ppglw")
 
-[node name="AddBulletRange" type="Button" parent="Range"]
+[node name="AddBulletRange" type="Button" parent="Range" groups=["buttons"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.83900005
@@ -117,7 +125,7 @@ offset_bottom = 206.0
 text = "Bullet Pierce"
 label_settings = SubResource("LabelSettings_ppglw")
 
-[node name="AddBulletPierce" type="Button" parent="Pierce"]
+[node name="AddBulletPierce" type="Button" parent="Pierce" groups=["buttons"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.83900005
@@ -158,7 +166,7 @@ offset_bottom = 390.0
 text = "Health"
 label_settings = SubResource("LabelSettings_ppglw")
 
-[node name="AddHealth" type="Button" parent="Health"]
+[node name="AddHealth" type="Button" parent="Health" groups=["buttons"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.83900005
@@ -199,7 +207,7 @@ offset_bottom = 324.0
 text = "Rotation Speed"
 label_settings = SubResource("LabelSettings_ppglw")
 
-[node name="AddRotationSpeed" type="Button" parent="RotationSpeed"]
+[node name="AddRotationSpeed" type="Button" parent="RotationSpeed" groups=["buttons"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.83900005
@@ -240,7 +248,7 @@ offset_bottom = 258.0
 text = "Firerate"
 label_settings = SubResource("LabelSettings_ppglw")
 
-[node name="AddFirerate" type="Button" parent="Firerate"]
+[node name="AddFirerate" type="Button" parent="Firerate" groups=["buttons"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.83900005

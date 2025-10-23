@@ -17,7 +17,6 @@ func _ready():
 func enemyDied():
 	Global.addXP(5)
 	Global.emit_signal("xp_changed", 5)
-	Global.decrease_enemy_count()
 	
 	var roll = randf()
 	
@@ -31,6 +30,7 @@ func enemyDied():
 		_spawn_enemy(shooter_enemy_scene)
 	await get_tree().process_frame
 	queue_free.call_deferred()
+	Global.decrease_enemy_count()
 	
 func _spawn_enemy(scene):
 	var new_enemy = scene.instantiate()

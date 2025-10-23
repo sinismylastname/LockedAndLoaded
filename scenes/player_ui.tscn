@@ -115,10 +115,10 @@ anchor_left = 0.437
 anchor_top = 0.312
 anchor_right = 0.569
 anchor_bottom = 0.402
-offset_left = -83.42401
-offset_top = 9.82399
-offset_right = 111.29602
-offset_bottom = 49.224
+offset_left = 4.575989
+offset_top = 33.82399
+offset_right = -20.488037
+offset_bottom = 15.503998
 text = "WAVE 3"
 label_settings = SubResource("LabelSettings_jkj6h")
 
@@ -144,14 +144,15 @@ anchors_preset = -1
 anchor_top = 0.95800006
 anchor_right = 0.109000005
 anchor_bottom = 1.0
-offset_left = 308.0
-offset_top = -332.78406
-offset_right = 638.64
-offset_bottom = -291.46405
+offset_left = 408.0
+offset_top = -380.78406
+offset_right = 505.432
+offset_bottom = -339.46405
 text = "Intermission:  "
 label_settings = SubResource("LabelSettings_sk4pr")
 
-[node name="SkipIntermission" type="Button" parent="playerUIRoot"]
+[node name="SkipIntermission" type="Button" parent="playerUIRoot" groups=["buttons"]]
+visible = false
 layout_mode = 0
 offset_left = 912.0
 offset_top = 568.0

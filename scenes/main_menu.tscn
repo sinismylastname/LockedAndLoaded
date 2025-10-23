@@ -79,7 +79,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="PlayButton" type="Button" parent="LAYER3/BUTTONS"]
+[node name="PlayButton" type="Button" parent="LAYER3/BUTTONS" groups=["buttons"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.365
@@ -98,7 +98,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_jk1qb")
 text = "LOCK IN"
 script = ExtResource("2_bqqt6")
 
-[node name="SettingsButton" type="Button" parent="LAYER3/BUTTONS"]
+[node name="SettingsButton" type="Button" parent="LAYER3/BUTTONS" groups=["buttons"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.365
@@ -117,7 +117,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_rcqid")
 text = "SETTINGS"
 script = ExtResource("2_ekxnf")
 
-[node name="ExitButton" type="Button" parent="LAYER3/BUTTONS"]
+[node name="ExitButton" type="Button" parent="LAYER3/BUTTONS" groups=["buttons"]]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.365
@@ -152,12 +152,22 @@ theme_override_fonts/font = ExtResource("3_8ln24")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_5dd4i")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_lgwnu")
 text = "Controls: 
-Press Spacebar to change rotation
-Hold Spacebar to pause rotation
-Double tap Spacebar to parry enemies away"
+WASD Or Arrow keys to rotate
+J or Z to Parry
+K or X to Teleport
+"
 label_settings = SubResource("LabelSettings_ekxnf")
-horizontal_alignment = 3
 autowrap_mode = 3
+
+[node name="Label" type="Label" parent="LAYER3"]
+layout_mode = 0
+offset_left = 482.0
+offset_top = 569.0
+offset_right = 1158.0
+offset_bottom = 623.0
+text = "known bugs right now:
+intermission bug with my lucky block enemy
+the upgrade points does not update normally when levelling up, so it'll display zero (you have more than zero)"
 
 [node name="FadeRect" type="ColorRect" parent="."]
 visible = false
