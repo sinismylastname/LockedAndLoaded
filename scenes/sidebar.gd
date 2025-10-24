@@ -12,16 +12,19 @@ var opened_pos = Vector2(865.0, 35.0)
 @onready var tp_point_scene = preload("res://scenes/tp_point.tscn")
 
 func _ready() -> void:
+	$sidebar_indicator.visible = true
 	screen_width = DisplayServer.screen_get_size().x
 	sidebar_panel.position = original_pos
 	
 func open_menu():
+	$sidebar_indicator.visible = false
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE).tween_property(sidebar_panel, "position", opened_pos-Vector2(20, 0), 0.1)
 	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE).tween_property(sidebar_panel, "position", opened_pos+Vector2(10, 0), 0.05)
 	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE).tween_property(sidebar_panel, "position", opened_pos, 0.15)
 
 func close_menu():
+	$sidebar_indicator.visible = true
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE).tween_property(sidebar_panel, "position", original_pos, 0.3)
 	

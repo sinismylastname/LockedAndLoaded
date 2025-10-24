@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://diyeb8epqtv1h"]
+[gd_scene load_steps=5 format=3 uid="uid://diyeb8epqtv1h"]
 
 [ext_resource type="Script" uid="uid://5n8kmlym2vct" path="res://scenes/sidebar.gd" id="1_iqt6p"]
 [ext_resource type="PackedScene" uid="uid://cmwwkeikequqt" path="res://scenes/upgrade_menu.tscn" id="2_rx5q4"]
+[ext_resource type="Script" uid="uid://cug7hbekyfo6k" path="res://addons/primitive_shapes/circle.gd" id="3_nexdq"]
+[ext_resource type="Texture2D" uid="uid://bat6qlba3t2dv" path="res://images/NextTPLocationIMG.png" id="4_pu38c"]
 
 [node name="SidebarCanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_iqt6p")
@@ -41,7 +43,7 @@ offset_top = 31.612991
 offset_right = 188.0
 offset_bottom = 56.61299
 
-[node name="AddBulletPower" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Power" index="0" groups=["buttons"]]
+[node name="AddBulletPower" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Power" index="0"]
 offset_left = 27.691986
 offset_top = -1.2604418
 offset_right = 8.163986
@@ -59,7 +61,7 @@ offset_top = -55.697006
 offset_right = 188.0
 offset_bottom = -54.48201
 
-[node name="AddBulletRange" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Range" index="0" groups=["buttons"]]
+[node name="AddBulletRange" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Range" index="0"]
 offset_left = 27.691986
 offset_top = -2.75
 offset_right = 8.163986
@@ -77,7 +79,7 @@ offset_top = 38.628983
 offset_right = 195.0
 offset_bottom = 63.628967
 
-[node name="AddBulletPierce" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Pierce" index="0" groups=["buttons"]]
+[node name="AddBulletPierce" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Pierce" index="0"]
 offset_left = 21.818985
 offset_top = 2.5798683
 offset_right = 0.72299194
@@ -95,7 +97,7 @@ offset_top = 250.349
 offset_right = 107.0
 offset_bottom = 275.349
 
-[node name="AddHealth" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Health" index="0" groups=["buttons"]]
+[node name="AddHealth" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Health" index="0"]
 offset_left = 95.65099
 offset_top = -0.42014694
 offset_right = 94.26699
@@ -113,7 +115,7 @@ offset_top = 114.61299
 offset_right = 151.0
 offset_bottom = 116.688995
 
-[node name="AddRotationSpeed" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/RotationSpeed" index="0" groups=["buttons"]]
+[node name="AddRotationSpeed" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/RotationSpeed" index="0"]
 offset_left = 58.735023
 offset_top = -2.4950066
 offset_right = 47.495026
@@ -131,7 +133,7 @@ offset_top = 34.302994
 offset_right = 135.0
 offset_bottom = 59.30298
 
-[node name="AddFirerate" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Firerate" index="0" groups=["buttons"]]
+[node name="AddFirerate" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Firerate" index="0"]
 offset_left = 72.159
 offset_top = 1.579853
 offset_right = 64.50299
@@ -160,6 +162,20 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 text = "spawn the funny point"
+
+[node name="sidebar_indicator" type="Node2D" parent="."]
+position = Vector2(1152, 322)
+scale = Vector2(0.84000003, 1)
+script = ExtResource("3_nexdq")
+radius = 60.0
+color = Color(0.18000486, 0.18000486, 0.18000486, 0.23529412)
+metadata/_custom_type_script = "uid://cug7hbekyfo6k"
+
+[node name="arrow_indicator" type="Sprite2D" parent="sidebar_indicator"]
+position = Vector2(4.761841, 0)
+rotation = -1.5707964
+scale = Vector2(0.20688327, 0.10343245)
+texture = ExtResource("4_pu38c")
 
 [connection signal="pressed" from="SidebarRoot/Panel/SidebarContainer/tppointspawn" to="." method="_on_tppointspawn_pressed"]
 

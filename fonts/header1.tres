@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cs2ikqjgl2htn"]
+
+[sub_resource type="FontVariation" id="FontVariation_ksfom"]
+variation_embolden = 1.55
+
+[resource]
+font = SubResource("FontVariation_ksfom")
+font_size = 24
