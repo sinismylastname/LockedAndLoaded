@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dvo24mmacr7xq"]
+[gd_scene load_steps=20 format=3 uid="uid://dvo24mmacr7xq"]
 
 [ext_resource type="Script" uid="uid://yp7mmox36all" path="res://scripts/player_ui.gd" id="1_jkj6h"]
 
@@ -46,8 +46,36 @@ font_size = 32
 [sub_resource type="LabelSettings" id="LabelSettings_jkj6h"]
 font_size = 42
 
+[sub_resource type="Gradient" id="Gradient_7ctsh"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bkx2g"]
+gradient = SubResource("Gradient_7ctsh")
+width = 8
+height = 607
+
+[sub_resource type="Gradient" id="Gradient_n31oh"]
+offsets = PackedFloat32Array(0.28767124, 0.72602737)
+colors = PackedColorArray(0.38431373, 0.88235295, 0.88235295, 1, 0.8207017, 0.95415443, 0.8839708, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wsb5h"]
+gradient = SubResource("Gradient_n31oh")
+width = 8
+height = 607
+
+[sub_resource type="FontVariation" id="FontVariation_sk4pr"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_sk4pr"]
-font_size = 42
+font = SubResource("FontVariation_sk4pr")
+font_size = 40
+
+[sub_resource type="FontVariation" id="FontVariation_jkj6h"]
+variation_embolden = 0.5
+
+[sub_resource type="LabelSettings" id="LabelSettings_8isll"]
+font = SubResource("FontVariation_jkj6h")
+font_size = 48
 
 [node name="playerUI" type="CanvasLayer"]
 follow_viewport_enabled = true
@@ -125,17 +153,22 @@ label_settings = SubResource("LabelSettings_jkj6h")
 [node name="ColorRect" type="ColorRect" parent="playerUIRoot"]
 visible = false
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+offset_left = -23800.889
+offset_top = -13388.0
+offset_right = 24952.889
+offset_bottom = 14036.0
 color = Color(1, 1, 1, 0.44313726)
 
-[node name="XPBAR" type="ProgressBar" parent="playerUIRoot"]
+[node name="XPBAR" type="TextureProgressBar" parent="playerUIRoot"]
 layout_mode = 0
 offset_left = 1144.0
 offset_right = 1152.0
 offset_bottom = 607.0
+mouse_filter = 2
+rounded = true
 fill_mode = 3
-show_percentage = false
+texture_under = SubResource("GradientTexture2D_bkx2g")
+texture_progress = SubResource("GradientTexture2D_wsb5h")
 
 [node name="IntermissionLabel" type="Label" parent="playerUIRoot"]
 visible = false
@@ -144,11 +177,11 @@ anchors_preset = -1
 anchor_top = 0.95800006
 anchor_right = 0.109000005
 anchor_bottom = 1.0
-offset_left = 408.0
+offset_left = 430.0
 offset_top = -380.78406
-offset_right = 505.432
-offset_bottom = -339.46405
-text = "Intermission:  "
+offset_right = 593.432
+offset_bottom = -363.0
+text = "INTERMISSION:"
 label_settings = SubResource("LabelSettings_sk4pr")
 
 [node name="SkipIntermission" type="Button" parent="playerUIRoot" groups=["buttons"]]
@@ -159,5 +192,15 @@ offset_top = 568.0
 offset_right = 1135.0
 offset_bottom = 593.0
 text = "SKIP INTERMISSION"
+
+[node name="WaveClearedLabel" type="Label" parent="playerUIRoot"]
+visible = false
+layout_mode = 0
+offset_left = 384.0
+offset_top = 240.0
+offset_right = 708.0
+offset_bottom = 285.0
+text = "WAVE CLEARED!"
+label_settings = SubResource("LabelSettings_8isll")
 
 [connection signal="pressed" from="playerUIRoot/SkipIntermission" to="." method="_on_skip_intermission_pressed"]

@@ -28,7 +28,9 @@ func enemyDied():
 	AudioGlobal.play_death()
 	Global.decrease_enemy_count()
 	Global.addXP(50)
-	Global.emit_signal("xp_changed", 25)
+	Global.emit_signal("xp_changed", 50)
+	
+	
 	
 	var particles = death_particles_scene.instantiate()
 	particles.global_position = global_position

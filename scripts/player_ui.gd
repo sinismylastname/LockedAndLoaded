@@ -7,9 +7,12 @@ extends CanvasLayer
 @onready var xp_bar = $playerUIRoot/XPBAR
 @onready var intermission_label = $playerUIRoot/IntermissionLabel
 @onready var skip_intermission = $playerUIRoot/SkipIntermission
+@onready var wave_cleared_label = $playerUIRoot/WaveClearedLabel
 var Player = null
+var intermission_active = false
 
 func _ready():
+	wave_cleared_label.visible = false
 	skip_intermission.visible = false
 	call_deferred("connect_player_signals")
 	Global.enemy_count_changed.connect(on_enemy_count_changed)
@@ -83,10 +86,22 @@ func _on_wave_started(new_wave_number):
 	tween.tween_property(wave_notification, "modulate", Color(1, 1, 1, 0), 1.0)
 
 func _on_intermission_started():
-	if !is_instance_valid(intermission_label):
-		return
+	if intermission_active:
+		return  
 
+	var tween = create_tween() 
+	wave_cleared_label.text = "WAVE CLEARED!" 
+	wave_cleared_label.modulate = Color(1, 1, 1, 0)
+	wave_cleared_label.visible = true
+	tween.tween_property(wave_cleared_label, "modulate:a", 1.0, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT) 
+	tween.tween_interval(1.5) 
+	tween.tween_property(wave_cleared_label, "modulate:a", 0.0, 0.8).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN) 
+	await tween.finished 
+	wave_cleared_label.visible = false
+	
+	intermission_active = true
 	intermission_label.visible = true
+	skip_intermission.disabled = false
 	skip_intermission.visible = true
 	var countdown = Global.intermission_time
 
@@ -96,18 +111,21 @@ func _on_intermission_started():
 		countdown -= 0.1
 
 	intermission_label.visible = false
+	skip_intermission.disabled = true
+	skip_intermission.visible = false
+	intermission_active = false
 
 
 func _on_skip_intermission_pressed() -> void:
-	if not Global.is_intermission:
-		return
+	if intermission_active:
+		intermission_active = false
 	intermission_label.visible = false
+	skip_intermission.disabled = true
 	skip_intermission.visible = false
-	Global.is_intermission = false
 
-	var wave_manager = get_tree().current_scene.get_node_or_null("WaveManager")
+	var wave_manager = get_tree().get_first_node_in_group("wave_manager")
 	if wave_manager:
-		wave_manager._on_intermission_ended()
+		wave_manager.skip_intermission()
 
 
 func _process(delta):

@@ -39,12 +39,22 @@ func _on_screen_exited():
 func _on_player_changed(new_player):
 	player = new_player
 
+func _xp_popup(xp_amount):
+	var popup = preload("res://scenes/xp_popup.tscn").instantiate()
+	popup.text = "+%d XP" % xp_amount #replace with actual xp amt
+	popup.global_position = global_position
+	get_tree().current_scene.add_child(popup)
+
+
 func enemyDied():
 	UI_Global.add_shake(0.2)
 	AudioGlobal.play_death()
 	Global.decrease_enemy_count()
 	Global.addXP(25)
+	
 	Global.emit_signal("xp_changed", 25)
+	
+	_xp_popup(25)
 	
 	var particles = death_particles_scene.instantiate()
 	particles.global_position = global_position

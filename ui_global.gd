@@ -21,6 +21,8 @@ func set_game_references(player_node, camera_node):
 	Player = player_node
 	Camera = camera_node
 
+
+
 func add_shake(power):
 	shake_amount = min(shake_amount + power, 1.0)
 

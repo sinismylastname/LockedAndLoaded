@@ -18,6 +18,8 @@ func enemyDied():
 	Global.addXP(5)
 	Global.emit_signal("xp_changed", 5)
 	
+	_xp_popup(5)
+	
 	var roll = randf()
 	
 	if roll < SPEEDY_CHANCE:

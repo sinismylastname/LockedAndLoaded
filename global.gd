@@ -124,14 +124,6 @@ func decrease_enemy_count():
 	
 	if enemyCount <= 0 and enemiesSpawned >= enemiesToSpawn:
 		all_enemies_cleared.emit()
-		is_intermission = true
-	
-func _on_all_enemies_cleared():
-	is_intermission = true
-	await get_tree().create_timer(intermission_time).timeout
-	is_intermission = false
-	next_wave()
-	
 
 func tp_point_possible():
 	if current_tp_points < max_tp_points:

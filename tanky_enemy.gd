@@ -17,6 +17,8 @@ func enemyDied():
 	Global.addXP(45)
 	Global.emit_signal("xp_changed", 45)
 	
+	_xp_popup(45)
+	
 	var particles = death_particles_scene.instantiate()
 	particles.global_position = global_position
 	particles.modulate = particle_color

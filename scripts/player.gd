@@ -5,6 +5,10 @@ var last_space_press_time = 0.0
 
 var rotationAccel = 5.0
 var currentRotationSpeed = 0.0
+var rotation_accel = 10.0
+var rotation_decel = 12.0
+var max_rotation_speed = 6.0
+var rotation_speed = 0.0
 var input_direction = Vector2.ZERO
 var projectile = preload("res://scenes/projectiles/bullet.tscn")
 
@@ -263,22 +267,23 @@ func _process(delta):
 	if get_tree().is_paused():
 		return
 
-	# Get player input
 	input_direction = Input.get_vector("aim_left", "aim_right", "aim_up", "aim_down")
 
-	# WASD aiming rotation
 	if input_direction.length() > 0:
-		var aiming_angle = input_direction.angle()
-		rotation = lerp_angle(rotation, aiming_angle, clamp(finalRotationSpeed * delta, 0.001, 5))
-
-	# Aim assist if no WASD input
+		var target_angle = input_direction.angle()
+		var angle_diff = wrapf(target_angle - rotation, -PI, PI)
+		currentRotationSpeed += rotationAccel * delta
+		currentRotationSpeed = min(currentRotationSpeed, finalRotationSpeed)
+		rotation += clamp(angle_diff, -currentRotationSpeed * delta, currentRotationSpeed * delta)
 	else:
-		var target = get_closest_target()
-		if is_instance_valid(target):
-			var target_direction = (target.global_position - global_position).normalized()
-			var required_rotation = target_direction.angle()
-			var angle_delta = wrapf(required_rotation - rotation, -PI, PI)
-			rotation += angle_delta * finalRotationSpeed * AIM_ASSIST_STRENGTH * delta
+		currentRotationSpeed = lerp(currentRotationSpeed, 0.0, rotationAccel * delta)
+
+	var target = get_closest_target()
+	if input_direction.length() == 0 and is_instance_valid(target):
+		var target_dir = (target.global_position - global_position).normalized()
+		var target_angle = target_dir.angle()
+		var angle_diff = wrapf(target_angle - rotation, -PI, PI)
+		rotation += angle_diff * finalRotationSpeed * AIM_ASSIST_STRENGTH * delta
 
 	emit_signal("cooldownUpdated", fireTimer.time_left)
 	emit_signal("healthUpdated", currentHealth)
