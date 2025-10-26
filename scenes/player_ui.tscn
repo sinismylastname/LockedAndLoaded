@@ -196,10 +196,10 @@ text = "SKIP INTERMISSION"
 [node name="WaveClearedLabel" type="Label" parent="playerUIRoot"]
 visible = false
 layout_mode = 0
-offset_left = 384.0
-offset_top = 240.0
-offset_right = 708.0
-offset_bottom = 285.0
+offset_left = 397.0
+offset_top = 235.0
+offset_right = 769.0
+offset_bottom = 302.0
 text = "WAVE CLEARED!"
 label_settings = SubResource("LabelSettings_8isll")
 

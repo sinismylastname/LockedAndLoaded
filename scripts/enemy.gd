@@ -41,9 +41,14 @@ func _on_player_changed(new_player):
 
 func _xp_popup(xp_amount):
 	var popup = preload("res://scenes/xp_popup.tscn").instantiate()
-	popup.text = "+%d XP" % xp_amount #replace with actual xp amt
+	popup.text = "+%d XP" % xp_amount 
 	popup.global_position = global_position
 	get_tree().current_scene.add_child(popup)
+	
+func flash_on_hit():
+	var t = create_tween()
+	modulate = Color(2, 2, 2) 
+	t.tween_property(self, "modulate", Color(1, 1, 1), 0.1)
 
 
 func enemyDied():
@@ -67,9 +72,10 @@ func takeDamage(damageAmount, hit_direction: Vector2 = Vector2.ZERO, hit_positio
 	# quick safety
 	if not is_inside_tree():
 		return
-
+	
+	flash_on_hit()
 	AudioGlobal.play_hurt()
-	UI_Global.add_shake(0.1)
+	UI_Global.add_shake(0.2)
 	health -= damageAmount
 
 	if hit_direction == Vector2.ZERO:
