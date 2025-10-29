@@ -23,6 +23,12 @@ func _ready():
 	fireTimer.wait_time = FIRE_RATE
 	fireTimer.stop()
 
+func _xp_popup(xp_amount):
+	var popup = preload("res://scenes/xp_popup.tscn").instantiate()
+	popup.text = "+%d XP" % xp_amount #replace with actual xp amt
+	popup.global_position = global_position
+	get_tree().current_scene.add_child(popup)
+
 func enemyDied():
 	UI_Global.add_shake(0.2)
 	AudioGlobal.play_death()
@@ -30,7 +36,7 @@ func enemyDied():
 	Global.addXP(50)
 	Global.emit_signal("xp_changed", 50)
 	
-	
+	_xp_popup(50)
 	
 	var particles = death_particles_scene.instantiate()
 	particles.global_position = global_position

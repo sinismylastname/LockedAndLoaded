@@ -5,7 +5,7 @@ var last_space_press_time = 0.0
 
 var rotationAccel = 5.0
 var currentRotationSpeed = 0.0
-var rotation_accel = 10.0
+var rotation_accel = 6.0
 var rotation_decel = 12.0
 var max_rotation_speed = 6.0
 var rotation_speed = 0.0
@@ -24,25 +24,27 @@ var finalAimAssist
 var currentHealth = 0.0
 
 const baseFireRate = 1.0
-const baseFireRateReduction = 0.04
+const baseFireRateReduction = 0.8
 const baseBulletSpeed = 500
-const baseSpeedAddition = 50
+const baseSpeedAddition = 125
 const baseBulletDamage = 10
 const baseHealth = 100
-const baseHealthAddition = 25
+const baseHealthAddition = 75
 const baseDamage = 10
-const baseDamageAddition = 2.5
+const baseDamageAddition = 10
 const basePierce = 1
 const basePierceAddition = 1
 const baseRotationSpeed = 2
-const baseRotationSpeedAddition = 0.25
+const baseRotationSpeedAddition = 1
 const baseBulletLifetime = 0.5
 const baseBulletLifetimeAddition = 0.05
 const baseBulletSize = 1
-const baseBulletSizeAddition = 0.2
+const baseBulletSizeAddition = 0.5
 const AIM_ASSIST_RANGE = 800
 const AIM_ASSIST_STRENGTH = 0.7
 const AIM_CONE_ANGLE = PI / 16.0
+
+#changed calculations to account for the reduction in points
 
 var parry_active = false
 var parry_on_cooldown = false
@@ -61,7 +63,19 @@ signal parried_signal
 @onready var playerAnimator = $Animator
 @onready var parry_hitbox = $ParryHitbox
 @onready var TP_Point = get_tree().current_scene.get_node_or_null("TPPoint")
- 
+@onready var level_up_particles = $LevelUpParticles
+@onready var parry_ready_particles = $ParryReadyParticle
+
+
+
+func _ready() -> void:
+	update_stats()
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	currentHealth = finalHealth
+	$ParryCircle.visible = false
+	Global.connect("leveled_up", Callable(self, "_level_up_vfx"))
+	
+	
 func update_stats():
 	var fire_level = Global.upgrades["fire_rate_level"]
 	finalFireRate = baseFireRate - (fire_level * baseFireRateReduction)
@@ -108,6 +122,14 @@ func takeDamage(damageAmount):
 	emit_signal("healthUpdated", currentHealth)
 		
 
+func _level_up_vfx():
+	level_up_particles.restart()
+	level_up_particles.emitting = true
+	print("emitted!!")
+	UI_Global.add_shake(0.3)
+	
+	
+
 func get_closest_target() -> Node2D:
 	var closest_target: Node2D = null
 	var min_distance = AIM_ASSIST_RANGE
@@ -129,6 +151,7 @@ func fireProjectile():
 	var projectile = projectile.instantiate()
 	projectile.setRotation(rotation)
 	get_tree().root.add_child(projectile)
+	UI_Global.add_shake(finalDamage/100)
 	
 	projectile.set_bullet_stats(
 		finalBulletSpeed, 
@@ -144,11 +167,7 @@ func fireProjectile():
 	var directionVector = Vector2.RIGHT.rotated(rotation)
 	projectile.setDirection(directionVector)
 	
-func _ready() -> void:
-	update_stats()
-	process_mode = Node.PROCESS_MODE_ALWAYS
-	currentHealth = finalHealth
-	$ParryCircle.visible = false
+
 	
 func _input(event: InputEvent) -> void:
 	
@@ -198,16 +217,8 @@ func _start_parry():
 		_show_parry_ready_pulse()
 	
 func _show_parry_ready_pulse():
-	var sprite = $ParryCircle.duplicate() 
-	sprite.modulate = Color(1, 1, 1, 0.4)
-	sprite.scale = Vector2.ONE
-	add_child(sprite)
-	
-	var tween = create_tween()
-	tween.tween_property(sprite, "scale", Vector2(2, 2), 0.1)
-	tween.parallel().tween_property(sprite, "modulate:a", 0.0, 0.1)
-	await tween.finished
-	sprite.queue_free()
+	parry_ready_particles.restart()
+	parry_ready_particles.emitting
 	
 func _on_parry_hitbox_area_entered(area: Area2D) -> void:
 	if parry_active and area.is_in_group("enemies"):
@@ -273,10 +284,10 @@ func _process(delta):
 		var target_angle = input_direction.angle()
 		var angle_diff = wrapf(target_angle - rotation, -PI, PI)
 		currentRotationSpeed += rotationAccel * delta
-		currentRotationSpeed = min(currentRotationSpeed, finalRotationSpeed)
-		rotation += clamp(angle_diff, -currentRotationSpeed * delta, currentRotationSpeed * delta)
+		currentRotationSpeed = minf(currentRotationSpeed, finalRotationSpeed)
+		rotation += clampf(angle_diff, -currentRotationSpeed * delta, currentRotationSpeed * delta)
 	else:
-		currentRotationSpeed = lerp(currentRotationSpeed, 0.0, rotationAccel * delta)
+		currentRotationSpeed = lerpf(currentRotationSpeed, 0.0, rotationAccel * delta)
 
 	var target = get_closest_target()
 	if input_direction.length() == 0 and is_instance_valid(target):

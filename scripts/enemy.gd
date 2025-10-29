@@ -45,9 +45,22 @@ func _xp_popup(xp_amount):
 	popup.global_position = global_position
 	get_tree().current_scene.add_child(popup)
 
+func _enemy_pop_effect():
+	var tween = create_tween()
+	for child in get_children():
+		if child is Control:
+			tween.tween_property(child, "modulate", Color(1,1,1,1), 0.15)
+			tween.tween_property(child, "scale", child.scale * 1.5, 0.3)
+	await tween.finished
+
+func _enemy_death_particles():
+	var particles = death_particles_scene.instantiate()
+	particles.global_position = global_position
+	particles.modulate = particle_color
+	get_tree().current_scene.add_child(particles)
+	particles.emitting = true
 
 func enemyDied():
-	UI_Global.add_shake(0.2)
 	AudioGlobal.play_death()
 	Global.decrease_enemy_count()
 	Global.addXP(25)
@@ -56,11 +69,13 @@ func enemyDied():
 	
 	_xp_popup(25)
 	
-	var particles = death_particles_scene.instantiate()
-	particles.global_position = global_position
-	particles.modulate = particle_color
-	get_tree().current_scene.add_child(particles)
-	particles.emitting = true
+	#set_physics_process(false)
+	#set_process(false)
+	#$CollisionShape2D.disabled = true
+	#_enemy_pop_effect()
+	#await _enemy_pop_effect()
+	UI_Global.add_shake(0.3)
+	_enemy_death_particles()
 	queue_free()
 
 func takeDamage(damageAmount, hit_direction: Vector2 = Vector2.ZERO, hit_position: Vector2 = Vector2.ZERO):

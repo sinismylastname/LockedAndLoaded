@@ -11,7 +11,7 @@ func apply_knockback(direction_vector: Vector2, force: float):
 	knockback_timer = KNOCKBACK_DURATION 
 
 func enemyDied():
-	UI_Global.add_shake(0.2)
+	UI_Global.add_shake(0.3)
 	AudioGlobal.play_death()
 	Global.decrease_enemy_count()
 	Global.addXP(45)

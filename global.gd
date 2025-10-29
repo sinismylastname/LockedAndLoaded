@@ -46,7 +46,7 @@ var intermission_time = 30
 var is_intermission = false
 
 var current_tp_points = 0
-var max_tp_points = 9999
+var max_tp_points = 2
 
 var tp_point_array: Array = []
 var current_tp_index = 0
@@ -85,6 +85,8 @@ func reset_game():
 	var base_class_path = "res://scenes/player.tscn"
 	ClassManager.spawn_player(base_class_path)
 	get_tree().paused = false
+	
+	
 
 func set_game_references(player_node, ui_node):
 	Player = player_node
@@ -100,9 +102,14 @@ func level_up():
 	currentLevel += 1
 	currentXP -= XPNeeded 
 	XPNeeded *= 1.2
-	upgradePoints += 5
-	leveled_up.emit(currentLevel)
+	upgradePoints += 2 # i changed the amount of points to make the player feel like their points aren't like "pennies"
+	#it makes the upgrades feel that much more "heftier"
 	AudioGlobal.play_level_up()
+	
+	if is_instance_valid(Player):
+		Player._level_up_vfx()
+		
+	leveled_up.emit(currentLevel)
 
 func next_wave():
 	waveNumber += 1
@@ -131,8 +138,6 @@ func tp_point_possible():
 		return true
 	elif current_tp_points >= max_tp_points:
 		return false
-
-
 
 func apply_upgrade(stat_name: String):
 	if upgradePoints > 0:

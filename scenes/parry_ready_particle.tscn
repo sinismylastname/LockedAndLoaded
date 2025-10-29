@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhnp61nyn8d02"]
+
+[sub_resource type="Curve" id="Curve_p0chj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.17222223, 0.21348321), -3.0337076, -3.0337076, 0, 0, Vector2(0.41666666, 0.26966298), -0.5778488, -0.5778488, 0, 0, Vector2(0.6833334, 0.06741583), 0.0, 0.0, 0, 0, Vector2(0.8722222, 0.15730345), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 6
+
+[sub_resource type="Gradient" id="Gradient_m8v26"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="ParryReadyParticle" type="CPUParticles2D"]
+emitting = false
+amount = 800
+one_shot = true
+speed_scale = 4.0
+explosiveness = 0.95
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+radial_accel_min = -225.0
+radial_accel_max = -100.0
+tangential_accel_min = 1.4
+tangential_accel_max = 1.4
+damping_min = 16.832
+damping_max = 16.832
+scale_amount_min = 10.0
+scale_amount_max = 15.0
+scale_amount_curve = SubResource("Curve_p0chj")
+color_ramp = SubResource("Gradient_m8v26")
