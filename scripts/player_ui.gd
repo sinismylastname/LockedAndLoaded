@@ -89,22 +89,33 @@ func _on_intermission_started():
 	if intermission_active:
 		return  
 
-	var tween = create_tween() 
-	wave_cleared_label.text = "WAVE CLEARED!" 
+	# --- Wave Cleared Feedback ---
+	var tween = create_tween()
+	wave_cleared_label.text = "WAVE CLEARED!"
 	wave_cleared_label.modulate = Color(1, 1, 1, 0)
+	wave_cleared_label.scale = Vector2(1.0, 1.0)
 	wave_cleared_label.visible = true
-	tween.tween_property(wave_cleared_label, "modulate:a", 1.0, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT) 
-	tween.tween_interval(1.5) 
-	tween.tween_property(wave_cleared_label, "modulate:a", 0.0, 0.8).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN) 
-	await tween.finished 
+
+	# Fade in + glow pulse
+	tween.tween_property(wave_cleared_label, "modulate:a", 1.0, 0.3)
+	tween.parallel().tween_property(wave_cleared_label, "scale", Vector2(1.1, 1.1), 0.3)
+	tween.tween_property(wave_cleared_label, "modulate", Color(1.3, 1.3, 1.3, 1.0), 0.3) # glow brighten
+	tween.tween_property(wave_cleared_label, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.3) # back to normal
+	tween.tween_interval(0.7)
+	tween.tween_property(wave_cleared_label, "modulate:a", 0.0, 0.8)
+	await tween.finished
 	wave_cleared_label.visible = false
-	
+
+	# --- Intermission Fade-in ---
 	intermission_active = true
+	intermission_label.modulate = Color(1, 1, 1, 0)
 	intermission_label.visible = true
 	skip_intermission.disabled = false
 	skip_intermission.visible = true
-	var countdown = Global.intermission_time
+	var fade_tween = create_tween()
+	fade_tween.tween_property(intermission_label, "modulate:a", 1.0, 0.5)
 
+	var countdown = Global.intermission_time
 	while countdown > 0:
 		intermission_label.text = "INTERMISSION: %d" % int(ceil(countdown))
 		await get_tree().create_timer(0.1).timeout
@@ -114,6 +125,7 @@ func _on_intermission_started():
 	skip_intermission.disabled = true
 	skip_intermission.visible = false
 	intermission_active = false
+
 
 
 func _on_skip_intermission_pressed() -> void:
