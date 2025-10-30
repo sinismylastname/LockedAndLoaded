@@ -34,7 +34,7 @@ func _on_screen_entered():
 
 func _on_screen_exited():
 	is_visible_to_camera = false
-	
+
 
 func _on_player_changed(new_player):
 	player = new_player

@@ -15,3 +15,7 @@ func _on_player_died():
 
 func _on_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+func _on_play_again_pressed() -> void:
+	Global.reset_game()
+	visible  = false

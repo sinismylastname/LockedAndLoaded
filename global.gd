@@ -87,6 +87,7 @@ func reset_game():
 	get_tree().paused = false
 	
 	
+	
 
 func set_game_references(player_node, ui_node):
 	Player = player_node
