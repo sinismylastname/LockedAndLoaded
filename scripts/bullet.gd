@@ -72,9 +72,29 @@ func _update_trail():
 	trail.global_position = Vector2.ZERO
 
 func _on_bullet_lifespan_timeout() -> void:
+	set_process(false)
+	await _fade_trail() 
+	queue_free() 
+
+func _fade_trail():
+	var fade_time := 0.3
+	var fade_timer := 0.0
+	var start_color := trail.default_color
+	
+	while fade_timer < fade_time:
+		fade_timer += get_process_delta_time()
+		var t := clampf(fade_timer / fade_time, 0.0, 1.0)
+		trail.default_color.a = lerp(start_color.a, 0.0, t)
+		
+		if trail_points.size() > 0:
+			trail_points.pop_front()
+			trail.points = PackedVector2Array(trail_points)
+		
+		await get_tree().process_frame
+	
 	if is_instance_valid(trail):
 		trail.queue_free()
-	queue_free()
+
 
 func _on_bullet_entered(area: Area2D) -> void:
 	if area.is_in_group("enemies"):

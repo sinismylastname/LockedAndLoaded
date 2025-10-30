@@ -1,0 +1,57 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6dt0uaxfdqof"]
+
+[sub_resource type="FontVariation" id="FontVariation_8tfrv"]
+variation_embolden = 2.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_8tfrv"]
+font = SubResource("FontVariation_8tfrv")
+font_size = 32
+
+[node name="ScoreUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 16.0
+
+[node name="ComboContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(200, 400)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -235.0
+offset_top = -221.0
+offset_right = -35.0
+offset_bottom = 179.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ComboLabel" type="Label" parent="ComboContainer"]
+layout_mode = 2
+text = "COMBO"
+label_settings = SubResource("LabelSettings_8tfrv")
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="ComboContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+show_percentage = false
+
+[node name="Label" type="Label" parent="ComboContainer"]
+layout_mode = 2
+
+[node name="NotificationLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1111.0
+offset_top = 44.0
+offset_right = 1151.0
+offset_bottom = 60.0

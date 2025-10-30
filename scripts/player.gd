@@ -24,20 +24,20 @@ var finalAimAssist
 var currentHealth = 0.0
 
 const baseFireRate = 1.0
-const baseFireRateReduction = 0.8
+const baseFireRateReduction = 0.08
 const baseBulletSpeed = 500
 const baseSpeedAddition = 125
 const baseBulletDamage = 10
 const baseHealth = 100
 const baseHealthAddition = 75
 const baseDamage = 10
-const baseDamageAddition = 10
+const baseDamageAddition = 5
 const basePierce = 1
 const basePierceAddition = 1
 const baseRotationSpeed = 2
 const baseRotationSpeedAddition = 1
 const baseBulletLifetime = 0.5
-const baseBulletLifetimeAddition = 0.05
+const baseBulletLifetimeAddition = 0.1
 const baseBulletSize = 1
 const baseBulletSizeAddition = 0.5
 const AIM_ASSIST_RANGE = 800
@@ -100,7 +100,7 @@ func update_stats():
 	finalRotationSpeed = baseRotationSpeed + (rotation_level * baseRotationSpeedAddition)
 	
 	apply_class_modifiers()
-	fireTimer.wait_time = max(0.020, finalFireRate) #ok my fireTimer line is here because the class modifiers break the hell out of it
+	fireTimer.wait_time = max(0.001, finalFireRate) #ok my fireTimer line is here because the class modifiers break the hell out of it
 	emit_signal("healthUpdated", currentHealth)
 
 
@@ -110,6 +110,7 @@ func apply_class_modifiers():
 
 func takeDamage(damageAmount):
 	AudioGlobal.play_hurt()
+	UI_Global.add_shake(1)
 	if not parry_active: 
 		currentHealth -= damageAmount
 	elif parry_active:
@@ -151,7 +152,7 @@ func fireProjectile():
 	var projectile = projectile.instantiate()
 	projectile.setRotation(rotation)
 	get_tree().root.add_child(projectile)
-	UI_Global.add_shake(finalDamage/100)
+	UI_Global.add_shake(finalDamage*1.5/100)
 	
 	projectile.set_bullet_stats(
 		finalBulletSpeed, 

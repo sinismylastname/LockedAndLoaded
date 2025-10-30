@@ -50,14 +50,6 @@ func flash_on_hit():
 	modulate = Color(2, 2, 2) 
 	t.tween_property(self, "modulate", Color(1, 1, 1), 0.1)
 
-func _enemy_pop_effect():
-	var tween = create_tween()
-	for child in get_children():
-		if child is Control:
-			tween.tween_property(child, "modulate", Color(1,1,1,1), 0.15)
-			tween.tween_property(child, "scale", child.scale * 1.5, 0.3)
-	await tween.finished
-
 func _enemy_death_particles():
 	var particles = death_particles_scene.instantiate()
 	particles.global_position = global_position
@@ -74,11 +66,6 @@ func enemyDied():
 	
 	_xp_popup(25)
 	
-	#set_physics_process(false)
-	#set_process(false)
-	#$CollisionShape2D.disabled = true
-	#_enemy_pop_effect()
-	#await _enemy_pop_effect()
 	UI_Global.add_shake(0.3)
 	_enemy_death_particles()
 	queue_free()

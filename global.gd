@@ -57,6 +57,8 @@ var next_tp_point = null:
 		next_tp_point_changed.emit(value)
 	get:
 		return next_tp_point
+		
+var score = 0 #for game score
 
 
 func reset_game():
@@ -71,6 +73,7 @@ func reset_game():
 	currentLevel = 1
 	currentXP = 0
 	XPNeeded = 100
+	score = 0
 	
 	waveNumber = 1
 	enemiesToSpawn = 10
