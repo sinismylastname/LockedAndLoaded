@@ -6,6 +6,9 @@
 [node name="FastEnemy" instance=ExtResource("1_7dcje")]
 script = ExtResource("2_lpnxe")
 
+[node name="CollisionShape2D" parent="." index="0"]
+scale = Vector2(0.75, 0.75)
+
 [node name="ColorRect2" parent="." index="1"]
 offset_left = -15.0
 offset_top = -15.0

@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://c6dt0uaxfdqof"]
+[gd_scene load_steps=4 format=3 uid="uid://c6dt0uaxfdqof"]
+
+[ext_resource type="Script" uid="uid://qkd425oy27ug" path="res://scenes/score_ui.gd" id="1_hoy1o"]
 
 [sub_resource type="FontVariation" id="FontVariation_8tfrv"]
 variation_embolden = 2.0
@@ -14,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_hoy1o")
 
 [node name="ScoreLabel" type="Label" parent="."]
 layout_mode = 0
@@ -46,7 +49,10 @@ custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 show_percentage = false
 
-[node name="Label" type="Label" parent="ComboContainer"]
+[node name="ComboAddContainer" type="VBoxContainer" parent="ComboContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ComboContainer/ComboAddContainer"]
 layout_mode = 2
 
 [node name="NotificationLabel" type="Label" parent="."]

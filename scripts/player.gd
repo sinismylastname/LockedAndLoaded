@@ -78,7 +78,7 @@ func _ready() -> void:
 	
 func update_stats():
 	var fire_level = Global.upgrades["fire_rate_level"]
-	finalFireRate = baseFireRate - (fire_level * baseFireRateReduction)
+	finalFireRate = baseFireRate - log(fire_level + 1)
 	
 	emit_signal("fireRateChanged", fireTimer.wait_time)
 	
@@ -152,7 +152,7 @@ func fireProjectile():
 	var projectile = projectile.instantiate()
 	projectile.setRotation(rotation)
 	get_tree().root.add_child(projectile)
-	UI_Global.add_shake(finalDamage*1.5/100)
+	UI_Global.add_shake(finalDamage*1.5/75*Global.upgrades["fire_rate_level"])
 	
 	projectile.set_bullet_stats(
 		finalBulletSpeed, 

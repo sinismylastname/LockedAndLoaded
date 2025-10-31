@@ -4,7 +4,12 @@
 [ext_resource type="Script" uid="uid://c0yad00i45blg" path="res://tanky_enemy.gd" id="2_scss8"]
 
 [node name="TankyEnemy" instance=ExtResource("1_vfn1x")]
+scale = Vector2(1.25, 1.25)
 script = ExtResource("2_scss8")
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(-3.8146968e-07, 3.8146968e-07)
+scale = Vector2(1.25, 1.25)
 
 [node name="ColorRect2" parent="." index="1"]
 offset_left = -28.0

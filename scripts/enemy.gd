@@ -3,17 +3,20 @@ extends Area2D
 var playerDirection = Vector2.ZERO
 var speed = Global.enemySpeed
 var health = Global.enemyHP
+var max_health = Global.enemyHP 
 var knockback_vector = Vector2.ZERO
 var knockback_timer = 0.0
 const KNOCKBACK_DURATION = 0.15
 var player = null
 var offscreen_speed_multiplier = 6.0
-var particle_color = Color(0.965, 0.0, 0.0, 1.0)
+var particle_color = Color(1.0, 1.0, 1.0, 1.0)
+var body_color_1 = Color(0.965, 0.0, 0.0)
+var body_color_2 =Color(0.506, 0.0, 0.02)
 var is_visible_to_camera = false
 @onready var death_particles_scene = preload("res://scenes/death_particles.tscn")
 @onready var hit_particles_scene = preload("res://scenes/hit_particles.tscn") 
 @onready var visibility = $VisibilityNotifier
-
+@onready var body_rect = $Body #Changed code — your main color rect node
 
 func apply_knockback(direction_vector: Vector2, force: float):
 	knockback_vector = direction_vector * force
@@ -22,33 +25,42 @@ func apply_knockback(direction_vector: Vector2, force: float):
 func _ready():
 	Global.increaseEnemyCount()
 	Global.connect("player_changed", Callable(self, "_on_player_changed"))
-	_on_player_changed(Global.Player) # initialize immediately
-	
+	_on_player_changed(Global.Player)
 	visibility.connect("screen_entered", Callable(self, "_on_screen_entered"))
 	visibility.connect("screen_exited", Callable(self, "_on_screen_exited"))
-
 
 func _on_screen_entered():
 	is_visible_to_camera = true
 
-
 func _on_screen_exited():
 	is_visible_to_camera = false
-
 
 func _on_player_changed(new_player):
 	player = new_player
 
 func _xp_popup(xp_amount):
 	var popup = preload("res://scenes/xp_popup.tscn").instantiate()
-	popup.text = "+%d XP" % xp_amount 
+	popup.text = "+%d XP" % xp_amount
 	popup.global_position = global_position
 	get_tree().current_scene.add_child(popup)
-	
+
+func _death_pop():
+	var tween = create_tween()
+	tween.tween_property(self, "size", Vector2(2, 2), 0.4)
+
 func flash_on_hit():
 	var t = create_tween()
-	modulate = Color(2, 2, 2) 
+	modulate = Color(2, 2, 2)
 	t.tween_property(self, "modulate", Color(1, 1, 1), 0.1)
+
+func _update_damage_color(): 
+	var health_ratio = float(health) / float(max_health)
+	var white_strength = 1.0 - health_ratio
+	var target_color_1 = body_color_1.lerp(Color(1, 1, 1), white_strength)
+	var target_color_2 = body_color_2.lerp(Color(0.687, 0.687, 0.687, 1.0), white_strength)
+	
+	$ColorRect.color = target_color_1
+	$ColorRect2.color = target_color_2
 
 func _enemy_death_particles():
 	var particles = death_particles_scene.instantiate()
@@ -61,24 +73,22 @@ func enemyDied():
 	AudioGlobal.play_death()
 	Global.decrease_enemy_count()
 	Global.addXP(25)
-	
 	Global.emit_signal("xp_changed", 25)
-	
 	_xp_popup(25)
-	
+	_death_pop()
+	await _death_pop()
 	UI_Global.add_shake(0.3)
 	_enemy_death_particles()
 	queue_free()
 
 func takeDamage(damageAmount, hit_direction: Vector2 = Vector2.ZERO, hit_position: Vector2 = Vector2.ZERO):
-	# quick safety
 	if not is_inside_tree():
 		return
-	
 	flash_on_hit()
 	AudioGlobal.play_hurt()
 	UI_Global.add_shake(0.2)
 	health -= damageAmount
+	_update_damage_color() 
 
 	if hit_direction == Vector2.ZERO:
 		if hit_position != null:
@@ -96,10 +106,8 @@ func takeDamage(damageAmount, hit_direction: Vector2 = Vector2.ZERO, hit_positio
 		hit.global_position = global_position
 		get_tree().current_scene.add_child(hit)
 		hit.one_shot = true
-		
 		if "modulate" in hit:
 			hit.modulate = particle_color
-			
 		hit.emitting = true
 		print(hit_direction)
 
@@ -113,11 +121,9 @@ func _process(delta: float) -> void:
 	elif knockback_timer <= 0:
 		if is_instance_valid(player):
 			playerDirection = (player.global_position - global_position).normalized()
-			
 			var move_speed = speed
 			if not is_visible_to_camera:
 				move_speed *= offscreen_speed_multiplier
-			
 			global_position += playerDirection * move_speed * delta
 			look_at(player.global_position)
 	else:
