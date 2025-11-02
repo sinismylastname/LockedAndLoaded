@@ -2,6 +2,8 @@ extends "res://scripts/enemy.gd"
 
 func _ready():
 	super._ready()
+	body_color_1 = Color(0.529, 0.027, 1.0, 1.0)
+	body_color_2 = Color(0.451, 0.153, 0.451)
 	health = Global.enemyHP * 2
 	speed = Global.enemySpeed / 2
 	particle_color = Color(0.529, 0.027, 1.0, 1.0)

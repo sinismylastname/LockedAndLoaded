@@ -150,7 +150,16 @@ func fireProjectile():
 	playerAnimator.play("fire")
 	AudioGlobal.play_default_shoot_sound()
 	var projectile = projectile.instantiate()
-	projectile.setRotation(rotation)
+	
+	var muzzle = $FrontMuzzle
+	projectile.global_position = muzzle.global_position
+	
+	var inaccuracy = deg_to_rad(3) 
+	var spread = randf_range(-inaccuracy, inaccuracy)
+	
+	var final_rotation = rotation + spread
+	projectile.setRotation(final_rotation)
+	
 	get_tree().root.add_child(projectile)
 	UI_Global.add_shake(finalDamage*1.5/75*Global.upgrades["fire_rate_level"])
 	
@@ -162,14 +171,10 @@ func fireProjectile():
 		finalBulletPierce
 	)
 	
-	var muzzle = $FrontMuzzle
-	projectile.global_position = muzzle.global_position
-	
-	var directionVector = Vector2.RIGHT.rotated(rotation)
+	var directionVector = Vector2.RIGHT.rotated(final_rotation)
 	projectile.setDirection(directionVector)
-	
 
-	
+
 func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("parry"):

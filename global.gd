@@ -10,10 +10,6 @@ signal game_started
 signal player_changed(new_player)
 signal next_tp_point_changed(new_point)
 
-signal score_changed(new_score)
-signal combo_multiplier_changed(multiplier)
-signal combo_decay_updated(decay_progress)
-
 var enemyCount = 0
 var enemiesToSpawn = 10
 var enemiesSpawned = 0
@@ -62,24 +58,7 @@ var next_tp_point = null:
 	get:
 		return next_tp_point
 		
-var _score = 0
-var score: 
-	get:
-		return _score
-	set(value):
-		_score = value
-		score_changed.emit(_score)
-
-const MAX_COMBO_TIME = 2.0 
-const BASE_POINTS_PER_KILL = 100
-var combo_time = 0.0
-var _combo_multiplier = 1
-var combo_multiplier:
-	get:
-		return _combo_multiplier
-	set(value):
-		_combo_multiplier = max(1, value)
-		combo_multiplier_changed.emit(_combo_multiplier)
+var score = 0
 
 
 func reset_game():
@@ -103,9 +82,6 @@ func reset_game():
 	enemyHP = 10
 	enemySpeed = 50
 	spawnTime = 1.0
-	
-	combo_time = 0.0
-	combo_multiplier = 1
 	
 	ClassManager.connect("player_spawned", Callable(self, "_on_player_spawned"))
 	connect("all_enemies_cleared", Callable(self, "_on_all_enemies_cleared"))

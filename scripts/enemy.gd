@@ -9,7 +9,7 @@ var knockback_timer = 0.0
 const KNOCKBACK_DURATION = 0.15
 var player = null
 var offscreen_speed_multiplier = 6.0
-var particle_color = Color(1.0, 1.0, 1.0, 1.0)
+var particle_color = Color(0.965, 0.0, 0.0)
 var body_color_1 = Color(0.965, 0.0, 0.0)
 var body_color_2 =Color(0.506, 0.0, 0.02)
 var is_visible_to_camera = false
@@ -44,23 +44,10 @@ func _xp_popup(xp_amount):
 	popup.global_position = global_position
 	get_tree().current_scene.add_child(popup)
 
-func _death_pop():
-	var tween = create_tween()
-	tween.tween_property(self, "size", Vector2(2, 2), 0.4)
-
 func flash_on_hit():
 	var t = create_tween()
 	modulate = Color(2, 2, 2)
 	t.tween_property(self, "modulate", Color(1, 1, 1), 0.1)
-
-func _update_damage_color(): 
-	var health_ratio = float(health) / float(max_health)
-	var white_strength = 1.0 - health_ratio
-	var target_color_1 = body_color_1.lerp(Color(1, 1, 1), white_strength)
-	var target_color_2 = body_color_2.lerp(Color(0.687, 0.687, 0.687, 1.0), white_strength)
-	
-	$ColorRect.color = target_color_1
-	$ColorRect2.color = target_color_2
 
 func _enemy_death_particles():
 	var particles = death_particles_scene.instantiate()
@@ -71,12 +58,10 @@ func _enemy_death_particles():
 
 func enemyDied():
 	AudioGlobal.play_death()
-	Global.decrease_enemy_count()
+	Global.enemy_killed()
 	Global.addXP(25)
 	Global.emit_signal("xp_changed", 25)
 	_xp_popup(25)
-	_death_pop()
-	await _death_pop()
 	UI_Global.add_shake(0.3)
 	_enemy_death_particles()
 	queue_free()
@@ -88,7 +73,6 @@ func takeDamage(damageAmount, hit_direction: Vector2 = Vector2.ZERO, hit_positio
 	AudioGlobal.play_hurt()
 	UI_Global.add_shake(0.2)
 	health -= damageAmount
-	_update_damage_color() 
 
 	if hit_direction == Vector2.ZERO:
 		if hit_position != null:

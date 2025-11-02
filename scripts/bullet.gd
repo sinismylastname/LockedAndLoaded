@@ -21,6 +21,10 @@ var trail: Line2D = null
 
 func _ready():
 	trail = Line2D.new()
+	var width_curve := Curve.new()
+	width_curve.add_point(Vector2(0, 0))
+	width_curve.add_point(Vector2(1, clamp(size * 0.8, 0.8, 1.5)))
+	trail.width_curve = width_curve
 	get_tree().current_scene.add_child(trail)
 	trail.width = 3.0
 	trail.default_color = Color(1, 1, 1, 0.85)
