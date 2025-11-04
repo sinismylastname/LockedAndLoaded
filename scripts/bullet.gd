@@ -7,6 +7,10 @@ var bullet_rotation = 0.0
 var direction = Vector2.ZERO
 var size = 1.0
 var pierce = 1
+@export var start_speed_multiplier := 1.0
+@export var is_homing := false
+@export var split_on_death := false
+
 
 var life_timer = 0.0
 var fade_ratio = 0.3

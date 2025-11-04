@@ -6,12 +6,18 @@ var spawners = []
 var intermissionTime = 30.0
 
 signal intermission_started
+signal intermission_time_updated(time_left) # NEW SIGNAL
 
 func _ready():
 	add_to_group("wave_manager")
 	spawners = spawnerNode.get_children()
 	Global.all_enemies_cleared.connect(_on_all_enemies_cleared)
-	startWave()
+	Global.game_started.connect(startWave) 
+
+func _process(delta: float) -> void:
+	if Global.is_intermission and waveTimer.is_stopped() == false:
+		# Continuously emit the exact time remaining from the Timer node
+		emit_signal("intermission_time_updated", waveTimer.time_left)
 
 func startWave():
 	Global.is_intermission = false
@@ -35,7 +41,6 @@ func _on_all_enemies_cleared():
 	Global.is_intermission = true
 
 	if intermissionTime > 0:
-		Global.intermission_time = intermissionTime
 		waveTimer.start(intermissionTime)
 		emit_signal("intermission_started")
 	else:
@@ -49,6 +54,9 @@ func _on_intermission_ended():
 		return
 	Global.is_intermission = false
 	waveTimer.stop()
+	
+	Global.intermission_time = 0
+	
 	Global.enemiesSpawned = 0
 	Global.next_wave()
 	startWave()

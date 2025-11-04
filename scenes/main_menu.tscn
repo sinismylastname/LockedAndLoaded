@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://2yvq6yiiep7y"]
+[gd_scene load_steps=19 format=3 uid="uid://2yvq6yiiep7y"]
 
 [ext_resource type="Script" uid="uid://03jbkpkjqktm" path="res://scripts/main_menu.gd" id="1_l6cm7"]
 [ext_resource type="Script" uid="uid://c0kvv7r267ubi" path="res://scripts/play_button.gd" id="2_bqqt6"]
@@ -30,6 +30,9 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_ekxnf"]
 font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ln24"]
+font_size = 20
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -105,10 +108,10 @@ anchor_left = 0.365
 anchor_top = 0.545
 anchor_right = 0.629
 anchor_bottom = 0.63100004
-offset_left = 25.4
-offset_top = 370.2
-offset_right = 328.84
-offset_bottom = 415.76
+offset_left = 21.4
+offset_top = 348.2
+offset_right = 324.84
+offset_bottom = 393.76
 theme_override_fonts/font = ExtResource("3_8ln24")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxEmpty_rtw2f")
@@ -116,6 +119,24 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_flqon")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_rcqid")
 text = "SETTINGS"
 script = ExtResource("2_ekxnf")
+
+[node name="TutorialButton" type="Button" parent="LAYER3/BUTTONS" groups=["buttons"]]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.365
+anchor_top = 0.42700002
+anchor_right = 0.629
+anchor_bottom = 0.514
+offset_left = 21.4
+offset_top = 435.92
+offset_right = 326.84
+offset_bottom = 481.44
+theme_override_fonts/font = ExtResource("3_8ln24")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8ln24")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_tbmy8")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_jk1qb")
+text = "TUTORIAL"
 
 [node name="ExitButton" type="Button" parent="LAYER3/BUTTONS" groups=["buttons"]]
 layout_mode = 1
@@ -125,15 +146,15 @@ anchor_top = 0.66200006
 anchor_right = 0.629
 anchor_bottom = 0.748
 offset_left = 25.4
-offset_top = 470.52
-offset_right = 294.84
-offset_bottom = 516.08
+offset_top = 515.52
+offset_right = 172.84
+offset_bottom = 561.08
 theme_override_fonts/font = ExtResource("3_8ln24")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxEmpty_oa1go")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_1ajci")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_7b55j")
-text = "FREEDOM"
+text = "EXIT"
 script = ExtResource("2_ekxnf")
 
 [node name="Controls" type="Label" parent="LAYER3"]
@@ -143,10 +164,10 @@ anchor_left = 0.016
 anchor_top = 0.688
 anchor_right = 0.36200002
 anchor_bottom = 0.96500003
-offset_left = 481.36
-offset_top = 364.48
-offset_right = 1055.52
-offset_bottom = 530.4
+offset_left = 532.36
+offset_top = 286.48
+offset_right = 1069.52
+offset_bottom = 404.4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_8ln24")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_5dd4i")
@@ -154,20 +175,29 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_lgwnu")
 text = "Controls: 
 WASD Or Arrow keys to rotate
 J or Z to Parry
-K or X to Teleport
 "
 label_settings = SubResource("LabelSettings_ekxnf")
 autowrap_mode = 3
 
-[node name="Label" type="Label" parent="LAYER3"]
-layout_mode = 0
-offset_left = 482.0
-offset_top = 569.0
-offset_right = 1158.0
-offset_bottom = 623.0
-text = "known bugs right now:
-intermission bug with my lucky block enemy
-the upgrade points does not update normally when levelling up, so it'll display zero (you have more than zero)"
+[node name="Controls2" type="Label" parent="LAYER3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_top = 0.688
+anchor_right = 0.36200002
+anchor_bottom = 0.96500003
+offset_left = 389.36
+offset_top = 415.48
+offset_right = 673.52
+offset_bottom = 445.4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_8ln24")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5dd4i")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lgwnu")
+text = "<- non functioning 
+   do NOT click this"
+label_settings = SubResource("LabelSettings_8ln24")
+autowrap_mode = 3
 
 [node name="FadeRect" type="ColorRect" parent="."]
 visible = false
@@ -179,3 +209,4 @@ color = Color(0, 0, 0, 1)
 [connection signal="pressed" from="LAYER3/BUTTONS/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="LAYER3/BUTTONS/PlayButton" to="LAYER3/BUTTONS/PlayButton" method="_on_pressed"]
 [connection signal="pressed" from="LAYER3/BUTTONS/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="LAYER3/BUTTONS/TutorialButton" to="." method="_on_tutorial_button_pressed"]

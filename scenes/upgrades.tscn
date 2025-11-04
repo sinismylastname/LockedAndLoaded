@@ -1,6 +1,53 @@
-[gd_scene format=3 uid="uid://cxwodaauechq7"]
+[gd_scene load_steps=11 format=3 uid="uid://cxwodaauechq7"]
+
+[ext_resource type="Script" uid="uid://b5gbl55o52pxy" path="res://scenes/upgrades.gd" id="1_1xumc"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_a0ma6"]
+
+[sub_resource type="FontVariation" id="FontVariation_1xumc"]
+variation_embolden = 2.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_usctq"]
+font = SubResource("FontVariation_1xumc")
+font_size = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a0ma6"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.56078434, 0.8745098, 1, 0.2)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 0.4509804)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="Theme" id="Theme_a0ma6"]
+
+[sub_resource type="FontVariation" id="FontVariation_a0ma6"]
+variation_embolden = 1.61
+
+[sub_resource type="LabelSettings" id="LabelSettings_gnemw"]
+font = SubResource("FontVariation_a0ma6")
+font_size = 40
+
+[sub_resource type="FontVariation" id="FontVariation_gnemw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_a0ma6"]
+font = SubResource("FontVariation_gnemw")
+font_size = 20
 
 [node name="Upgrades" type="CanvasLayer"]
+follow_viewport_enabled = true
+script = ExtResource("1_1xumc")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -10,19 +57,154 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="Control"]
+[node name="Background" type="ColorRect" parent="Control"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 39.94452
+offset_bottom = 648.0
+scale = Vector2(28.84, 1)
+color = Color(0.003921569, 0, 0.25490198, 0.19607843)
+
+[node name="UPGRADES" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 30.0
+offset_right = 710.0
+offset_bottom = 86.0
+text = "UPGRADES"
+label_settings = SubResource("LabelSettings_usctq")
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/CenterContainer"]
 layout_mode = 2
+theme_override_constants/separation = 80
+alignment = 1
 
-[node name="Upgrade1" type="VBoxContainer" parent="Control/CenterContainer/HBoxContainer"]
+[node name="PanelA" type="PanelContainer" parent="Control/CenterContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0ma6")
 
-[node name="Upgrade2" type="VBoxContainer" parent="Control/CenterContainer/HBoxContainer"]
+[node name="Upgrade" type="VBoxContainer" parent="Control/CenterContainer/HBoxContainer/PanelA"]
 layout_mode = 2
+theme = SubResource("Theme_a0ma6")
+theme_override_constants/separation = 20
 
-[node name="Upgrade3" type="VBoxContainer" parent="Control/CenterContainer/HBoxContainer"]
+[node name="LabelName" type="Label" parent="Control/CenterContainer/HBoxContainer/PanelA/Upgrade"]
 layout_mode = 2
+text = "UPGRADE NAME"
+label_settings = SubResource("LabelSettings_gnemw")
+
+[node name="Icon" type="TextureRect" parent="Control/CenterContainer/HBoxContainer/PanelA/Upgrade"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_a0ma6")
+
+[node name="LabelStat" type="Label" parent="Control/CenterContainer/HBoxContainer/PanelA/Upgrade"]
+layout_mode = 2
+text = "+ Placeholder Stat
+- Placeholder Stat"
+label_settings = SubResource("LabelSettings_a0ma6")
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="LabelDesc" type="Label" parent="Control/CenterContainer/HBoxContainer/PanelA/Upgrade"]
+layout_mode = 2
+text = "Random Benefit
+Description of benefit here, like the player shoots an icy bullet that slows down enemies briefly"
+label_settings = SubResource("LabelSettings_a0ma6")
+autowrap_mode = 3
+
+[node name="SelectButton" type="Button" parent="Control/CenterContainer/HBoxContainer/PanelA/Upgrade"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "Select"
+
+[node name="PanelB" type="PanelContainer" parent="Control/CenterContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0ma6")
+
+[node name="Upgrade" type="VBoxContainer" parent="Control/CenterContainer/HBoxContainer/PanelB"]
+layout_mode = 2
+theme = SubResource("Theme_a0ma6")
+theme_override_constants/separation = 20
+
+[node name="LabelName" type="Label" parent="Control/CenterContainer/HBoxContainer/PanelB/Upgrade"]
+layout_mode = 2
+text = "UPGRADE NAME"
+label_settings = SubResource("LabelSettings_gnemw")
+
+[node name="Icon" type="TextureRect" parent="Control/CenterContainer/HBoxContainer/PanelB/Upgrade"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_a0ma6")
+
+[node name="LabelStat" type="Label" parent="Control/CenterContainer/HBoxContainer/PanelB/Upgrade"]
+layout_mode = 2
+text = "+ Placeholder Stat
+- Placeholder Stat"
+label_settings = SubResource("LabelSettings_a0ma6")
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="LabelDesc" type="Label" parent="Control/CenterContainer/HBoxContainer/PanelB/Upgrade"]
+layout_mode = 2
+text = "Random Benefit
+Description of benefit here, like the player shoots an icy bullet that slows down enemies briefly"
+label_settings = SubResource("LabelSettings_a0ma6")
+autowrap_mode = 3
+
+[node name="SelectButton" type="Button" parent="Control/CenterContainer/HBoxContainer/PanelB/Upgrade"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "Select"
+
+[node name="PanelC" type="PanelContainer" parent="Control/CenterContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a0ma6")
+
+[node name="Upgrade" type="VBoxContainer" parent="Control/CenterContainer/HBoxContainer/PanelC"]
+layout_mode = 2
+theme = SubResource("Theme_a0ma6")
+theme_override_constants/separation = 20
+
+[node name="LabelName" type="Label" parent="Control/CenterContainer/HBoxContainer/PanelC/Upgrade"]
+layout_mode = 2
+text = "UPGRADE NAME"
+label_settings = SubResource("LabelSettings_gnemw")
+
+[node name="Icon" type="TextureRect" parent="Control/CenterContainer/HBoxContainer/PanelC/Upgrade"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_a0ma6")
+
+[node name="LabelStat" type="Label" parent="Control/CenterContainer/HBoxContainer/PanelC/Upgrade"]
+layout_mode = 2
+text = "+ Placeholder Stat
+- Placeholder Stat"
+label_settings = SubResource("LabelSettings_a0ma6")
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="LabelDesc" type="Label" parent="Control/CenterContainer/HBoxContainer/PanelC/Upgrade"]
+layout_mode = 2
+text = "Random Benefit
+Description of benefit here, like the player shoots an icy bullet that slows down enemies briefly"
+label_settings = SubResource("LabelSettings_a0ma6")
+autowrap_mode = 3
+
+[node name="SelectButton" type="Button" parent="Control/CenterContainer/HBoxContainer/PanelC/Upgrade"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "Select"

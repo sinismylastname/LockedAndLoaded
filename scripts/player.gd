@@ -42,7 +42,7 @@ const baseBulletSize = 1
 const baseBulletSizeAddition = 0.5
 const AIM_ASSIST_RANGE = 800
 const AIM_ASSIST_STRENGTH = 0.7
-const AIM_CONE_ANGLE = PI / 16.0
+const AIM_CONE_ANGLE = PI / 32.0
 
 #changed calculations to account for the reduction in points
 
@@ -51,6 +51,8 @@ var parry_on_cooldown = false
 var parried = true
 const PARRY_WINDOW = 0.15
 const PARRY_COOLDOWN = 1.5
+
+var active_gimmicks := {}
 
 signal fireRateChanged(newFiringRate)
 signal cooldownUpdated
@@ -78,7 +80,7 @@ func _ready() -> void:
 	
 func update_stats():
 	var fire_level = Global.upgrades["fire_rate_level"]
-	finalFireRate = baseFireRate - log(fire_level + 1)
+	finalFireRate = baseFireRate * pow(0.88, fire_level)
 	
 	emit_signal("fireRateChanged", fireTimer.wait_time)
 	
@@ -110,7 +112,7 @@ func apply_class_modifiers():
 
 func takeDamage(damageAmount):
 	AudioGlobal.play_hurt()
-	UI_Global.add_shake(1)
+	UI_Global.add_shake(damageAmount/10)
 	if not parry_active: 
 		currentHealth -= damageAmount
 	elif parry_active:
@@ -161,7 +163,7 @@ func fireProjectile():
 	projectile.setRotation(final_rotation)
 	
 	get_tree().root.add_child(projectile)
-	UI_Global.add_shake(finalDamage*1.5/75*Global.upgrades["fire_rate_level"])
+	UI_Global.add_shake(Global.upgrades["bullet_power_level"]*1.5/Global.upgrades["fire_rate_level"])
 	
 	projectile.set_bullet_stats(
 		finalBulletSpeed, 
@@ -236,6 +238,9 @@ func _on_parry_hitbox_area_entered(area: Area2D) -> void:
 			parried = true
 	elif parry_active and area.is_in_group("enemy_projectiles"):
 		area.reverse_direction() 
+		parry_vfx()
+		AudioGlobal.play_parry() #holy crap im a frickin genius bro parrying is so cool LOOL WOWIE ZOWIE
+		parried = true
 
 func parry_vfx():
 	var flash = ColorRect.new()
@@ -279,6 +284,26 @@ func apply_state(state: Dictionary):
 	if state.has("rotation"):
 		rotation = state["rotation"]
 	
+
+func apply_gimmick(id: String):
+	if active_gimmicks.has(id):
+		return
+	active_gimmicks[id] = true
+	match id:
+		"instant_projectile":
+			$FrontMuzzle.scale = Vector2(1.2, 1.2)
+		"homing_projectile":
+			pass
+		"split_on_death":
+			pass
+		"pierce_plus":
+			Global.upgrades["bullet_pierce_level"] += 1
+	update_stats()
+
+func remove_gimmick(id: String):
+	if active_gimmicks.has(id):
+		active_gimmicks.erase(id)
+		update_stats()
 
 func _process(delta):
 	if get_tree().is_paused():

@@ -9,8 +9,8 @@ var knockback_timer = 0.0
 const KNOCKBACK_DURATION = 0.15
 var player = null
 var offscreen_speed_multiplier = 6.0
-var particle_color = Color(0.965, 0.0, 0.0)
-var body_color_1 = Color(0.965, 0.0, 0.0)
+var particle_color = Color(4.0, 0.027, 0.086)
+var body_color_1 = Color(4.0, 0.027, 0.086)
 var body_color_2 =Color(0.506, 0.0, 0.02)
 var is_visible_to_camera = false
 @onready var death_particles_scene = preload("res://scenes/death_particles.tscn")
@@ -57,8 +57,8 @@ func _enemy_death_particles():
 	particles.emitting = true
 
 func enemyDied():
+	Global.decrease_enemy_count()
 	AudioGlobal.play_death()
-	Global.enemy_killed()
 	Global.addXP(25)
 	Global.emit_signal("xp_changed", 25)
 	_xp_popup(25)

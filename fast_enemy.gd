@@ -4,8 +4,8 @@ func _ready():
 	super._ready()
 	speed = Global.enemySpeed * 2
 	health = Global.enemyHP / 2
-	particle_color = Color(0.966, 0.952, 0.0)
-	body_color_1 = Color(0.966, 0.952, 0.0)
+	particle_color = Color(2.0, 2.0, 0.086)
+	body_color_1 = Color(2.0, 2.0, 0.086)
 	body_color_2 = Color(0.737, 1.0, 0.043)
 
 func apply_knockback(direction_vector: Vector2, force: float):

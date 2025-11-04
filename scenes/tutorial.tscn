@@ -1,0 +1,88 @@
+[gd_scene load_steps=3 format=3 uid="uid://bh586eijv3puq"]
+
+[ext_resource type="Script" uid="uid://b1nsa47lip2dd" path="res://scenes/tutorial.gd" id="1_c13y7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m7v7x"]
+font_size = 48
+
+[node name="Tutorial" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c13y7")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.008256035, 6.7984683e-07, 0.10035356, 1)
+
+[node name="Image" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 258.0
+offset_top = 102.0
+offset_right = 906.0
+offset_bottom = 468.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 258.0
+offset_top = 324.0
+offset_right = 854.0
+offset_bottom = 369.0
+text = "Welcome to Locked and Loaded!"
+label_settings = SubResource("LabelSettings_m7v7x")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.024
+anchor_top = 0.043
+anchor_right = 0.024
+anchor_bottom = 0.043
+offset_left = -11.648001
+offset_top = -11.864
+offset_right = 72.352
+offset_bottom = 29.136
+theme_override_font_sizes/font_size = 24
+text = "Back
+"
+
+[node name="Prev" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.024
+anchor_top = 0.043
+anchor_right = 0.024
+anchor_bottom = 0.043
+offset_left = -11.648001
+offset_top = 552.136
+offset_right = 72.352
+offset_bottom = 593.136
+theme_override_font_sizes/font_size = 24
+text = "Prev
+"
+
+[node name="Next" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.024
+anchor_top = 0.043
+anchor_right = 0.024
+anchor_bottom = 0.043
+offset_left = 1013.352
+offset_top = 552.136
+offset_right = 1097.352
+offset_bottom = 593.136
+theme_override_font_sizes/font_size = 24
+text = "Next"
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Prev" to="." method="_on_prev_pressed"]
+[connection signal="pressed" from="Next" to="." method="_on_next_pressed"]

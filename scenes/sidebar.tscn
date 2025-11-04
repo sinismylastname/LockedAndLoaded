@@ -39,45 +39,45 @@ size_flags_vertical = 3
 
 [node name="Power" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu" index="1"]
 offset_left = 16.0
-offset_top = 31.612991
+offset_top = -24.387009
 offset_right = 188.0
-offset_bottom = 56.61299
+offset_bottom = 0.61299133
 
 [node name="AddBulletPower" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Power" index="0"]
 offset_left = 27.691986
-offset_top = -1.2604418
+offset_top = 7.739558
 offset_right = 8.163986
-offset_bottom = -29.38788
+offset_bottom = -27.38788
 
 [node name="PowerLevelDisplay" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Power" index="1"]
 offset_left = 178.91997
-offset_top = -18.017124
+offset_top = -12.017124
 offset_right = 150.90796
-offset_bottom = 2.9068289
+offset_bottom = 8.906829
 
 [node name="Range" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu" index="2"]
 offset_left = 16.0
-offset_top = -55.697006
+offset_top = -11.697006
 offset_right = 188.0
-offset_bottom = -54.48201
+offset_bottom = -10.48201
 
 [node name="AddBulletRange" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Range" index="0"]
 offset_left = 27.691986
-offset_top = -2.75
+offset_top = -0.75
 offset_right = 8.163986
-offset_bottom = 4.8239994
+offset_bottom = -0.1760006
 
 [node name="RangeLevelDisplay" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Range" index="1"]
 offset_left = 178.91997
-offset_top = -8.117001
+offset_top = -5.1170006
 offset_right = 150.90796
-offset_bottom = 13.999
+offset_bottom = 16.999
 
 [node name="Pierce" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu" index="3"]
 offset_left = 16.0
-offset_top = 38.628983
+offset_top = -12.371017
 offset_right = 195.0
-offset_bottom = 63.628967
+offset_bottom = -11.295013
 
 [node name="AddBulletPierce" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Pierce" index="0"]
 offset_left = 21.818985
@@ -87,9 +87,9 @@ offset_bottom = -24.66922
 
 [node name="PierceLevelDisplay" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Pierce" index="1"]
 offset_left = 177.94
-offset_top = -15.017124
+offset_top = -6.8159986
 offset_right = 148.381
-offset_bottom = 5.906831
+offset_bottom = 14.107956
 
 [node name="Health" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu" index="4"]
 offset_left = 16.0
@@ -99,9 +99,9 @@ offset_bottom = 275.349
 
 [node name="AddHealth" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Health" index="0"]
 offset_left = 95.65099
-offset_top = -0.42014694
+offset_top = 0.57985306
 offset_right = 94.26699
-offset_bottom = -27.669281
+offset_bottom = -33.66928
 
 [node name="HealthLevelDisplay" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Health" index="1"]
 offset_left = 190.25993
@@ -111,15 +111,15 @@ offset_bottom = 1.906827
 
 [node name="RotationSpeed" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu" index="5"]
 offset_left = 16.0
-offset_top = 114.61299
+offset_top = 159.61299
 offset_right = 151.0
-offset_bottom = 116.688995
+offset_bottom = 161.689
 
 [node name="AddRotationSpeed" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/RotationSpeed" index="0"]
 offset_left = 58.735023
-offset_top = -2.4950066
+offset_top = 1.5049934
 offset_right = 47.495026
-offset_bottom = 3.701992
+offset_bottom = 0.70199203
 
 [node name="RotationLevelDisplay" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/RotationSpeed" index="1"]
 offset_left = 184.10005
@@ -135,9 +135,9 @@ offset_bottom = 59.30298
 
 [node name="AddFirerate" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Firerate" index="0"]
 offset_left = 72.159
-offset_top = 1.579853
+offset_top = 6.579853
 offset_right = 64.50299
-offset_bottom = -17.923985
+offset_bottom = -19.923985
 
 [node name="FirerateLevelDisplay" parent="SidebarRoot/Panel/SidebarContainer/upgradeMenu/Firerate" index="1"]
 offset_left = 186.34003
