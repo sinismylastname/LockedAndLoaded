@@ -14,6 +14,7 @@ var base_positions := {}
 
 
 func _ready() -> void:
+	$LAYER3/BUTTONS/PlayButton.grab_focus()
 	fade_rect.visible = true
 	fade_rect.modulate.a = 1.0
 	var fade_tween = create_tween()

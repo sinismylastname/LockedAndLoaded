@@ -19,14 +19,17 @@ func _ready() -> void:
 func open_menu():
 	$sidebar_indicator.visible = false
 	var tween = create_tween()
+	$SidebarRoot/Panel/SidebarContainer/upgradeMenu/Power/AddBulletPower.grab_focus()
 	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE).tween_property(sidebar_panel, "position", opened_pos-Vector2(20, 0), 0.1)
 	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE).tween_property(sidebar_panel, "position", opened_pos+Vector2(10, 0), 0.05)
 	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE).tween_property(sidebar_panel, "position", opened_pos, 0.15)
+	return
 
 func close_menu():
 	$sidebar_indicator.visible = true
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE).tween_property(sidebar_panel, "position", original_pos, 0.3)
+	return
 	
 func _process(delta: float) -> void:
 	mouse_x = get_viewport().get_mouse_position().x
@@ -38,8 +41,17 @@ func _process(delta: float) -> void:
 		print("close menu")
 		opened = false
 		close_menu()
+	elif Input.is_action_just_pressed("open_menu") and !opened:
+		print("should open menu")
+		opened = true
+		open_menu()
+		await open_menu()
+	elif Input.is_action_just_pressed("open_menu") and opened:
+		print("close menu")
+		opened = false
+		close_menu()
+		await close_menu()
 	#print(mouse_x)
-
 
 func _on_tppointspawn_pressed() -> void:
 	if Global.tp_point_possible():

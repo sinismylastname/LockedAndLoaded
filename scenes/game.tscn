@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://155xx7s6y6ta"]
+[gd_scene load_steps=15 format=3 uid="uid://155xx7s6y6ta"]
 
 [ext_resource type="Script" uid="uid://cqvuw2k05ylvt" path="res://scenes/game.gd" id="1_gee14"]
 [ext_resource type="PackedScene" uid="uid://ctl27dic16wxy" path="res://scenes/spawner.tscn" id="3_sugp2"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bma4xw6l6nk1j" path="res://scenes/pixelate.tscn" id="9_vtaks"]
 [ext_resource type="PackedScene" uid="uid://cxwodaauechq7" path="res://scenes/upgrades.tscn" id="11_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://diyeb8epqtv1h" path="res://scenes/sidebar.tscn" id="12_dinhu"]
+[ext_resource type="PackedScene" uid="uid://cwr1opr3vn42a" path="res://pause.tscn" id="13_kvuet"]
 
 [sub_resource type="Environment" id="Environment_p57ef"]
 background_mode = 3
@@ -95,6 +96,8 @@ follow_viewport_enabled = true
 visible = false
 
 [node name="SidebarCanvasLayer" parent="." instance=ExtResource("12_dinhu")]
+
+[node name="pause" parent="." instance=ExtResource("13_kvuet")]
 
 [connection signal="timeout" from="WaveManager/TimeInBetweenWaves" to="WaveManager" method="_on_time_in_between_waves_timeout"]
 [connection signal="timeout" from="WaveManager/SpawnTimer" to="WaveManager" method="_on_spawn_timer_timeout"]

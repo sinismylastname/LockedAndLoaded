@@ -1,0 +1,103 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwr1opr3vn42a"]
+
+[ext_resource type="Script" uid="uid://bngp1432hv8b1" path="res://pause.gd" id="1_45vjg"]
+
+[sub_resource type="FontVariation" id="FontVariation_eylr0"]
+variation_embolden = 2.0
+spacing_glyph = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_45vjg"]
+font = SubResource("FontVariation_eylr0")
+font_size = 78
+outline_size = 120
+outline_color = Color(0.34709468, 0.0012149165, 0.56689495, 1)
+shadow_size = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aq7p1"]
+bg_color = Color(0.93408906, 0.3735231, 1, 0.4745098)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.46277052, 0.00014983103, 0.46276718, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[node name="pause" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_45vjg")
+
+[node name="pause_root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background" type="ColorRect" parent="pause_root"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.007843138, 0, 0.12156863, 0.68235296)
+
+[node name="PAUSE" type="Label" parent="pause_root"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.0
+offset_top = -187.0
+offset_right = 147.0
+offset_bottom = -114.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PAUSE"
+label_settings = SubResource("LabelSettings_45vjg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause_root"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.5
+offset_top = -56.5
+offset_right = 96.5
+offset_bottom = 140.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="unpause_btn" type="Button" parent="pause_root/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_aq7p1")
+text = "UNPAUSE"
+
+[node name="restart" type="Button" parent="pause_root/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_aq7p1")
+text = "RESTART
+"
+
+[node name="return" type="Button" parent="pause_root/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_aq7p1")
+text = "RETURN TO MENU"
+
+[connection signal="pressed" from="pause_root/VBoxContainer/unpause_btn" to="." method="_on_unpause_btn_pressed"]
+[connection signal="pressed" from="pause_root/VBoxContainer/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="pause_root/VBoxContainer/return" to="." method="_on_return_pressed"]

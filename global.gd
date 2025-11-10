@@ -116,6 +116,8 @@ func reset_game():
 	ClassManager.connect("player_spawned", Callable(self, "_on_player_spawned"))
 	connect("all_enemies_cleared", Callable(self, "_on_all_enemies_cleared"))
 	var base_class_path = "res://scenes/player.tscn"
+	if Player:
+		Player.queue_free()
 	ClassManager.spawn_player(base_class_path)
 	get_tree().paused = false
 	
