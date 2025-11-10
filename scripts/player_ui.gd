@@ -87,6 +87,7 @@ func _on_wave_started(new_wave_number):
 
 func _on_intermission_started():
 	if intermission_active:
+		await intermission_active
 		return  
 
 	# --- Wave Cleared Feedback ---
@@ -106,7 +107,6 @@ func _on_intermission_started():
 	await tween.finished
 	wave_cleared_label.visible = false
 
-	# --- Intermission Fade-in ---
 	intermission_active = true
 	intermission_label.modulate = Color(1, 1, 1, 0)
 	intermission_label.visible = true
@@ -114,6 +114,7 @@ func _on_intermission_started():
 	skip_intermission.visible = true
 	var fade_tween = create_tween()
 	fade_tween.tween_property(intermission_label, "modulate:a", 1.0, 0.5)
+	skip_intermission.grab_focus()
 
 	var countdown = Global.intermission_time
 	while countdown > 0:

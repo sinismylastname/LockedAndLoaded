@@ -6,7 +6,7 @@ var spawners = []
 var intermissionTime = 30.0
 
 signal intermission_started
-signal intermission_time_updated(time_left) # NEW SIGNAL
+signal intermission_time_updated(time_left)
 
 func _ready():
 	add_to_group("wave_manager")
@@ -16,13 +16,12 @@ func _ready():
 
 func _process(delta: float) -> void:
 	if Global.is_intermission and waveTimer.is_stopped() == false:
-		# Continuously emit the exact time remaining from the Timer node
 		emit_signal("intermission_time_updated", waveTimer.time_left)
-
+		
 func startWave():
 	Global.is_intermission = false
 	spawnTimer.start(Global.spawnTime)
-
+	
 func _on_spawn_timer_timeout() -> void:
 	if Global.is_intermission:
 		spawnTimer.stop()

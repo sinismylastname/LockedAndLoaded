@@ -7,6 +7,7 @@ var close_threshold = 800
 var opened
 var original_pos = Vector2(1200.0, 35.0)
 var opened_pos = Vector2(865.0, 35.0)
+var action = "closed_menu"
 
 @onready var sidebar_panel = $SidebarRoot/Panel
 @onready var tp_point_scene = preload("res://scenes/tp_point.tscn")
@@ -41,16 +42,16 @@ func _process(delta: float) -> void:
 		print("close menu")
 		opened = false
 		close_menu()
-	elif Input.is_action_just_pressed("open_menu") and !opened:
+	elif Input.is_action_just_pressed("open_menu") and !opened and action == "closed_menu":
 		print("should open menu")
 		opened = true
 		open_menu()
-		await open_menu()
-	elif Input.is_action_just_pressed("open_menu") and opened:
+		action = "open_menu"
+	elif Input.is_action_just_pressed("open_menu") and opened and action == "open_menu":
 		print("close menu")
 		opened = false
 		close_menu()
-		await close_menu()
+		action = "closed_menu"
 	#print(mouse_x)
 
 func _on_tppointspawn_pressed() -> void:
