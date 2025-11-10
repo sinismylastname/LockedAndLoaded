@@ -12,6 +12,7 @@ func _on_player_spawned(player):
 
 func _on_player_died():
 	visible = true
+	$Menu.grab_focus()
 
 func _on_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
