@@ -27,6 +27,7 @@ func open_menu():
 	return
 
 func close_menu():
+	get_viewport().gui_release_focus()
 	$sidebar_indicator.visible = true
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE).tween_property(sidebar_panel, "position", original_pos, 0.3)

@@ -37,13 +37,13 @@ func _on_spawn_timer_timeout() -> void:
 func _on_all_enemies_cleared():
 	if Global.is_intermission:
 		return
+	
 	Global.is_intermission = true
+	waveTimer.stop() 
+	print("INTERMISSION STARTED")
+	emit_signal("intermission_started")
+	waveTimer.start(intermissionTime)
 
-	if intermissionTime > 0:
-		waveTimer.start(intermissionTime)
-		emit_signal("intermission_started")
-	else:
-		_on_intermission_ended()
 
 func _on_time_in_between_waves_timeout() -> void:
 	_on_intermission_ended()

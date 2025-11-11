@@ -11,6 +11,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause") and !opened:
 		visible = true
 		opened = true
+		$pause_root/VBoxContainer/unpause_btn.grab_focus()
 		get_tree().paused = true
 	elif Input.is_action_just_pressed("pause") and opened:
 		visible = false
@@ -28,4 +29,5 @@ func _on_restart_pressed() -> void:
 	Global.reset_game()
 
 func _on_return_pressed() -> void:
+	Global.reset_game()
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

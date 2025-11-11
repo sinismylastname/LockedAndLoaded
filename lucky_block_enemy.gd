@@ -31,8 +31,9 @@ func enemyDied():
 	else:
 		_spawn_enemy(shooter_enemy_scene)
 	await get_tree().process_frame
-	queue_free.call_deferred()
 	Global.decrease_enemy_count()
+	queue_free.call_deferred()
+	
 	
 func _spawn_enemy(scene):
 	var new_enemy = scene.instantiate()

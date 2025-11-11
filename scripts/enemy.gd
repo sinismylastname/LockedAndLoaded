@@ -16,7 +16,7 @@ var is_visible_to_camera = false
 @onready var death_particles_scene = preload("res://scenes/death_particles.tscn")
 @onready var hit_particles_scene = preload("res://scenes/hit_particles.tscn") 
 @onready var visibility = $VisibilityNotifier
-@onready var body_rect = $Body #Changed code — your main color rect node
+
 
 func apply_knockback(direction_vector: Vector2, force: float):
 	knockback_vector = direction_vector * force
