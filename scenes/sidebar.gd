@@ -27,27 +27,20 @@ func open_menu():
 	return
 
 func close_menu():
-	get_viewport().gui_release_focus()
 	$sidebar_indicator.visible = true
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE).tween_property(sidebar_panel, "position", original_pos, 0.3)
 	return
+	get_viewport().gui_release_focus()
 	
 func _process(delta: float) -> void:
 	mouse_x = get_viewport().get_mouse_position().x
-	if mouse_x > menu_threshold and !opened:
-		print("should open menu")
-		opened = true
-		open_menu()
-	elif mouse_x < close_threshold and opened:
-		print("close menu")
-		opened = false
-		close_menu()
-	elif Input.is_action_just_pressed("open_menu") and !opened and action == "closed_menu":
+	if Input.is_action_just_pressed("open_menu") and !opened and action == "closed_menu":
 		print("should open menu")
 		opened = true
 		open_menu()
 		action = "open_menu"
+		return
 	elif Input.is_action_just_pressed("open_menu") and opened and action == "open_menu":
 		print("close menu")
 		opened = false
