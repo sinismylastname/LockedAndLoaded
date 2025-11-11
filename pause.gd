@@ -29,5 +29,4 @@ func _on_restart_pressed() -> void:
 	Global.reset_game()
 
 func _on_return_pressed() -> void:
-	Global.reset_game()
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
